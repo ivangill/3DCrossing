@@ -23,8 +23,37 @@ class Home extends CI_Controller
     
     function signin() {
         
-        $this->load->view( 'home/signin.php');
+    	$this->session->unset_userdata("email");
+    	if ($this->input->post('email')) {
+    		
+    		$email=$this->input->post('email');
+    		$password=$this->input->post('password');
+    		$this->session->set_userdata("email",$email);
+    		//if ($this->input->post('first_name')) {
+    		$db_insert['first_name'] = $this->input->post( 'first_name' );
+    		$db_insert['last_name'] = $this->input->post( 'last_name' );
+    		var_dump($password);exit;
+    		$insert = $this->home_model->add_member( $db_insert );
+    		//redirect('home/index');
+    		
+    		//}
+    	
+    		//$db_insert['email'] = $this->input->post( 'email' );
+    		//$db_insert['password'] = $this->input->post( 'password' );
+               // $db_insert['created_date'] = time();
+               // $db_insert['password'] = md5( $db_insert['created_date'].$db_insert['password'] );
+                
+    		//$insert = $this->home_model->add_member( $db_insert );
+    		
+    		//var_dump($insert);exit;
+    		//echo $this->db->last_query();exit;
+    		 //$this->load->view( 'home/signup-2.php');		
+    	}
+    	
+    	
+        $this->load->view( 'home/signup-1.php');
     }
+    
 
     function add() {
         global $data;

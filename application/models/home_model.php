@@ -15,6 +15,15 @@ class Home_model extends CI_Model
             return $this->mongo_db->insert('bins', $data);
         }
     }
+    
+    
+    function add_member ($data)
+    {
+        if (DBTYPE == 'mongo_db')
+        {
+            return $this->mongo_db->insert('members', $data);
+        }
+    }
 
     function get_bin ($bin_code)
     {

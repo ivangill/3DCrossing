@@ -28,7 +28,7 @@ if ( isset( $_SERVER['HTTP_HOST'] ) ) {
     switch ( $_SERVER['HTTP_HOST'] ) {
     case 'localhost':
         define( 'ENVIRONMENT', 'development' );
-        define( 'SITE_DOMAIN', 'http://' . $_SERVER['HTTP_HOST'] . '/500px/' );
+        define( 'SITE_DOMAIN', 'http://' . $_SERVER['HTTP_HOST'] . '/3DCrossing/' );
         break;
     case 'slashbi.aws.af.cm':
         define( 'ENVIRONMENT', 'testing' );

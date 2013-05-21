@@ -31,6 +31,6 @@ define('SITE_VERSION', '0.1');
   | General site variables for configration and settings.
   |
  */
-$config['site_name'] = "500px";
+$config['site_name'] = "3DCrossing";
 $config['site_email'] = "";
 $config['site_version'] = SITE_VERSION;

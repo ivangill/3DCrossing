@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title><?php echo $site_name; ?></title>
+        <title>3dCrossing<?php //echo $site_name; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Pwoxi Solutions -- pwoxisolutions@gmail.com">
@@ -29,7 +29,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="<?php echo base_url('home/index'); ?>">3D Crossing</a>
+            <a class="brand" href="<?php echo base_url(); ?>">3D Crossing</a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
