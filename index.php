@@ -30,7 +30,7 @@ if ( isset( $_SERVER['HTTP_HOST'] ) ) {
         define( 'ENVIRONMENT', 'development' );
         define( 'SITE_DOMAIN', 'http://' . $_SERVER['HTTP_HOST'] . '/3DCrossing/' );
         break;
-    case 'slashbi.aws.af.cm':
+    case '3dcrossing.aws.af.cm':
         define( 'ENVIRONMENT', 'testing' );
         define( 'SITE_DOMAIN', 'http://' . $_SERVER['HTTP_HOST'] . '/' );
         break;

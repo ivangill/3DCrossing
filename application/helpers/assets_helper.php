@@ -38,6 +38,24 @@ if (!defined('BASEPATH'))
  * @param	string	the image type, company image or regular assets
  * @return	string
  */
+function upload_image($path, $field_name, $max_width='500', $max_height='500'){
+	$CI =& get_instance();
+	
+	$config['upload_path'] = $path;
+	$config['allowed_types'] = 'gif|jpg|png|jpeg';
+	$config['max_width'] = $max_width;
+	$config['max_height'] = $max_height;
+	
+	$CI->load->library('upload', $config);
+	if ($CI->upload->do_upload($field_name)){
+		return $CI->upload->data();
+	} else {
+		$image['error']=$CI->upload->display_errors();
+		return $image;
+	}
+
+}
+
 function img_tag($image_name, $attributes = '', $type='regular') {
     if (is_array($attributes)) {
         $attributes = parse_tag_attributes($attributes);

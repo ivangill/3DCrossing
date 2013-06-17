@@ -1,10 +1,38 @@
+
+ <?php echo add_jscript('libs/jquery.js'); ?> 
+<script type="text/javascript">	
+			
+$(document).ready(function() {        
+		$('#success').fadeIn("slow").delay(4500).fadeOut("slow");
+		$('#error').fadeIn("slow").delay(4500).fadeOut("slow");
+});
+</script>
+
 <style>
             body {
       padding-bottom: 40px;
       color: #5a5a5a;
     }
 
-
+#success, #error {
+  border: 1px solid;
+  padding:10px;
+  width:70%;
+}
+#success {
+  color: #4F8A10;
+  position:absolute;
+  background-color: #DFF2BF;
+  margin-top:-50px;
+  
+}
+#error {
+  color: #D8000C;
+  position:fixed;
+  background-color: #FFBABA;
+  margin-top:-50px;
+  
+}
 
     /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */

@@ -22,11 +22,11 @@ if (!defined('BASEPATH'))
 
 if (ENVIRONMENT == 'testing')
 {
-//    echo '<pre>';
+   // echo '<pre>';
     $services_json = json_decode(getenv("VCAP_SERVICES"), true);
     $mongo_config = $services_json["mongodb-1.8"][0]["credentials"];
-//    print_r($mongo_config);
-//    echo '</pre>';
+   // print_r($mongo_config);
+  // echo '</pre>';
 
     $config['testing']['mongo_hostbase'] = $mongo_config["hostname"] . ':' . $mongo_config["port"];
     $config['testing']['mongo_database'] = $mongo_config['db'];

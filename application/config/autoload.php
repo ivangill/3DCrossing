@@ -93,7 +93,7 @@ $autoload['helper'] = array( 'assets', 'form', 'url' );
   |
  */
 
-$autoload['config'] = array( 'custom/engine', 'custom/assets' );
+$autoload['config'] = array( 'custom/engine', 'custom/assets', 'facebook' );
 
 /*
   | -------------------------------------------------------------------

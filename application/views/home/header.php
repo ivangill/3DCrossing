@@ -20,7 +20,6 @@
     <div class="navbar-wrapper">
       <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
       <div class="container">
-
         <div class="navbar navbar-inverse">
           <div class="navbar-inner">
             <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
@@ -33,19 +32,68 @@
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li><a href="#">Make</a></li>
-                <li><a href="#">Buy</a></li>
-                <li><a href="#">Sell</a></li>
-                <li><a href="#">Talk</a></li>
-                <li><a href="#">Learn</a></li>
-                <li><a href="#">News</a></li>
+                <li class="dropdown" id="accountmenu">
+                
+                	<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">Shop</a>
+                	 <ul class="dropdown-menu">
+                            <li><a  href="<?php echo base_url('upgrade'); ?>">Designer</a></li>
+                             <li><a href="<?php echo base_url('home/my_account'); ?>">Printer</a></li>
+                            <li><a href="<?php echo base_url('home/change_password'); ?>">Software</a></li>
+                     </ul>
+                </li>
+               <li class="dropdown" id="accountmenu">
+                
+                	<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">Sell</a>
+                	 <ul class="dropdown-menu">
+                            <li><a  href="#">Design & Objects</a></li>
+                             <li><a href="#">Design Services</a></li>
+                     </ul>
+                </li>
+               <li class="dropdown" id="accountmenu">
+                
+                	<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">Learn</a>
+                	 <ul class="dropdown-menu">
+                            <li><a  href="#">News</a></li>
+                             <li><a href="#">Reviews</a></li>
+                            <li><a href="#">3D Printing</a></li>
+                     </ul>
+                </li>
+                <li class="dropdown" id="accountmenu">
+                
+                	<a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">Talk</a>
+                	 <ul class="dropdown-menu">
+                            <li><a  href="#">Forum</a></li>
+                             <li><a href="#">Our Blog</a></li>
+                            <li><a href="#">Talk to Us</a></li>
+                     </ul>
+                </li>
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
               </ul>
               <form class="navbar-search pull-left">
   				<input type="text" class="search-query" placeholder="Search">
 			  </form>
-               <ul class="nav">
-                <li <?php if($this->uri->segment(2)=='signin') { ?> class="active" <?php } ?>><a href="<?php echo base_url('home/signin'); ?>">Log In</a></li>
+			 
+               <ul class="nav" style="float:right;">
+                <?php if($this->session->userdata("memberid")!="") { ?>
+                	 <li class="dropdown" id="accountmenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <?php echo strtoupper($get_member['first_name']." ".$get_member['last_name']); ?><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url('upgrade/'); ?>">Upgrade Membership</a></li>
+                             <li><a href="<?php echo base_url('home/my_account'); ?>">My Account</a></li>
+                            <li><a href="<?php echo base_url('home/change_password'); ?>">Change Password</a></li>
+                            <li><a href="<?php echo base_url('store/'); ?>">My Store</a></li>
+                            <li class="divider"></li>
+							<li><a href="<?php echo base_url('home/logout'); ?>">Log Out</a></li>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                 <li <?php if($this->uri->segment(2)=='login') { ?> class="active" <?php } ?>><a href="<?php echo base_url('home/login'); ?>">Log In</a></li>
+                <?php } ?>                
+                </li>
+                <?php if($this->session->userdata("memberid")=="") { ?>
+                <li <?php if($this->uri->segment(2)=='signup') { ?> class="active" <?php } ?>><a href="<?php echo base_url('home/signup'); ?>">Sign up</a></li>
+                <?php } ?>
+               
                 <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
               </ul>
             </div><!--/.nav-collapse -->

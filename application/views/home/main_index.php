@@ -1,0 +1,1 @@
+<a href="<?php echo $url; ?>" target="_blank">Click here to login</a>
