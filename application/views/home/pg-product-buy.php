@@ -1,34 +1,6 @@
 <?php $this->load->view( 'home/header.php' ); ?>
 
-<script language="javascript">
-	
-	function showDiv(div_number) {
-		
-		// hide divs
-		
-		document.getElementById('contact_div_1').style.display = 'none';
-		document.getElementById('contact_div_2').style.display = 'none';
-		document.getElementById('contact_div_3').style.display = 'none';
-		// just show the div we want
-		document.getElementById('contact_div_'+div_number).style.display = 'block';	
-	}
-	
-	function showMe(div_number) {
-		
-		var userInput = document.getElementById('shipping_address').value;
-			if(document.getElementById("shipping_address").checked==true)
-		    { 
-		    	document.getElementById('hideSpan').style.display = 'none';
-		        return true;
-		    }
-		    else if(document.getElementById("shipping_address").checked==false)
-		    { 
-		    	document.getElementById('hideSpan').style.display = 'block';
-		        return true;
-		    }
-	}
-	
-</script>
+
 <div class="container">
 
 <div class="nav-collapse collapse">
@@ -52,7 +24,7 @@
 			  <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  <label class="control-label" for="select01">Expiry Date</label>
 			<div class="controls">
-        	 <select name="month" required id="month" style="width:40%;">
+        	 <select name="month" required id="month" style="width:20%;">
 	            <option value=""> Select Option </option>
 	            <option value="01"> Jan </option>
 	            <option value="02"> Feb </option>
@@ -67,7 +39,7 @@
 	            <option value="11"> Nov </option>
 	            <option value="12"> Dec </option>
 	         </select>
-	         <select  name="year" required id="year" style="width:40%;">
+	         <select  name="year" required id="year" style="width:20%;">
 	            <option value=""> Select Option </option>
 	         	<option value="2013"> 2013 </option>
 	            <option value="2014"> 2014 </option>
@@ -86,36 +58,31 @@
               <h4>Billing Information</h4>
               
               <label>Street Address:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-			  <label>Country:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
+			  <label>Counter:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
 			  <label>State:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  <label>City:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  <label>ZIP/Postal Code:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  <label>Phone:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-		<hr>
-              <h4>Shipping Address</h4>
-              
-              <label class="checkbox"><input type="checkbox" checked onclick="showMe()" id="shipping_address" name="shipping_address"> Same as billing </label>
-       
-				<span id="hideSpan" style="display:none;">
-					<label>First Name:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-			  		<label>Last Name:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-					<label>Street Address:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-			 		<label>Country:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-			  		<label>State:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  		<label>City:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  		<label>State:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  		<label>City:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  		<label>ZIP/Postal Code:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  
-				
-				</span>
-				<hr>
-              <h5>Your total is <?php echo "<b>"."$".$get_product_by_id['product_price']."</b>"; ?> USD</h5>
-              
-              <button class="btn btn-large btn-primary" type="Finish">Buy </button>
+        			<button class="btn btn-large btn-primary" type="Finish">Buy </button>
 	               </form>
                 </div>
-                      
+            
+                
+<script language="javascript">
+	
+	function showDiv(div_number) {
+		
+		// hide divs
+		
+		document.getElementById('contact_div_1').style.display = 'none';
+		document.getElementById('contact_div_2').style.display = 'none';
+		document.getElementById('contact_div_3').style.display = 'none';
+		// just show the div we want
+		document.getElementById('contact_div_'+div_number).style.display = 'block';	
+	}
+	
+</script>          
                  <div class="span7" style="height: 390px;margin-top: 5px;border:1px solid grey;">
                  	
 				 	<div class="span7" style="border:0px solid red;text-align: center;">
