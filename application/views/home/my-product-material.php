@@ -1,5 +1,18 @@
 <?php $this->load->view( 'home/header.php' ); ?>
-
+<script type="text/javascript">
+function calculateAmount(){
+	var userInput = document.getElementById('product_material_pricee').value;
+	var stripeAmount=((userInput * 2.9)/100)+0.30;
+	var reviewCut=(userInput * 8.5)/100;
+	var totalCut=stripeAmount + reviewCut;
+	var remainAmount=userInput - totalCut;
+	if (userInput <= 1) {
+		document.getElementById("product_material_price").value=0;
+	} else {
+		document.getElementById("product_material_price").value=remainAmount;
+	}
+}
+</script>
 <div class="row-fluid">
 <?php $this->load->view('home/shared/store-left-panel'); ?>
 
@@ -10,7 +23,9 @@
       <?php echo $this->session->flashdata('response'); ?>  
       
          <label>Product Material Name:</label><input type="text" required="required" name="product_material_name" class="input-block-level" value="<?php //echo $get_store['store_name'] ?>">
-         <label>Product Material Price:</label><input type="text"  name="product_material_price" required="required" class="input-block-level" value="<?php //echo $get_store['store_details'] ?>">
+         <label>Product Material Price:</label><input type="text"  name="product_material_pricee" id="product_material_pricee" onblur="calculateAmount();"  required="required" class="input-block-level" value="<?php //echo $get_store['store_details'] ?>">
+         <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input type="text" readonly name="product_material_price" id="product_material_price" class="input-block-level" >
+       
          <label>Product Name:</label>
         <select name="product_id" required="required">
          	<option value="">Select Product</option>

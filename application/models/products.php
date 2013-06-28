@@ -54,6 +54,14 @@ class Products extends CI_Model
             return $this->mongo_db->get('products');
         }
     }
+    function get_sold_products_for_admin_side()
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        
+            return $this->mongo_db->get('product_buy');
+        }
+    }
     function filter_products_by_category_for_adminside ($product_category)
     {
     	 if (DBTYPE == 'mongo_db')
@@ -158,6 +166,20 @@ class Products extends CI_Model
     	
     }
     
+    function get_one_top_product ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	//$this->mongo_db->order_by(array('created_date' =>'desc'));
+           // return $this->mongo_db->get_one('products');
+            $this->mongo_db->where(array("event" => 'view'));
+            $this->mongo_db->count('productid');
+            //return $this->mongo_db->get_one(array('$group'=>array('productid'=>'$productid',
+            
+            														//'total'=>array('$sum'=>))))->('product_stats');
+        }
+    }
+    
     function get_product_by_id($product_id)
     {
     	if (DBTYPE == 'mongo_db')
@@ -241,6 +263,16 @@ class Products extends CI_Model
 
       return  $this->mongo_db->where(array('_id'=>$product_id))->push('size', $size)->update('products');
 								
+        }
+    	
+    }
+    
+    function add_product_buy_info($product_buy_info)
+    {
+    	if (DBTYPE == 'mongo_db')
+    
+        {
+        	 return $this->mongo_db->insert('product_buy', $product_buy_info);
         }
     	
     }

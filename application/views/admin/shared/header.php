@@ -47,6 +47,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
                         <li><a href="<?php echo base_url('administration/member_memberships'); ?>">Memberships</a></li>
                         <li><a href="<?php echo base_url('administration/cpanel'); ?>">Payments</a></li>
                          <li><a href="<?php echo base_url('administration/all_products'); ?>">Products</a></li>
+                         <li><a href="<?php echo base_url('administration/sold_products'); ?>">Sold Products</a></li>
                         <li><a href="<?php echo base_url('administration/settings'); ?>">Admin Profile</a></li>
                          <li class="dropdown" id="accountmenu">
                           <a class="dropdown-toggle"href="#">Global Settings</a>

@@ -85,6 +85,22 @@
 	</table>
 	<?php } ?>
 	<?php } else { ?>
+<script type="text/javascript">
+function calculateAmount(){
+	var userInput = document.getElementById('product_total_price').value;
+	var stripeAmount=((userInput * 2.9)/100)+0.30;
+	var reviewCut=(userInput * 8.5)/100;
+	var totalCut=stripeAmount + reviewCut;
+	var remainAmount=userInput - totalCut;
+	if (userInput <= 1) {
+		document.getElementById("price_paid_to_owner").value=0;
+	} else {
+		document.getElementById("price_paid_to_owner").value=remainAmount;
+	}
+	//alert(remainAmount);
+	
+}
+</script>
 
 
       <form class="form-signin" method="POST" action="<?php echo base_url('store/my_products'); ?>" enctype="multipart/form-data">
@@ -95,7 +111,9 @@
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_size']) && $get_single_product['offer_size']=='on' ){ echo "checked"; } ?> name="offer_size"> Offer DIfferent Sizes </label>
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
        <label>Product Name:</label><input type="text" required="required" name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
-       <label>Product Price:</label><input type="text" required="required" name="product_price"  value="<?php if(isset($get_single_product['product_price'])) echo $get_single_product['product_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
+       <label>Product Price: </label>
+       <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_price'])) echo $get_single_product['product_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
+       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner" id="price_paid_to_owner" id="product_price" class="input-block-level" >
         <label>Product Description:</label>
         <textarea name="product_details" placeholder="Product Details"><?php if(isset($get_single_product['product_details'])) echo $get_single_product['product_details'] ?></textarea>
         <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required="required" class="input-block-level" placeholder="Product Details">

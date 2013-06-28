@@ -43,7 +43,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-        
+        $data['site_title']='';
         $data['main_content'] = 'home/index.view.php';
         $this->load->view( 'template_fullbody.view.php', $data );
     }
@@ -237,6 +237,7 @@ class Home extends CI_Controller
     	}
     	$data['get_store_categories']=$this->store_details->get_all_store_categories();	
     	$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+    	$data['site_title']='/Sign up';
         $this->load->view( 'home/signup',$data);
     }
     
@@ -422,6 +423,8 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		
+		$data['site_title']='/Sign In';
 		//var_dump($data['footer_links']);
 		$this->load->view('home/signin', $data);
 	}
@@ -442,6 +445,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/My Account';
 		$this->load->view('home/my-account',$data);
 		}
 		else {
@@ -480,6 +484,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Edit Account';
 		$this->load->view('home/edit-account',$data);
 		} else {
 			redirect('home/login');
@@ -502,6 +507,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Upgrade Membership';
 		$this->load->view('home/upgrade-membership.php',$data);
 	}
 	
@@ -524,6 +530,7 @@ class Home extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/Change Password';
 			$this->load->view('home/change-password',$data);
 		} else {
 			redirect('home/login');
@@ -578,6 +585,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Forgot Password';
 		$this->load->view('home/forgot-password',$data);
 	}
     
@@ -706,6 +714,8 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		
+		$data['site_title']='/'.ucfirst($data['my_page']['page_title']);
 		$this->load->view( 'home/content-page', $data );
 		
 	}
@@ -805,6 +815,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Payments';
 		$this->load->view( 'home/my-payment-acount',$data);
 		
 	}

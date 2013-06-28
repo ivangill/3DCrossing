@@ -189,10 +189,11 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 						
                  	
                  </div>
-                  <?php if ($get_product_by_id['product_fabrication']=='on' || $get_product_by_id['offer_size']=='on') { ?>
                   <form  method="POST" action="<?php echo base_url('shop/buy/'.$get_product_by_id['_id']); ?>">
                   <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>Mode For You</h3>
-	                 <?php if ($get_product_by_id['product_fabrication']=='on') { ?>
+	              <?php if ((isset($get_product_by_id['product_fabrication']) && $get_product_by_id['product_fabrication']=='on') || (isset($get_product_by_id['offer_size']) && $get_product_by_id['offer_size']=='on')) { ?>
+                     
+                  <?php if ($get_product_by_id['product_fabrication']=='on') { ?>
                   
 	                 <div class="span3" style="margin-bottom:5px;">
 	                	 <select name="product_material" required="required">
@@ -201,14 +202,14 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 				         	if (isset($get_product_by_id['product_material'])) {
 				         		
 				         	 foreach ($get_product_by_id['product_material'] as $material){ ?>
-				         	 <option value="<?php echo $material['product_material_name']." ".$material['product_material_price'] ?>"><?php echo $material['product_material_name']; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $".$material['product_material_price']; ?></option>
+				         	 <option value="<?php echo $material['product_material_name']."+".$material['product_material_price'] ?>"><?php echo $material['product_material_name']; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $".$material['product_material_price']; ?></option>
 							<?php } } ?>
 				         	
         				 </select>
 	                </div>
 	                
 	                 <?php } ?>
-	               <?php if ($get_product_by_id['offer_size']=='on') { ?>
+	               <?php if (isset($get_product_by_id['offer_size']) && $get_product_by_id['offer_size']=='on') { ?>
 	                <div class="span3" style="margin-bottom:5px;">
 	                	<select name="product_size" required="required">
 				         	<option value="">Select Size</option>
@@ -216,12 +217,13 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 				         	if (isset($get_product_by_id['size'])) {
 				         		
 				         	 foreach ($get_product_by_id['size'] as $size){ ?>
-				         	<option required="required" value="<?php echo $size['product_size'];; ?>"><?php echo $size['product_size']; ?></option>
+				         	<option required="required" value="<?php echo $size['product_size']; ?>"><?php echo $size['product_size']; ?></option>
         				 	<?php } } ?>
 				         	</select>
 	                
 	                </div>
 	                <?php } ?>
+	                 <?php } ?>
 	                 <div class="span3" style="margin-bottom:5px;">
 	                 <button class="btn btn-primary" type="Buy">Buy</button>
 	                 
@@ -229,7 +231,7 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 	                
                 </div>
                 </form>
-                 <?php } ?>
+                
                 
 
 </div>

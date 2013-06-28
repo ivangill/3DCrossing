@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>3dCrossing<?php //echo $site_name; ?></title>
+        <title>3dCrossing<?php echo $site_title; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Pwoxi Solutions -- pwoxisolutions@gmail.com">

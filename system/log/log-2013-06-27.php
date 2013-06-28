@@ -117,3 +117,4 @@ ERROR - 2013-06-27 14:22:54 --> Severity: Notice  --> Undefined variable: get_nu
 ERROR - 2013-06-27 14:52:22 --> Severity: Notice  --> Undefined variable: logo C:\wamp\www\3DCrossing\application\controllers\store.php 183
 ERROR - 2013-06-27 14:57:28 --> Severity: Warning  --> getimagesize(C:/wamp/www/3DCrossing/assets/images) [<a href='function.getimagesize'>function.getimagesize</a>]: failed to open stream: Permission denied C:\wamp\www\3DCrossing\system\ci\libraries\Image_lib.php 1337
 ERROR - 2013-06-27 14:57:28 --> Your server does not support the GD function required to process this type of image.
+ERROR - 2013-06-27 18:07:15 --> Severity: Notice  --> Array to string conversion C:\wamp\www\3DCrossing\application\libraries\Mongo_db.php 957

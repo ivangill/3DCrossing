@@ -12,19 +12,22 @@
                 
 	            <div class="span5" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>Purchase Summary</h3>
 	               <span>
-					You are buying a <?php echo "<b>".$get_product_by_id['product_name']."</b>"; ?> for <?php echo "<b>"."$".$get_product_by_id['product_price']."</b>"; ?>. 
+					You are buying a <?php echo "<b>".ucfirst($get_product_by_id['product_name'])."</b>"; 
+					if (isset($material)) { echo " in "."<b>".$material."</b>";	} ?> for 
+					<?php if (isset($price)) { echo "<b>"."$".$price."</b>"; } ?>. 
 					Remember, it is for personal use only. If you have any questions about the licence, please read the licence 
 					information.
 	               </span>
               <hr>
               <h4>Credit Card Information</h4>
-            <form method="POST" action="<?php echo base_url('store/my_products'); ?>">
+              <?php echo $this->session->flashdata('response'); ?>
+            <form method="POST" action="<?php echo base_url('shop/buy/'.$this->uri->segment(3)); ?>">
 	          <label>First Name:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
 			  <label>Last Name:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
 			  <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
 			  <label class="control-label" for="select01">Expiry Date</label>
 			<div class="controls">
-        	 <select name="month" required id="month" style="width:20%;">
+        	 <select name="month" required id="month" style="width:40%;">
 	            <option value=""> Select Option </option>
 	            <option value="01"> Jan </option>
 	            <option value="02"> Feb </option>
@@ -39,7 +42,7 @@
 	            <option value="11"> Nov </option>
 	            <option value="12"> Dec </option>
 	         </select>
-	         <select  name="year" required id="year" style="width:20%;">
+	         <select  name="year" required id="year" style="width:40%;">
 	            <option value=""> Select Option </option>
 	         	<option value="2013"> 2013 </option>
 	            <option value="2014"> 2014 </option>
@@ -52,18 +55,19 @@
 	         </select>
      </div>
         <labe>Security Code:</label><input type="password"  name="security_code" required="required" class="input-block-level" placeholder="Security Code">
-        <input type="hidden" name="membership_type" value="<?php echo $this->uri->segment(3); ?>">
+       
 
         <hr>
               <h4>Billing Information</h4>
               
-              <label>Street Address:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-			  <label>Counter:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-			  <label>State:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  <label>City:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  <label>ZIP/Postal Code:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  <label>Phone:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
-			  
+              <label>Street Address:</label><input type="text" required="required" name="street_address" id="street_address" class="input-block-level" placeholder="Street Address">
+			  <label>Country:</label><input type="text" required="required" name="country" id="country" class="input-block-level" placeholder="Country">
+			  <label>State:</label><input type="text"  name="state" required="required" class="input-block-level" placeholder="State">
+			  <label>City:</label><input type="text"  name="city" required="required" class="input-block-level" placeholder="City">
+			  <label>ZIP / Postal Code:</label><input type="text"  name="zip_code" required="required" class="input-block-level" placeholder="Zip / Postal Code">
+			  <label>Phone:</label><input type="text"  name="phone" required="required" class="input-block-level" placeholder="Phone">
+			  <input type="hidden" name="product_id" value="<?php echo $get_product_by_id['_id'] ?>" >
+			  <input type="hidden" name="product_total_price" value="<?php if (isset($price)) echo $price; ?>" >
         			<button class="btn btn-large btn-primary" type="Finish">Buy </button>
 	               </form>
                 </div>

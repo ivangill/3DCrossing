@@ -33,6 +33,7 @@ class Shop extends CI_Controller
         $this->load->model( 'global_settings' );
         $this->load->model( 'products' );
         $this->load->model( 'product_stats' );
+         $this->load->library('stripe');
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -53,7 +54,7 @@ class Shop extends CI_Controller
 			$data['get_widget_four']=$this->global_settings->get_widget_four();
 			$data['get_widget_five']=$this->global_settings->get_widget_five();
 			//var_dump($data['get_widget_one']);exit;
-			
+			$data['site_title']='/Shop';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-shop',$data);
@@ -74,6 +75,7 @@ class Shop extends CI_Controller
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/Shop/Recent';
 			$this->load->view('home/pg-all-products',$data);
 		
     }
@@ -108,6 +110,7 @@ class Shop extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
+			$data['site_title']='/Shop/'.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-all-products',$data);
 		
@@ -126,6 +129,7 @@ class Shop extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
+			$data['site_title']='/Shop/'.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-all-products',$data);
 		
@@ -220,6 +224,7 @@ class Shop extends CI_Controller
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['rating']=1;
 			$data['like_and_favourite']=1;
+			$data['site_title']='/Product/Detail';
 			$this->load->view('home/pg-product-details',$data);
 		
     }
@@ -307,7 +312,7 @@ class Shop extends CI_Controller
 			$this->email->subject($mail_subject);
 			$this->email->message($mail_body);
 			$this->email->send();
-			echo $this->email->print_debugger();
+		//	echo $this->email->print_debugger();
     		
     		
     		redirect('shop/product_detail/'.$product_id);
@@ -330,6 +335,7 @@ class Shop extends CI_Controller
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/Shop/All Designs';
 			$this->load->view('home/pg-all-products',$data);
     }
     
@@ -337,10 +343,105 @@ class Shop extends CI_Controller
 	{
 		if ($this->session->userdata("memberid")!=""){
 			if ($this->input->post('product_material')) {
-					
+					global $data;
 					$product_material=$this->input->post('product_material');
+					$material_and_price = explode("+", $product_material);
+					//var_dump($material_and_price);
+					$data['material']=$material_and_price[0];
+					$data['price']=$material_and_price[1];
+
+				} else {
+					$product_id=$this->uri->segment(3);
+		   			$get_product_by_id= $this->products->get_product_by_id( $product_id );
+		   			
+					$data['price']=$get_product_by_id['product_total_price'];
+					//var_dump($data['price']);exit;
+			}
+			if ($this->input->post('first_name')) {
+				//$data=$this->input->post(NULL,True);
+				
+				//$user=$this->home_model->get_member( $id );
+				//$first_name=$user['first_name'];
+				//$last_name=$user['last_name'];
+				
+				$memberid=$this->session->userdata("memberid");
+				$product_id=$this->input->post('product_id');
+				$first_name=$this->input->post('first_name');
+				$last_name=$this->input->post('last_name');
+				$card=$this->input->post('card_number');
+				$month=$this->input->post('month');
+				$year=$this->input->post('year');
+				$cvc=$this->input->post('security_code');
+				$street_address=$this->input->post('street_address');
+				$state=$this->input->post('state');
+				$country=$this->input->post('country');
+				$city=$this->input->post('city');
+				$zip_code=$this->input->post('zip_code');
+				$phone=$this->input->post('phone');
+				$product_price=$this->input->post('product_total_price');
+				$product_price=$product_price * 100;
+				$desc=$product_id;
+				
+				
+				$name=$first_name." ".$last_name;
+				$email=$this->session->userdata("memberemail");				
+				$values=array('number'=>$card,
+							  'exp_month'=>$month,
+							  'exp_year'=>$year,
+							  'cvc'=>$cvc,
+							  'name'=>$name
+				);
+				
+				$info=json_decode($this->stripe->customer_create($values,$email),TRUE);
+				//$info['error']='';
+				if ($info['error']) {
+					//echo "error";exit;
+					$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
+					redirect('shop/buy/'.$product_id,'refresh');
+				} else {
 					
-					//echo $product_material;exit;
+					$customer_id=$info['id'];
+					$customer_name=$info['active_card']['name'];
+					$card_type=$info['active_card']['type'];
+					$expiry_date=$info['active_card']['exp_month']."-".$info['active_card']['exp_year'];
+					$time=$info['created'];
+					$card_number=$info['active_card']['last4'];
+					
+					$card_charge=json_decode($this->stripe->charge_customer($product_price,$customer_id,$desc),TRUE);
+					
+					$stripe_id=$card_charge['id'];
+					$sold_price=$card_charge['amount'];
+					$customer_id_by_stripe=$card_charge['customer'];
+					$currency=$card_charge['currency'];
+					$paid_status=$card_charge['paid'];
+					$stripe_fee=$card_charge['fee'];
+					$stripe_fee_currency=$card_charge['fee_details'][0]['currency'];
+					$product_id=$card_charge['description'];
+					
+					$product_buy_info=array('memberid'=>$this->session->userdata("memberid"),
+									'receipt_id'=>$stripe_id,
+									'sold_price'=>$sold_price,
+									'customer_id_by_stripe'=>$customer_id_by_stripe,
+									'currency'=>$currency,
+									'paid_status'=>$paid_status,
+									'stripe_fee'=>$stripe_fee,
+									'stripe_fee_currency'=>$stripe_fee_currency,
+									'product_id'=>$product_id,
+									'buy_time'=>time(),
+									'stripe_processing_time'=>time()+604800,
+									'deleted_status'=>0,
+								);	
+					
+					
+					//var_dump($product_buy_info);
+					//var_dump($card_charge);
+					
+					$db_insert = $this->products->add_product_buy_info( $product_buy_info );
+					$this->session->set_flashdata('response', '<div class="alert alert-success">Thank you for buying the Product.</div>');
+					redirect('shop/buy_complete');
+				}
+				
+						
 			}
 		
 			
@@ -352,9 +453,28 @@ class Shop extends CI_Controller
 		$data['get_store'] = $this->home_model->get_store( $id );
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Product/Buy';
 		$this->load->view('home/pg-product-buy',$data);
 		} else {
 			redirect('home/login');
+		}
+	}
+	
+	public function buy_complete()
+	{
+		if ($this->session->userdata("memberid")!='') {
+	
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+			$data['get_products_by_memberid']=$this->products->get_products_by_memberid($this->session->userdata("memberid"));
+			$data['get_store'] = $this->home_model->get_store( $id );
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/Thank you';
+			$this->load->view('home/pg-product-buy-completed',$data);
+		} else {
+			redirect('home/login');
+			
 		}
 	}
     
