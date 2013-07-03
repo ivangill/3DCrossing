@@ -1,8 +1,10 @@
 <?php
 $product=$this->products->get_one_top_product();
 //var_dump($product);exit;
-//echo "<pre>";
-//print_r($this->mongo_db->last_query());exit;
+//$product=arsort($product);
+
+echo "<pre>";
+print_r($product);
 ?>
 
 

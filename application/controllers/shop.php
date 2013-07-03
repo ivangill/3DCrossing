@@ -33,7 +33,8 @@ class Shop extends CI_Controller
         $this->load->model( 'global_settings' );
         $this->load->model( 'products' );
         $this->load->model( 'product_stats' );
-         $this->load->library('stripe');
+        $this->load->model( 'newsletter' );
+        $this->load->library('stripe');
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -74,8 +75,33 @@ class Shop extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['site_title']='/Shop/Recent';
+			$this->load->view('home/pg-all-products',$data);
+		
+    }
+    
+    function just_sold() {
+			//$store_category=$this->uri->segment(3);
+			$data['get_products'] = $this->products->get_all_just_sold_product();
+			//var_dump($data['get_products']);exit;
+			
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/ Shop / Just Sold';
 			$this->load->view('home/pg-all-products',$data);
 		
     }
@@ -110,6 +136,9 @@ class Shop extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
 			$data['site_title']='/Shop/'.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-all-products',$data);
@@ -128,6 +157,11 @@ class Shop extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
+			//var_dump($data['get_five_designers']);exit;
 			
 			$data['site_title']='/Shop/'.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
@@ -179,6 +213,18 @@ class Shop extends CI_Controller
    				//var_dump();exit;
    				}
    				
+   			if ($this->input->post('comment')) {
+	   			$product_id=$this->uri->segment(3);
+	   			//echo $product_id;exit;
+	   			$comment=$this->input->post('comment');
+	   			$memberid=$this->session->userdata("memberid"); 
+	   			
+	   			$add_comment=add_comment($memberid,$product_id,$comment);
+	   			$this->session->set_flashdata('response', '<div class="alert alert-success">Comment has been posted.</div>');
+    		
+   				exit;
+   				}
+   				
    				
 			$product_id=$this->uri->segment(3);
 			//$data['counter']=increase_counter($product_id);
@@ -219,8 +265,9 @@ class Shop extends CI_Controller
 			$data['get_rating_for_specific_member']=$this->product_stats->get_rating_for_specific_member($this->session->userdata("memberid"),$product_id);
 			//var_dump($data['get_star_ratings']);
 			
-			
-			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3));	
+			//var_dump($data['get_comments_for_specific_product']);exit;
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['rating']=1;
 			$data['like_and_favourite']=1;
@@ -334,8 +381,11 @@ class Shop extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/Shop/All Designs';
+			$data['site_title']='/ Shop/ All Designs';
 			$this->load->view('home/pg-all-products',$data);
     }
     
@@ -366,6 +416,9 @@ class Shop extends CI_Controller
 				
 				$memberid=$this->session->userdata("memberid");
 				$product_id=$this->input->post('product_id');
+				$product_store_id=new MongoID($this->input->post('product_store_id'));
+				$product_owner_id=new MongoID($this->input->post('product_owner_id'));
+				$product_name=$this->input->post('product_name');
 				$first_name=$this->input->post('first_name');
 				$last_name=$this->input->post('last_name');
 				$card=$this->input->post('card_number');
@@ -416,9 +469,9 @@ class Shop extends CI_Controller
 					$paid_status=$card_charge['paid'];
 					$stripe_fee=$card_charge['fee'];
 					$stripe_fee_currency=$card_charge['fee_details'][0]['currency'];
-					$product_id=$card_charge['description'];
+					$product_id=new MongoID($card_charge['description']);
 					
-					$product_buy_info=array('memberid'=>$this->session->userdata("memberid"),
+					$product_buy_info=array('buyerid'=>$this->session->userdata("memberid"),
 									'receipt_id'=>$stripe_id,
 									'sold_price'=>$sold_price,
 									'customer_id_by_stripe'=>$customer_id_by_stripe,
@@ -427,6 +480,9 @@ class Shop extends CI_Controller
 									'stripe_fee'=>$stripe_fee,
 									'stripe_fee_currency'=>$stripe_fee_currency,
 									'product_id'=>$product_id,
+									'product_name'=>$product_name,
+									'product_store_id'=>$product_store_id,
+									'product_owner_id'=>$product_owner_id,
 									'buy_time'=>time(),
 									'stripe_processing_time'=>time()+604800,
 									'deleted_status'=>0,
@@ -456,7 +512,7 @@ class Shop extends CI_Controller
 		$data['site_title']='/Product/Buy';
 		$this->load->view('home/pg-product-buy',$data);
 		} else {
-			redirect('home/login');
+			redirect('home/login/');
 		}
 	}
 	
@@ -476,6 +532,91 @@ class Shop extends CI_Controller
 			redirect('home/login');
 			
 		}
+	}
+	
+	function search_product()
+	{
+		if ($this->input->post('search_product')) {
+			
+			
+			$data['get_products']=$this->products->search_products($this->input->post('search_product'));
+			
+		}
+		
+		if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+		
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/ Product / Search';
+		$this->load->view('home/pg-all-products',$data);
+	}
+	
+	function newsletter ()
+	{
+		if ($this->input->post('email')) {
+			$email=$this->input->post( 'email' );
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$member = $this->home_model->get_member( $id );
+				$name= $member['first_name']." ".$member['last_name'];
+			}else {
+			$name=$this->input->post('name');
+			}
+			$insert=array(
+    			'name'=>$name,
+    			'email'=>$email,
+    			'subscribed_time'=>time(),
+    			'subscriber_activated'=>'no',
+    		);
+    		$newsletter=$this->newsletter->add_subscriber( $insert );
+    		$this->session->set_flashdata('response', '<div class="alert alert-success">Thank you for subscribing.Email has benn sent to you for activation.</div>');
+    		
+    		$mail_subject='3DCrossing Newsletter Activation';
+    		//var_dump($mail_subject);exit;
+    		$from='newsletter@3DCrossing';
+    		$to=$email;
+    		
+    		$mail_body="3DCrossing Newsletter Activation,<br/><br/>";
+			$mail_body.="You have subscribed for 3DCrossing Newsletter, To activate subscription click this link  :
+			<a target='_blank' href='http://localhost/3dcrossing/shop/newsletter/$newsletter'>Click Here</a><br/><br/>";
+			echo $mail_body;
+			var_dump($mail_body);
+    		$this->email->from('newsletter@3DCrossing');
+			$this->email->to($to);
+			$this->email->subject($mail_subject);
+			$this->email->message($mail_body);
+			$this->email->send();
+			echo $this->email->print_debugger();
+			//redirect('shop/');
+			
+		}
+		if ($this->uri->segment(3)!="") {
+			$id=$this->uri->segment(3);
+			echo $id;exit;
+			$update_newsletter_subscriber = $this->newsletter->update_newsletter_subscriber_activation( $id );
+		
+			//var_dump($update_newsletter_subscriber);exit;
+			//$this->session->set_flashdata('response', '<div class="alert alert-success">Thank you for subscribing.</div>');
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/ Subscriber Activation';
+		
+			$this->load->view('home/pg-subscriber-activation',$data);	
+		}
+		
+	
 	}
     
 }

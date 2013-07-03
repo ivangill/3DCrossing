@@ -17,7 +17,7 @@
 <table class="table table-bordered table-striped">
         <thead>
           <tr>   
-            <th>Member ID</th>  
+            <th>Buyer ID</th>  
             <th>Product ID</th>  
             <th>Total Price</th> 
             <th>Stripe Fee</th> 
@@ -31,7 +31,7 @@
         
          <?php foreach($get_sold_products as $product) { ?> 
           <tr id="row_1">  
-            <td><?php echo $product['memberid']; ?></td>  
+            <td><?php echo $product['buyerid']; ?></td>  
             <td><?php echo $product['product_id']; ?></td>  
             <td><?php echo "$".($product['sold_price'])/100; ?></td> 
              <td><?php echo "$".($product['stripe_fee'])/100; ?></td> 

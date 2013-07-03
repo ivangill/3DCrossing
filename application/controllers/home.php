@@ -107,6 +107,7 @@ class Home extends CI_Controller
 								 'membership_type'=>'',
 								 'status'=>'active',
 								 'email'=>$email,
+								 'have_products'=>0,
 								 'password'=>'',
 								 'twitter_account'=>'',
 								 'facebook_account'=>'yes'
@@ -158,6 +159,7 @@ class Home extends CI_Controller
 					 'status'=>'active',
 					 'email'=>'',
 					 'password'=>'',
+					 'have_products'=>0,
 					 'twitter_account'=>'yes',
 					 'facebook_account'=>''
 		
@@ -208,6 +210,7 @@ class Home extends CI_Controller
     			'deleted_status'=>0,
     			'avatar'=>$avatar,
     			'twitter_id'=>'',
+    			'have_products'=>0,
     			'twitter_account'=>'',
 				'facebook_account'=>'',
 				'facebook_id'=>'',
@@ -815,10 +818,103 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Payments';
+		$data['site_title']=' / Payments';
 		$this->load->view( 'home/my-payment-acount',$data);
 		
 	}
+	
+	function setup_transaction_account ()
+	{
+		if ($this->session->userdata("memberid")!="") {
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+		}
+		
+		if ($this->uri->segment(3)=='bankaccount') {
+			if ($this->input->post('checkbox')) {
+				if ($this->uri->segment(4)=='') {
+				$bankaccount_info=array('acount_number'=>$this->input->post('acount_number'),
+								   'branch_name'=>$this->input->post('branch_name'),
+								   'branch_address'=>$this->input->post('branch_address'),
+								   'account_title'=>$this->input->post('account_title'),
+								   'bank_swift_code'=>$this->input->post('bank_swift_code'),
+								   'account_currency'=>$this->input->post('account_currency'),
+								   'home_address'=>$this->input->post('home_address'),
+								   'city'=>$this->input->post('city'),
+								   'country'=>$this->input->post('country'),
+								   'phone'=>$this->input->post('phone'),
+								   'deleted_status'=>'0'
+									);
+									
+					$bankaccount=array('bank_account_info'=>$bankaccount_info);
+					$this->home_model->add_member_bank_account( $bankaccount, $this->session->userdata("memberid") );
+					$this->session->set_flashdata('response', '<div class="alert alert-success">Your bank account has been setup successfully.</div>');
+				    redirect('home/setup_transaction_account/');
+				} else {
+					$index_value=$this->uri->segment(4);
+					$bankaccount_info=array('branch_name'=>$this->input->post('branch_name'),
+								   'branch_address'=>$this->input->post('branch_address'),
+								   'account_title'=>$this->input->post('account_title'),
+								   'home_address'=>$this->input->post('home_address'),
+								   'city'=>$this->input->post('city'),
+								   'country'=>$this->input->post('country'),
+								   'phone'=>$this->input->post('phone'),
+									);
+					$this->home_model->update_bank_account_info($id,$index_value,$bankaccount_info);
+					redirect('home/setup_transaction_account');
+				}
+			}
+			if ($this->uri->segment(4)!='') {
+						$id=$this->session->userdata("memberid");
+						$get_member = $this->home_model->get_member( $id );
+						$index_value=$this->uri->segment(4);
+						//$this->home_model->delete_bank_account($id,$index_value);
+						$data['member_card_info']=$get_member['bank_account_info'][$index_value];			
+					}
+		}
+		
+			
+		
+		if ($this->uri->segment(3)=='paypal') {
+			if ($this->input->post('email')) {
+				$email=$this->input->post('email');
+				$paypal_account=array('paypal_email'=>$email);
+				$paypal = array("paypal_account" => $paypal_account);
+								
+				$paypal_account=$data['get_member']['paypal_account'];
+				if (isset($paypal_account)) {
+				$this->session->set_flashdata('response', '<div class="alert alert-error">Paypal Account already setup.</div>');
+				redirect('home/setup_transaction_account/paypal');
+				} else {
+					$this->home_model->add_member_paypal_account( $paypal, $this->session->userdata("memberid") );
+					$this->session->set_flashdata('response', '<div class="alert alert-success">Paypal Account setup successfully.</div>');
+				    redirect('home/setup_transaction_account/paypal');
+				} 
+				
+			}
+			
+		}
+		
+		//$data['get_member_bankaccount']=$this->home_model->get_member_bankaccount($this->session->userdata("memberid") );
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='/Payments / Transaction Account';
+		$this->load->view( 'home/pg-setup-transaction-account',$data);
+	}
+	
+	function delete_my_bankaccount ()
+	{
+		if ($this->session->userdata("memberid")!="") {
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+			$index_value=$this->uri->segment(3);
+			$this->home_model->delete_bank_account($id,$index_value);
+			redirect('home/setup_transaction_account');
+			//var_dump($this->mongo_db->last_query());
+			//var_dump($data['get_member']['bank_account_info'][$index_value]);
+		}
+	}
+	
 	
 
 }

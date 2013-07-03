@@ -67,7 +67,10 @@
 			  <label>ZIP / Postal Code:</label><input type="text"  name="zip_code" required="required" class="input-block-level" placeholder="Zip / Postal Code">
 			  <label>Phone:</label><input type="text"  name="phone" required="required" class="input-block-level" placeholder="Phone">
 			  <input type="hidden" name="product_id" value="<?php echo $get_product_by_id['_id'] ?>" >
+			  <input type="hidden" name="product_name" value="<?php echo $get_product_by_id['product_name'] ?>" >
 			  <input type="hidden" name="product_total_price" value="<?php if (isset($price)) echo $price; ?>" >
+			  <input type="hidden" name="product_store_id" value="<?php echo $get_product_by_id['store_id']; ?>" >
+			  <input type="hidden" name="product_owner_id" value="<?php echo $get_product_by_id['member_id']; ?>" >
         			<button class="btn btn-large btn-primary" type="Finish">Buy </button>
 	               </form>
                 </div>

@@ -270,4 +270,18 @@ function update_rating($member_id,$product_id,$rating){
         }
  }
  
+function add_comment($member_id,$product_id,$comment){
+ 	$CI =& get_instance();
+ 	 if (DBTYPE == 'mongo_db')
+        {
+        	$product_id=new MongoID($product_id);
+        	$insert=array('memberid'=>$member_id,
+						  'productid'=>$product_id,
+						  'time'=>time(),
+						  'comment'=>$comment,
+						  );
+        return $CI->mongo_db->insert('product_comments',$insert);
+        }
+ }
+ 
 ?>

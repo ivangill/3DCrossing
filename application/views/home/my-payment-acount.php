@@ -48,6 +48,8 @@
 <legend><h2>Your Credit Cards</h2></legend>
 
 <a href="<?php echo base_url('home/my_payment_account/add'); ?>"><button type="button" class="btn btn-info">Add Credit Card</button></a>
+
+
 <table class="table table-hover">
  <thead>
           <tr>   

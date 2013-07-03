@@ -200,6 +200,7 @@ class Store extends CI_Controller
     		
 			
 			$create_product = $this->products->create_product( $insert,$product_id );
+			$update_member=$this->home_model->update_member_have_products_value( $id );
 			//var_dump($create_store);exit;
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Product has been successfully created.</div>');
 			redirect('store/my_products/grid');
@@ -307,6 +308,47 @@ class Store extends CI_Controller
 		
 		
 	}
+	
+	function track_sales()
+	{
+		if ($this->session->userdata("memberid")!='') {
+			
+		$id=$this->session->userdata("memberid");
+		$data['get_member'] = $this->home_model->get_member( $id );
+		$data['get_store'] = $this->home_model->get_store( $id );
+		
+	 	$store_id=$data['get_store']['_id'];
+		$data['get_my_saled_products']= $this->products->get_my_saled_products( $id,$store_id );
+		
+		
+		
+		$data['count_my_total_sales']= $this->products->count_my_total_sales( $id,$store_id );
+		$data['get_top_three_sales']= $this->products->get_top_three_sales( $id );
+		//var_dump($this->mongo_db->last_query());
+		//echo "<pre>";
+		//var_dump($data['get_top_three_sales']);
+		//exit;
+		
+		
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']='';
+		$this->load->view('home/pg-track-sales',$data);	
+		} else {
+			redirect('home/login');
+		}
+		
+	}
+	
+	function export_track_sales() {
+    	$id=$this->session->userdata("memberid");
+		$data['get_member'] = $this->home_model->get_member( $id );
+		$data['get_store'] = $this->home_model->get_store( $id );
+		
+	 	$store_id=$data['get_store']['_id'];
+		$data['get_my_saled_products']= $this->products->get_my_saled_products( $id,$store_id );
+		$this->load->view( 'home/pg-export-track-sales',$data);
+    }
 	
 	public function  delete_my_product ()
 	{

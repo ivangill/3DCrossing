@@ -235,7 +235,76 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
                 
 
 </div>
- 
+<script type="text/javascript">
+function checkComment(){
+	var userInput = document.getElementById('comment').value;
+	var myData = 'comment='+userInput;
+$.ajax
+({
+type: "POST",
+url: "<?php echo site_url('shop/product_detail/'.$this->uri->segment(3))?>", //=> Controller function call
+data: myData,
+cache: false,
+async:false,
+success: function()
+	{    
+		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
+		document.getElementById('comment').value='';
+		document.getElementById('success').style.display = 'block';	
+		return false;   
+       }
+});
+}
+
+</script>
+	<?php if ($this->session->userdata("memberid")!="") { ?>
+		<div class="span8" style="margin-top: 5px;border:1px solid grey;">
+		<?php //echo $this->session->flashdata('response'); ?>
+		<ul class="nav">
+		<?php 
+		//if (count($get_comments_for_specific_product) > 0) {
+			
+		foreach ($get_comments_for_specific_product as $comment){ ?>
+		<li class="dropdown">
+		<?php $memberid=$comment['memberid'];
+			$members= $this->home_model->get_member( $memberid );
+			echo "<u>".ucfirst($members['first_name'])." ".ucfirst($members['last_name']).":</u>";
+		?>
+		<?php $time=time()-$comment['time'];
+		//echo $time;
+		$init = $time;
+$day=floor($init/86400);
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+if ($hours == 0 && $minutes!=0) {
+	echo "<div class='label label-warning pull-right'>".$minutes." Minutes ago".'</div>';
+} 
+if($hours != 0 && $day == 0){
+	echo "<div class='label label-warning pull-right'>".$hours." Hours ago".'</div>';
+}
+if ($minutes == 0 && $hours == 0) {
+	echo "<div class='label label-warning pull-right'>".$seconds." Seconds ago".'</div>';
+} 
+if($day != 0){
+	echo "<div class='label label-warning pull-right'>".date('F j, Y H:i A',$comment['time']).'</div>';;
+}
+?>
+<?php echo '<i>'.$comment['comment'].'</i>'; ?><br />
+<?php //echo "$hours:$minutes:$seconds"; 
+		//echo  date('H:i A',$time);
+		//echo "<div class='label label-warning'>".date('F j, Y H:i A',$time).'</div>'; ?><hr>
+		</li>
+		<?php } //} ?>
+		</ul>
+		<!--<div class="alert alert-success span2" id="success" style="display:none;">Comment has been posted</div>-->
+              
+               <label>Post Comment: </label><textarea rows="5" id="comment" name="comment"></textarea>
+         		<button class="btn btn-large btn-primary" onclick="checkComment();" type="Save">Comment</button>
+             
+                 
+          </div>
+ 	<?php } ?> 
  </div>
 
 

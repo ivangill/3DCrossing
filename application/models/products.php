@@ -151,8 +151,9 @@ class Products extends CI_Model
     	if (DBTYPE == 'mongo_db')
         {
         	$this->mongo_db->where(array("deleted_status" => 0));
-        	$this->mongo_db->order_by(array('created_date' =>'desc'));
-            return $this->mongo_db->get_one('products');
+        	$this->mongo_db->limit(1);
+        	return $this->mongo_db->order_by(array('created_date' =>'DESC'))->get('products');
+        	
         }
     }
     function get_recent_products()
@@ -172,12 +173,51 @@ class Products extends CI_Model
         {
         	//$this->mongo_db->order_by(array('created_date' =>'desc'));
            // return $this->mongo_db->get_one('products');
-            $this->mongo_db->where(array("event" => 'view'));
-            $this->mongo_db->count('productid');
+           // $this->mongo_db->where(array("event" => 'view'));
+           // $this->mongo_db->count('productid');
             //return $this->mongo_db->get_one(array('$group'=>array('productid'=>'$productid',
             
-            														//'total'=>array('$sum'=>))))->('product_stats');
+  													//'total'=>array('$sum'=>))))->('product_stats');
+  			$query = $this->mongo_db->command(array ("group" => array("ns" => "product_stats", "key" => array("productid" => true), "initial" => array("views" => 0), '$reduce' => 'function(obj, prev) { if (true != null) if (true instanceof Array) prev.views += true.length; else prev.views++; }', "cond" => array("event" => "view"))));
+  			//$querynew = $this->mongo_db->command(array('$reduce' => 'function(obj, prev) { if (prev.maxValue < obj.value){  prev.maxValue = obj.value;  } }'));
+        	//echo "<pre>";
+        	//print_r($query);exit;
+        	return $query;
         }
+    }
+    
+    function get_one_just_sold_product ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->limit(1);
+        	return $this->mongo_db->order_by(array('buy_time' =>'DESC'))->get('product_buy');
+        	
+        }
+    	
+    }
+    
+    function get_all_just_sold_product ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	//$this->mongo_db->distinct();
+        	return $this->mongo_db->order_by(array('buy_time' =>'DESC'))->get('product_buy');
+        	
+        }
+    	
+    }
+    
+    function get_one_best_seller ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	
+        	$query = $this->mongo_db->command(array ("group" => array("ns" => "product_buy", "key" => array("product_owner_id" => true), "initial" => array("total" => 0), '$reduce' => 'function(obj, prev) { if (true != null) if (true instanceof Array) prev.total += true.length; else prev.total++; }')));
+        	return $query;
+        	
+        }
+    	
     }
     
     function get_product_by_id($product_id)
@@ -276,6 +316,111 @@ class Products extends CI_Model
         }
     	
     }
+    
+    function get_top_four_designer ()
+    {
+    	if (DBTYPE == 'mongo_db')
+    
+        {
+        	$this->mongo_db->limit(5);
+        	//$this->mongo_db->order_by('desc');
+        	 $products=$this->mongo_db->get('products');
+        	//var_dump($products);exit;
+        	 foreach ($products as $p)
+        	 {
+        	 	$memerid=$p['member_id'];
+        	 	 var_dump($memerid);
+        	 	$this->mongo_db->where($memerid);
+        	 	return $this->mongo_db->get('members');
+        	 	//var_dump($this->mongo_db->last_query());exit;
+        	 }
+        }
+    }
+    
+   /*  function get_top_five_members($memberid)
+    {
+    	if (DBTYPE == 'mongo_db')
+    
+        {
+        	$this->mongo_db->where($memberid);
+        	 return $this->mongo_db->get('members');
+        	 
+        }
+    }*/
+   
+   function search_products ($search)
+   {
+   		if (DBTYPE == 'mongo_db')
+    
+        {
+        	$this->mongo_db->like('product_name', $search, 'im', true);
+        	 return $this->mongo_db->get('products');
+        	 
+        }
+   	
+   }
+   
+   function get_comments_for_specific_product ($productid)
+   {
+   	if (DBTYPE == 'mongo_db')
+    
+        {
+        	$productid=new MongoID($productid);
+        	$this->mongo_db->order_by(array('time' =>'desc'));
+        	$this->mongo_db->where(array('productid' =>$productid));
+        	return $this->mongo_db->get('product_comments');
+        	 
+        }
+   	
+   	
+   }
+   
+   function get_my_saled_products ($product_owner_id,$store_id)
+   {
+   	if (DBTYPE == 'mongo_db')
+    
+        {
+        	//$product_owner_id=new MongoID($product_owner_id);
+        	//echo $product_owner_id;
+        	$this->mongo_db->where(array('product_owner_id' =>$product_owner_id));
+        	$this->mongo_db->where(array('product_store_id' =>$store_id));
+        	return $this->mongo_db->get('product_buy');
+        	 
+        }
+   	
+   }
+   
+   function count_my_total_sales ($product_owner_id,$store_id)
+   {
+   	if (DBTYPE == 'mongo_db')
+    
+        {
+        	//$product_owner_id=new MongoID($product_owner_id);
+        	//echo $product_owner_id;
+        	$this->mongo_db->where(array('product_owner_id' =>$product_owner_id));
+        	$this->mongo_db->where(array('product_store_id' =>$store_id));
+        	return $this->mongo_db->count('product_buy');
+        	 
+        }
+   	
+   }
+   
+   function get_top_three_sales ($product_owner_id)
+   {
+   	if (DBTYPE == 'mongo_db')
+    
+        {
+        	$product_owner_id=new MongoID($product_owner_id);
+        	//echo $product_owner_id;
+        	$query = $this->mongo_db->command(array ("group" => array("ns" => "product_buy", "key" => array("product_id" => true, "product_name"=>true, "product_store_id"=>true), "initial" => array("total" => 0), '$reduce' => 'function(obj, prev) { if (true != null) if (true instanceof Array) prev.total += true.length; else prev.total++; }', "cond" => array("product_owner_id" => $product_owner_id))));
+        	//echo "<pre>";
+        	//print_r($query);exit;
+        	return $query;
+        
+        	 
+        }
+   	
+   }
  
 
 }
