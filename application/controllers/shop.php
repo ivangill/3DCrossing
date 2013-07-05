@@ -34,6 +34,7 @@ class Shop extends CI_Controller
         $this->load->model( 'products' );
         $this->load->model( 'product_stats' );
         $this->load->model( 'newsletter' );
+        $this->load->model( 'news_feed' );
         $this->load->library('stripe');
         //$this->output->enable_profiler(TRUE);
     }
@@ -137,6 +138,7 @@ class Shop extends CI_Controller
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
 			$data['get_five_designers']=$this->home_model->get_five_designers();
+			//var_dump($data['get_five_designers']);exit;
 			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			$data['site_title']='/Shop/'.ucfirst($category_name);
@@ -174,25 +176,48 @@ class Shop extends CI_Controller
    				//echo $this->input->post('vote');exit;
 	   			$product_id=$this->uri->segment(3);
 	   			$memberid=$this->session->userdata("memberid"); 
-	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
-	   			//$member_id=$data['get_product_by_id']['member_id'];
+	   			$get_member = $this->home_model->get_member( $memberid );
+	   			$member_name=$get_member['first_name'].' '.$get_member['last_name'];
 	   			
+	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   			$product_creator=new MongoID($data['get_product_by_id']['member_id']);
+	   			$product_name=$data['get_product_by_id']['product_name'];
 	   			$check_if_already_liked=$this->product_stats->check_if_already_liked($memberid,$product_id);
    			//var_dump($check_if_already_liked);exit;
    				if ($check_if_already_liked=='') {
-   					$add_like_counter=add_like($memberid,$product_id);
+   					$add_like_counter=add_like($memberid,$product_id,$product_creator);
+   					$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'liked',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>$product_id,
+   								  'product_name'=>$product_name,
+   								  'feed_time'=>time(),
+   								);
+   					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					}
    					exit;
    				}
    			if ($this->input->post('favourite')) {
 	   			$product_id=$this->uri->segment(3);
 	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
-	   			//$member_id=$data['get_product_by_id']['member_id'];
+	   			$product_creator=new MongoID($data['get_product_by_id']['member_id']);
+	   			$product_name=$data['get_product_by_id']['product_name'];
+	   			
 	   			$memberid=$this->session->userdata("memberid"); 
+	   			$get_member = $this->home_model->get_member( $memberid );
+	   			$member_name=$get_member['first_name'].' '.$get_member['last_name'];
 	   			
 	   			$check_if_already_favourite=$this->product_stats->check_if_already_favourite($memberid,$product_id);
    				if ($check_if_already_favourite=='') {
-   					$add_favourite=add_favourite($memberid,$product_id);
+   					$add_favourite=add_favourite($memberid,$product_id,$product_creator);
+   					$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'favourited',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>new MongoID($product_id),
+   								  'product_name'=>$product_name,
+   								  'feed_time'=>time(),
+   								);
+   					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					}
    				exit;
    				}
@@ -200,14 +225,36 @@ class Shop extends CI_Controller
    			if ($this->input->post('ratings')) {
 	   			$product_id=$this->uri->segment(3);
 	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   			$product_creator=new MongoID($data['get_product_by_id']['member_id']);
+	   			$product_name=$data['get_product_by_id']['product_name'];
+	   			
 	   			$memberid=$this->session->userdata("memberid");
+	   			$get_member = $this->home_model->get_member( $memberid );
+	   			$member_name=$get_member['first_name'].' '.$get_member['last_name'];
+	   			
 	   			$check_if_already_rated=$this->product_stats->check_if_already_rated($memberid,$product_id);
 	   			$rating=$this->input->post('ratings');
 	   			//var_dump($rating);exit;
 	   			if ($check_if_already_rated=='') {
-   					$add_rating=add_rating($memberid,$product_id,$rating);
+   					$add_rating=add_rating($memberid,$product_id,$rating,$product_creator);
+   					$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'rated',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>new MongoID($product_id),
+   								  'product_name'=>$product_name,
+   								  'feed_time'=>time(),
+   								);
+   					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					} else {
    					$update_favourite=update_rating($memberid,$product_id,$rating);
+   					$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'updated the rating for',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>new MongoID($product_id),
+   								  'feed_time'=>time(),
+   								  'product_name'=>$product_name,
+   								);
+   					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					}
    				exit;
    				//var_dump();exit;
@@ -215,11 +262,25 @@ class Shop extends CI_Controller
    				
    			if ($this->input->post('comment')) {
 	   			$product_id=$this->uri->segment(3);
-	   			//echo $product_id;exit;
-	   			$comment=$this->input->post('comment');
-	   			$memberid=$this->session->userdata("memberid"); 
+	   			$comment=$this->input->post('comment');	   			
 	   			
-	   			$add_comment=add_comment($memberid,$product_id,$comment);
+	   			$memberid=$this->session->userdata("memberid");
+	   			$get_member = $this->home_model->get_member( $memberid );
+	   			$member_name=$get_member['first_name'].' '.$get_member['last_name'];
+	   			
+	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   			$product_name=$data['get_product_by_id']['product_name'];
+	   			$product_creator=new MongoID($data['get_product_by_id']['member_id']);
+	   			
+	   			$add_comment=add_comment($memberid,$product_id,$comment,$product_creator);
+	   			$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'commented on',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>new MongoID($product_id),
+   								  'product_name'=>$product_name,
+   								  'feed_time'=>time(),
+   								);
+   				$add_news_feed=$this->news_feed->add_news_feed($insert);
 	   			$this->session->set_flashdata('response', '<div class="alert alert-success">Comment has been posted.</div>');
     		
    				exit;
@@ -240,8 +301,9 @@ class Shop extends CI_Controller
 				$data['get_member'] = $this->home_model->get_member( $id );
 			}
 			
-			
-			$add_view_counter=add_review($member_id,$product_id);
+			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   		$product_creator=new MongoID($data['get_product_by_id']['member_id']);
+			$add_view_counter=add_review($member_id,$product_id,$product_creator);
 			$data['get_number_of_views']=$this->product_stats->get_number_of_views($product_id);
 			
 			$data['get_number_of_likes']=$this->product_stats->get_number_of_likes($product_id);
@@ -494,6 +556,23 @@ class Shop extends CI_Controller
 					
 					$db_insert = $this->products->add_product_buy_info( $product_buy_info );
 					$this->session->set_flashdata('response', '<div class="alert alert-success">Thank you for buying the Product.</div>');
+					
+					$memberid=$this->session->userdata("memberid");
+					
+					$get_member = $this->home_model->get_member( $memberid );
+	   				$member_name=$get_member['first_name'].' '.$get_member['last_name'];
+	   			
+	   				$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   				$product_name=$data['get_product_by_id']['product_name'];
+					
+					$insert=array('member_id'=>new MongoID($this->session->userdata("memberid")),
+   								  'event'=>'bought',
+   								  'member_name'=>$member_name,
+   								  'product_id'=>new MongoID($product_id),
+   								  'product_name'=>$product_name,
+   								  'feed_time'=>time(),
+   								);
+   					$add_news_feed=$this->news_feed->add_news_feed($insert);
 					redirect('shop/buy_complete');
 				}
 				

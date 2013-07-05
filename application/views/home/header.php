@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Pwoxi Solutions -- pwoxisolutions@gmail.com">
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
         <!-- Le styles -->
         <?php echo add_style('bootstrap.css'); ?>
@@ -99,7 +100,8 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <?php echo strtoupper($get_member['first_name']." ".$get_member['last_name']); ?><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo base_url('upgrade/'); ?>">Upgrade Membership</a></li>
-                             <li><a href="<?php echo base_url('home/my_account'); ?>">My Account</a></li>
+                            <li><a href="<?php echo base_url('member/profile/'.$this->session->userdata("memberid")); ?>">My Profile</a></li>
+                            <li><a href="<?php echo base_url('home/my_account'); ?>">Account Settings</a></li>
                             <li><a href="<?php echo base_url('home/change_password'); ?>">Change Password</a></li>
                             <li><a href="<?php echo base_url('store/'); ?>">My Store</a></li>
                             <li class="divider"></li>

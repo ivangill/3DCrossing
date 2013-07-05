@@ -123,9 +123,14 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 </div>
 <?php } ?>
 
-
-                
-                <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3><?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?></h3>
+             
+                <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>
+                <?php if ($this->session->userdata("memberid")!='') { ?>
+                <a href="<?php echo base_url('member/profile/'.$get_product_creator['_id']); ?>"><?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?></a>
+                 <?php  } else { ?>
+                 <?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>
+                 <?php } ?>
+                </h3>
                 
 	                <div class="span3" style="margin-bottom:5px;"><button class="btn btn-primary" type="button">
 	                	<a href="<?php echo base_url('shop/all_designs/'.$get_product_by_id['member_id']); ?>" style="color:white;">See All Their Designs</a>
@@ -136,6 +141,8 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 	                <?php 
 	                if (isset($get_product_creator['avatar']) && $get_product_creator['avatar']!='') {
 	                echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 
+	                } else {
+	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
 	                }
 	                ?>
                 </div>

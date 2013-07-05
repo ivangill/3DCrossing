@@ -78,6 +78,7 @@ class Home_model extends CI_Model
         	$this->mongo_db->where(array('_id'=>$id));
         	$this->mongo_db->set(array('first_name'=> $data['first_name'],
         							   'last_name'=> $data['last_name'],
+        							   'about_me'=> $data['about_me'],
         							   'avatar'=> $data['avatar']));
             return $this->mongo_db->update('members');
         }
@@ -270,6 +271,7 @@ class Home_model extends CI_Model
         {
         	$this->mongo_db->limit(5);
         	$this->mongo_db->where(array('have_products'=>1));
+        	$this->mongo_db->order_by(array('created_date'=>'desc'));
         	return $this->mongo_db->get('members');
         	//var_dump($products);exit;
 
@@ -296,7 +298,7 @@ class Home_model extends CI_Model
     
         {
         	$memberid=new MongoID($memberid);
-        	echo $index;exit;
+        	//echo $index;exit;
         	$this->mongo_db->where(array('_id'=>$memberid));
         	$this->mongo_db->set(array( 'bank_account_info.'.$index.'.branch_name' =>$data['branch_name'],
         								'bank_account_info.'.$index.'.branch_address' =>$data['branch_address'],
@@ -305,6 +307,7 @@ class Home_model extends CI_Model
         								'bank_account_info.'.$index.'.city' =>$data['city'],
         								'bank_account_info.'.$index.'.country' =>$data['country'],
         								'bank_account_info.'.$index.'.phone' =>$data['phone'],
+        								'bank_account_info.'.$index.'.account_currency' =>$data['account_currency'],
         								));
         	return $this->mongo_db->update('members');
         	//var_dump($products);exit;

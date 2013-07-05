@@ -29,6 +29,48 @@ class Product_Stats extends CI_Model
         }
     }
     
+    function get_number_of_likes_for_member_profile ($member_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$member_id=new MongoID($member_id);
+        	$this->mongo_db->where(array("product_creator" => $member_id));
+        	$this->mongo_db->where(array('event' =>'like'));
+        	return $this->mongo_db->count('product_stats');
+        }
+    }
+    
+    function get_number_of_views_for_member_profile ($member_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$member_id=new MongoID($member_id);
+        	$this->mongo_db->where(array("product_creator" => $member_id));
+        	$this->mongo_db->where(array('event' =>'view'));
+        	return $this->mongo_db->count('product_stats');
+        }
+    }
+    function get_number_of_comments_for_member_profile ($id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$id=new MongoID($id);
+        	$this->mongo_db->where(array("product_creator" => $id));
+        	return $this->mongo_db->count('product_comments');
+        }
+    	
+    }
+    function get_number_of_favourites_for_member_profile ($member_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$member_id=new MongoID($member_id);
+        	$this->mongo_db->where(array("product_creator" => $member_id));
+        	$this->mongo_db->where(array('event' =>'favourite'));
+        	return $this->mongo_db->count('product_stats');
+        }
+    }
+    
     function get_number_of_favourites ($product_id)
     {
     	if (DBTYPE == 'mongo_db')

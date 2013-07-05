@@ -64,6 +64,7 @@ function changeText2(){
       	<label>Email:</label><input type="email" required="required" name="emaill" id="emaill" class="input-block-level" value="" readonly>
          <label>First Name:</label><input type="text"  name="first_name" required="required" class="input-block-level" placeholder="First Name">
          <label>Last Name:</label><input type="text"  name="last_name" required="required" class="input-block-level" placeholder="Last Name">
+         <label>About Me:</label><input type="text"  name="about_me" required="required" class="input-block-level" placeholder="About Me">
          <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" name="avatar">
        <label>Upload Avatar (Max Size: 500 x 500)</label> <button class="btn btn-large btn-primary" type="Finish">Finish</button>
       </form>

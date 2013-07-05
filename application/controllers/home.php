@@ -14,6 +14,9 @@ class Home extends CI_Controller
                   'charset'  => 'utf-8',
                   'priority' => '1'
                  );*/
+       
+     
+       
 	    $config = Array(
 	    'protocol' => 'smtp',
 	    'smtp_host' => 'smtp.mailgun.org',
@@ -30,7 +33,8 @@ class Home extends CI_Controller
         $this->load->model( 'content_pages' );
         $this->load->model( 'store_details' );
         $this->load->model( 'memberships' );
-         $this->load->library('stripe');
+        $this->load->driver('cache');
+        $this->load->library('stripe');
        // $this->output->enable_profiler(TRUE);
     }
 
@@ -205,6 +209,7 @@ class Home extends CI_Controller
     			'created_date'=>time(),
     			'first_name'=>$this->input->post('first_name'),
     			'last_name'=>$this->input->post('last_name'),
+    			'about_me'=>$this->input->post('about_me'),
     			'membership_type'=>'free',
     			'status'=>'inactive',
     			'deleted_status'=>0,
@@ -452,7 +457,7 @@ class Home extends CI_Controller
 		$this->load->view('home/my-account',$data);
 		}
 		else {
-			redirect('home/login');
+			redirect('home/login','refresh');
 		}
 	}
 	
@@ -464,6 +469,7 @@ class Home extends CI_Controller
 			if($this->input->post('email')){
 				$filter['first_name']=$this->input->post('first_name');
     			$filter['last_name']=$this->input->post('last_name');
+    			$filter['about_me']=$this->input->post('about_me');
     			
     			// upload user image
 				if ($_FILES["avatar"]["name"]!=""){
@@ -490,7 +496,7 @@ class Home extends CI_Controller
 		$data['site_title']='/Edit Account';
 		$this->load->view('home/edit-account',$data);
 		} else {
-			redirect('home/login');
+			redirect('home/login','refresh');
 		}
 	}
 	
@@ -536,7 +542,7 @@ class Home extends CI_Controller
 			$data['site_title']='/Change Password';
 			$this->load->view('home/change-password',$data);
 		} else {
-			redirect('home/login');
+			redirect('home/login','refresh');
 		}
 		
 	}
@@ -550,7 +556,7 @@ class Home extends CI_Controller
 			$update_password = $this->home_model->update_password( $password,$id );
 			//var_dump($update_password);exit;
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Password has been updated.Kindly fill the form.</div>');
-			redirect('home/login');
+			redirect('home/login','refresh');
 		}
 		
 		if($this->input->post('email')){
@@ -700,9 +706,12 @@ class Home extends CI_Controller
     public function logout()
 	{
 		$this->session->unset_userdata("memberid");
+		
 		$this->session->sess_destroy();
 		//$this->session->unset_userdata("user_name");
-		redirect('home/index');
+		$this->cache->clean();
+		//$this->chache->cache_delete_all();
+		redirect('home/login');
 		
 	}
 	
@@ -728,7 +737,7 @@ class Home extends CI_Controller
 		if ($this->session->userdata("memberid")!="") {
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
-		}
+		
 		
 		if ($this->input->post('first_name')) {
 			$data=$this->input->post(NULL,True);
@@ -820,7 +829,9 @@ class Home extends CI_Controller
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		$data['site_title']=' / Payments';
 		$this->load->view( 'home/my-payment-acount',$data);
-		
+		} else {
+			redirect('home/login','refresh');
+		}
 	}
 	
 	function setup_transaction_account ()
@@ -828,11 +839,10 @@ class Home extends CI_Controller
 		if ($this->session->userdata("memberid")!="") {
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
-		}
 		
 		if ($this->uri->segment(3)=='bankaccount') {
 			if ($this->input->post('checkbox')) {
-				if ($this->uri->segment(4)=='') {
+				if (!$this->uri->segment(4)) {
 				$bankaccount_info=array('acount_number'=>$this->input->post('acount_number'),
 								   'branch_name'=>$this->input->post('branch_name'),
 								   'branch_address'=>$this->input->post('branch_address'),
@@ -851,15 +861,17 @@ class Home extends CI_Controller
 					$this->session->set_flashdata('response', '<div class="alert alert-success">Your bank account has been setup successfully.</div>');
 				    redirect('home/setup_transaction_account/');
 				} else {
-					$index_value=$this->uri->segment(4);
+					$index_value=$this->input->post('index_value');
 					$bankaccount_info=array('branch_name'=>$this->input->post('branch_name'),
 								   'branch_address'=>$this->input->post('branch_address'),
 								   'account_title'=>$this->input->post('account_title'),
 								   'home_address'=>$this->input->post('home_address'),
+								   'account_currency'=>$this->input->post('account_currency'),
 								   'city'=>$this->input->post('city'),
 								   'country'=>$this->input->post('country'),
 								   'phone'=>$this->input->post('phone'),
 									);
+									
 					$this->home_model->update_bank_account_info($id,$index_value,$bankaccount_info);
 					redirect('home/setup_transaction_account');
 				}
@@ -900,6 +912,9 @@ class Home extends CI_Controller
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		$data['site_title']='/Payments / Transaction Account';
 		$this->load->view( 'home/pg-setup-transaction-account',$data);
+		} else {
+			redirect('home/login','refresh');
+		}
 	}
 	
 	function delete_my_bankaccount ()

@@ -23,6 +23,10 @@
  * NOTE: If you change these, also change the error_reporting() code below.
  *
  */
+header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0',false);
+header('Pragma: no-cache');
 
 if ( isset( $_SERVER['HTTP_HOST'] ) ) {
     switch ( $_SERVER['HTTP_HOST'] ) {
@@ -320,6 +324,7 @@ else {
  *
  */
 require_once BASEPATH . 'core/CodeIgniter.php';
+
 
 /* End of file index.php */
 /* Location: ./index.php */

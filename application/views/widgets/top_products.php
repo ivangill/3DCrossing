@@ -3,8 +3,8 @@ $product=$this->products->get_one_top_product();
 //var_dump($product);exit;
 //$product=arsort($product);
 
-echo "<pre>";
-print_r($product);
+//echo "<pre>";
+//print_r($product);
 ?>
 
 

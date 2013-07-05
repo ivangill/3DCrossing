@@ -89,4 +89,6 @@ Layouts
 .star-rating s:before {
     content: "\2605";
 }
->>>>>>> Update upto 27-06-13
+.text-white {
+color:white;
+}

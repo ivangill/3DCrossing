@@ -201,12 +201,13 @@ function increase_counter($product_id){
  }
  
  
-function add_review($member_id,$product_id){
+function add_review($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
+						   'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'event'=>'view',
 			);
@@ -214,13 +215,14 @@ function add_review($member_id,$product_id){
         	
         }
  }
- function add_like($member_id,$product_id){
+ function add_like($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
         	
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
+						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'event'=>'like',
 			);
@@ -228,13 +230,14 @@ function add_review($member_id,$product_id){
         	
         }
  }
- function add_favourite($member_id,$product_id){
+ function add_favourite($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
         	
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
+						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'event'=>'favourite',
 			);
@@ -243,13 +246,14 @@ function add_review($member_id,$product_id){
         }
  }
  
- function add_rating($member_id,$product_id,$rating){
+ function add_rating($member_id,$product_id,$rating,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
         	
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
+						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'rating'=>$rating,
 			);
@@ -270,13 +274,14 @@ function update_rating($member_id,$product_id,$rating){
         }
  }
  
-function add_comment($member_id,$product_id,$comment){
+function add_comment($member_id,$product_id,$comment,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
         	$product_id=new MongoID($product_id);
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
+						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'comment'=>$comment,
 						  );

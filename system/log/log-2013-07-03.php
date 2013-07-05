@@ -13,3 +13,14 @@ ERROR - 2013-07-03 12:07:01 --> Severity: Notice  --> Undefined index: created_t
 ERROR - 2013-07-03 12:15:08 --> 404 Page Not Found --> home/delete_my_bankaccount
 ERROR - 2013-07-03 12:16:31 --> 404 Page Not Found --> home/delete_my_bankaccount
 ERROR - 2013-07-03 12:34:36 --> 404 Page Not Found --> home/edit_transaction_account
+ERROR - 2013-07-03 16:26:30 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:26:30 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:26:30 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:26:30 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:33:41 --> 404 Page Not Found --> member/51cad55b7be5da5815000021
+ERROR - 2013-07-03 16:35:17 --> 404 Page Not Found --> member/51cad55b7be5da5815000021
+ERROR - 2013-07-03 16:57:28 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:57:28 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:57:28 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 16:57:28 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 49
+ERROR - 2013-07-03 17:52:53 --> Severity: Notice  --> Undefined variable: get_products C:\wamp\www\3DCrossing\application\views\home\pg-member-profile.php 25

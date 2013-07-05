@@ -14,7 +14,11 @@
 <?php } ?>
 <?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="bankaccount") { ?>
 <legend><h2>Setup Bank Account</h2></legend>
- <form class="form-signin" method="POST" action="<?php echo base_url('home/setup_transaction_account/bankaccount'); ?>">        
+ <form class="form-signin" method="POST" 
+ <?php if ($this->uri->segment(4)!='') { ?>
+action="<?php echo base_url('home/setup_transaction_account/bankaccount/key'); ?>"
+<?php } ?>
+>        
         
         <?php if (isset($member_card_info['acount_number'])) {
         	$acount_number=$member_card_info['acount_number'];
@@ -32,6 +36,10 @@
           <?php if (isset($member_card_info['branch_name'])) {
         echo '<b>Branch:</b> '.$member_card_info['branch_name'];
         }?>
+        <?php if ($this->uri->segment(4)!='') { ?>
+        	<input type="hidden" name="index_value" value="<?php echo $this->uri->segment(4); ?>" >
+      <?php  } ?>
+        
         <label>Branch Name:</label><input type="text" value="<?php if (isset($member_card_info['branch_name'])) { echo $member_card_info['branch_name'];  } ?>" required="required" name="branch_name" id="branch_name" class="input-block-level" placeholder="Branch Name">
         <label>Branch Address:</label><input type="text" value="<?php if (isset($member_card_info['branch_address'])) { echo $member_card_info['branch_address'];  } ?>"  name="branch_address" required="required" class="input-block-level" placeholder="Branch Address">
         <label>Name on Account:</label><input type="text" value="<?php if (isset($member_card_info['account_title'])) { echo $member_card_info['account_title'];  } ?>"  name="account_title" required="required" class="input-block-level" placeholder="Account Title">
@@ -51,9 +59,9 @@
        <div class="controls">
          <select name="country" required id="country">
             <option value=""> Select Option </option>
-            <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='america') { echo 'selected';  } ?> value="america"> America </option>
-            <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='canada') { echo 'selected';  } ?> value="canada"> Canada </option>
-            <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='australia') { echo 'selected';  } ?> value="australia"> Australia </option>
+            <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='america') { echo 'selected';  } ?> value="america"> America </option>
+            <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='canada') { echo 'selected';  } ?> value="canada"> Canada </option>
+            <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='australia') { echo 'selected';  } ?> value="australia"> Australia </option>
          </select>
         </div>
         

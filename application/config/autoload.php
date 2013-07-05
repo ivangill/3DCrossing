@@ -121,7 +121,7 @@ $autoload['language'] = array();
   |
  */
 
-$autoload['model'] = array('global_settings','products','home_model');
+$autoload['model'] = array('global_settings','products','home_model','news_feed');
 
 
 /* End of file autoload.php */

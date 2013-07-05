@@ -1,6 +1,6 @@
 <?php
 $products=$this->products->get_one_best_seller();
-echo "<pre>"; print_r($products);
+//echo "<pre>"; print_r($products);
 //foreach($products as $p){
 //	$productid=$p['product_id'];
 //}
