@@ -10,19 +10,21 @@
     <?php echo $this->session->flashdata('response'); ?>
 
 <form class="form-search" method="POST" action="<?php echo base_url('administration/member_memberships/'); ?>" style="float: left;">
-  <label>Search By Name: </label><br />
   <input type="text" name="first_name" class="input-medium search-query" placeholder="First Name">
   <input type="text" name="last_name" class="input-medium search-query" placeholder="Last Name">
+  <input type="text" name="membership_id" class="input-medium search-query span3" placeholder="Membership ID">
+  <input type="date" name="payment_time" class="input-medium search-query span2" placeholder="Starting Date">
+  <input type="date" name="membership_ending_time" class="input-medium search-query span2" placeholder="Ending Date">
   <button type="submit" class="btn">Search</button>
 </form>
 
-
-<form class="form-search" method="POST" action="<?php echo base_url('administration/member_memberships/'); ?>" style="float: right;">
+<!--
+<form class="form-search" method="POST" action="<?php //echo base_url('administration/member_memberships/'); ?>" style="float: right;">
   <label>Search By Date: </label><br />
   <input type="date" name="payment_time" class="input-medium search-query span5" placeholder="Starting Date">
   <input type="date" name="membership_ending_time" class="input-medium search-query span5" placeholder="Ending Date">
   <button type="submit" class="btn">Search</button>
-</form>
+</form>-->
 
 
 
@@ -31,13 +33,14 @@
 
 
 
-<table class="table table-bordered table-striped">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   
+            <th>Membership ID</th> 
             <th>First Name</th> 
             <th>Last Name</th>  
             <th>Receipt Id</th>  
-            <th>Customer Id</th> 
+            <th>Stripe Id</th> 
             <th>Amount</th> 
             <th>Stripe Fee</th>
             <th>Currency</th> 
@@ -51,10 +54,11 @@
         
          <?php foreach($membersips as $memberhip) { ?> 
           <tr id="row_1">  
+            <td><?php echo $memberhip['_id']; ?></td>  
             <td><?php echo ucfirst($memberhip['first_name']); ?></td>  
             <td><?php echo ucfirst($memberhip['last_name']); ?></td>  
             <td><?php echo $memberhip['receipt_id']; ?></td>  
-            <td><?php echo $memberhip['customer_id']; ?></td>  
+            <td><?php echo $memberhip['customer_id_by_stripe']; ?></td>  
             <td><?php 
             $amount=($memberhip['amount'])/100; 
             echo $amount;

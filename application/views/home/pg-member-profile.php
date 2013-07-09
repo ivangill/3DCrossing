@@ -77,7 +77,7 @@ success: function()
 </div>
 <hr>
 <?php if ($this->uri->segment(1)=='member' && $this->uri->segment(2)=='profile') { ?>
-<span class="label"><a class="text-white" href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Products</a></span>&nbsp;
+<span class="label"><a class="text-white" href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
 
@@ -102,7 +102,7 @@ success: function()
             <?php } else { echo '<span class="label label-warning">No Products Found.</span>'; } ?>
           </div>
 <?php } elseif ($this->uri->segment(1)=='member' && $this->uri->segment(2)=='following') { ?>
-<span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Products</a></span>&nbsp;
+<span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span class="label"><a class="text-white" href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
 <div class="row-fluid">
@@ -135,7 +135,7 @@ success: function()
 </div>
 
 <?php } elseif($this->uri->segment(1)=='member' && $this->uri->segment(2)=='news_feed'){ ?>
-<span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Products</a></span>&nbsp;
+<span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>
 <span class="label"><a class="text-white" href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
 <div class="row-fluid">

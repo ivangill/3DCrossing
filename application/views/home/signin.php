@@ -1,6 +1,6 @@
 <?php $this->load->view( 'home/header.php' ); ?>
 
-
+<?php //echo $this->session->userdata('entered_email_for_login'); ?>
 <?php
 if ($error)
 {

@@ -201,7 +201,7 @@ class Home extends CI_Controller
 					} else {
 					$avatar=$image['file_name'];
 					}
-					}  		
+					}  	
     		$insert=array(
     			'email'=>$this->input->post('email'),
     			'password'=>md5($this->input->post( 'password' )),
@@ -307,6 +307,7 @@ class Home extends CI_Controller
 		$this->load->library('facebook', $fbinit_array);
 		
 		$fb_user = $this->facebook->getUser();
+		//var_dump($fb_user);
 		
 		if ($fb_user)
 		{
@@ -405,6 +406,7 @@ class Home extends CI_Controller
 		if($this->session->userdata('memberid')!="")
 				redirect('home/');
 		//$data=array();
+		//$this->session->unset_userdata('entered_email_for_login');
 		if($this->input->post('email')){
 			$email=$this->input->post('email');
 			$password=md5($this->input->post('password'));
@@ -415,6 +417,8 @@ class Home extends CI_Controller
 			
 			if($user==''){
 				$this->session->set_flashdata('response', '<div class="alert alert-error">Incorrect Username/Password or your Account has been deleted.</div>');
+				$this->session->set_userdata('entered_email_for_login',$email);
+				//echo $this->session->flashdata('entered_email');exit;
 				redirect('home/login');
 			} else {
 				$this->session->set_userdata("memberid",$userid);
@@ -556,6 +560,7 @@ class Home extends CI_Controller
 			$update_password = $this->home_model->update_password( $password,$id );
 			//var_dump($update_password);exit;
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Password has been updated.Kindly fill the form.</div>');
+			$this->session->unset_userdata('entered_email_for_login');
 			redirect('home/login','refresh');
 		}
 		
@@ -571,6 +576,7 @@ class Home extends CI_Controller
 			
 			if($user==''){
 				$this->session->set_flashdata('response', '<div class="alert alert-error">There is no accout for this email.Please Re-enter.</div>');
+				$this->session->unset_userdata('entered_email_for_login');
 				redirect('home/forgot_password');
 			} else {
 				
@@ -705,13 +711,22 @@ class Home extends CI_Controller
     }
     public function logout()
 	{
-		$this->session->unset_userdata("memberid");
+		//$this->session->unset_userdata("memberid");
 		
 		$this->session->sess_destroy();
+		$this->session->unset_userdata("memberid");
+		$fbinit_array = array(
+			'appId' => config_item('appId'),
+			'secret' => config_item('secret')
+		);		
+		$this->load->library('facebook', $fbinit_array);
+		
+		$this->facebook->destroySession();
+		
 		//$this->session->unset_userdata("user_name");
-		$this->cache->clean();
+		//$this->cache->clean();
 		//$this->chache->cache_delete_all();
-		redirect('home/login');
+		redirect('home/login','refresh');
 		
 	}
 	

@@ -35,20 +35,42 @@ class Administration extends CI_Model
                             ))
                             ->get_one('admin');
         }
-    } 
+    }
     
-    function search_members_by_name ($first_name='',$last_name='')
+    function get_admin_by_email ($email)
     {
         if (DBTYPE == 'mongo_db')
         {
-        	if ($first_name!='' && $last_name=='') {
+        	//$adminid=new MongoID($adminid);
+            return $this->mongo_db
+                            ->where(array(
+                                "email" => $email,
+                            ))
+                            ->get_one('admin');
+        }
+    }
+    
+    function update_admin_password ($data,$adminid )
+    {
+    	$adminid=new MongoID($adminid);
+    	$this->mongo_db->where(array('_id'=>$adminid));
+    	$this->mongo_db->set(array('password'=> $data['password']));
+        return $this->mongo_db->update('admin');
+    	
+    }
+    
+    function search_members_by_name ($first_name='',$last_name='',$account_id='')
+    {
+        if (DBTYPE == 'mongo_db')
+        {
+        	if ($first_name!='' && $last_name==''  && $account_id=='') {
         		
         		$this->mongo_db->where(array('deleted_status'=>0));
         		$this->mongo_db->where(array('twitter_account'=>''));
         		return $this->mongo_db
                             ->like('first_name', $first_name, 'm', true)
                             ->get('members');
-        	} elseif ($last_name!='' && $first_name==''){
+        	} elseif ($last_name!='' && $first_name=='' && $account_id==''){
         		
         		$this->mongo_db->where(array('deleted_status'=>0));
         		$this->mongo_db->where(array('twitter_account'=>''));
@@ -56,7 +78,7 @@ class Administration extends CI_Model
         		return $this->mongo_db
                             ->like('last_name', $last_name, 'm', true)
                             ->get('members');
-        	} elseif($last_name!='' && $first_name!='') {
+        	} elseif($last_name!='' && $first_name!='' && $account_id=='') {
         		$this->mongo_db->where(array('deleted_status'=>0));
         		$this->mongo_db->where(array('twitter_account'=>''));
         		$this->mongo_db->where(array('facebook_account'=>''));
@@ -64,7 +86,44 @@ class Administration extends CI_Model
         		$this->mongo_db->like('last_name', $last_name, 'm', true);
         		 return $this->mongo_db->get('members');
                          
-        	} else {
+        	} elseif ($last_name=='' && $first_name=='' && $account_id!='')
+        	{
+        		$account_id=new MongoID($account_id);
+        		$this->mongo_db->where(array('deleted_status'=>0));
+        		$this->mongo_db->where(array('twitter_account'=>''));
+        		$this->mongo_db->where(array('facebook_account'=>''));
+        		$this->mongo_db->where(array('_id'=>$account_id));
+        		return $this->mongo_db->get('members');
+        		
+        	} elseif ($last_name=='' && $first_name!='' && $account_id!='')
+        	{
+        		$account_id=new MongoID($account_id);
+        		$this->mongo_db->where(array('deleted_status'=>0));
+        		$this->mongo_db->where(array('twitter_account'=>''));
+        		$this->mongo_db->where(array('facebook_account'=>''));
+        		$this->mongo_db->where(array('_id'=>$account_id));
+        		return $this->mongo_db->get('members');
+        		
+        	} elseif ($last_name!='' && $first_name=='' && $account_id!='')
+        	{
+        		$account_id=new MongoID($account_id);
+        		$this->mongo_db->where(array('deleted_status'=>0));
+        		$this->mongo_db->where(array('twitter_account'=>''));
+        		$this->mongo_db->where(array('facebook_account'=>''));
+        		$this->mongo_db->where(array('_id'=>$account_id));
+        		return $this->mongo_db->get('members');
+        		
+        	} elseif ($last_name!='' && $first_name!='' && $account_id!='')
+        	{
+        		$account_id=new MongoID($account_id);
+        		$this->mongo_db->where(array('deleted_status'=>0));
+        		$this->mongo_db->where(array('twitter_account'=>''));
+        		$this->mongo_db->where(array('facebook_account'=>''));
+        		$this->mongo_db->where(array('_id'=>$account_id));
+        		return $this->mongo_db->get('members');
+        		
+        	}
+        	 else {
         		$this->mongo_db->where(array('deleted_status'=>0));
         		$this->mongo_db->where(array('twitter_account'=>''));
         		$this->mongo_db->where(array('facebook_account'=>''));

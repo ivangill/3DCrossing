@@ -39,8 +39,7 @@
        <a href="<?php echo base_url(); ?>administration/content"><button style="float: left;margin-left: 10px;margin-top: -19px;" class="btn btn-large btn-primary" type="Cancel">Cancel</button><a/>
 <?php } else { ?>
 
-
-<table class="table table-bordered table-striped">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   
             <th>Page Title</th>  

@@ -1,22 +1,59 @@
 <?php $this->load->view( 'admin/shared/header' ); ?>
 
+
 <section id="products">
- <h2 class="withbtn">Products</h2>
+ <legend><h2 class="withbtn">Products</h2></legend>
+ <div class="span12 pull-left">
+ <form class="form-search" method="POST" action="<?php echo base_url('administration/all_products/'); ?> ">
+ <!-- <label>Filter by Category: </label><br />-->
+  <input type="text" name="product_id" class="input-medium search-query" placeholder="Product ID">
+  <input type="text" name="owner_id" class="input-medium search-query" placeholder="Owner ID">
+  <button type="submit" class="btn">Search</button>
+</form>
  
- <form class="form-search" method="POST" action="<?php echo base_url('administration/all_products/'); ?> " style="float: left;">
+ </div>
+ <!-- <div class="span12">
+<form class="form-search" method="POST" action="<?php //echo base_url('administration/all_products/'); ?> " style="float: left;">
   <label>Filter by Category: </label><br />
    <select name="product_category" required="required">
          	<option value="">Select Category</option>
          	<option value="all">All Products</option>
-         	<?php foreach ($get_product_categories as $product_category){ ?>
-         	<option  value="<?php echo $product_category['slug']; ?>"><?php echo ucfirst($product_category['cat_name']); ?></option>
-         	<?php } ?>
+         	<?php //foreach ($get_product_categories as $product_category){ ?>
+         	<option  value="<?php //echo $product_category['slug']; ?>"><?php //echo ucfirst($product_category['cat_name']); ?></option>
+         	<?php //} ?>
    </select>
   <button type="submit" class="btn">Search</button>
 </form>
-<table class="table table-bordered table-striped">
+
+</div>-->
+
+<div class="row-fluid">
+<div class="span2 pull-left">
+<h3>Category</h3>
+<ul class="nav">
+<li class="dropdown"><a href="<?php echo base_url('administration/all_products/'); ?>">All Products</a></li>
+<?php foreach ($get_product_categories as $category){ ?>
+<li class="dropdown"><a href="<?php echo base_url('administration/all_products/product_category/'.$category['slug']); ?>"><?php echo $category['cat_name']; ?></a></li>
+<?php } ?>
+</ul>
+<hr>
+<h3>Designers</h3>
+<ul class="nav">
+<?php foreach ($get_five_designers as $designer){ ?>
+<li class="dropdown"><a href="<?php echo base_url('administration/all_products/by_designers/'.$designer['_id']); ?>"><?php echo ucfirst($designer['first_name'])." ".ucfirst($designer['last_name']); ?></a></li>
+<?php } ?>
+
+
+</li>
+</ul>
+
+</div>
+ <div class="span10"> 
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   
+            <th>Product ID</th>  
+            <th>Owner ID</th>  
             <th>Name</th>  
             <th>Deatil</th> 
             <th>Creation Date</th> 
@@ -28,6 +65,8 @@
         
          <?php foreach($get_products as $product) { ?> 
           <tr id="row_1">  
+            <td><?php echo $product['_id']; ?></td>  
+            <td><?php echo $product['member_id']; ?></td>  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php echo ucfirst($product['product_details']); ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
@@ -43,6 +82,8 @@
     
          </tbody>
 	</table>
-
+</div>
+</div>
 </section>
+
  <?php $this->load->view( 'admin/shared/footer' ); ?>

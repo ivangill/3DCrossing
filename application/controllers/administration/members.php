@@ -23,8 +23,10 @@ class Members extends CI_Controller
     	if ($this->input->post()) {
     		$first_name=$this->input->post('first_name');
     		$last_name=$this->input->post('last_name');
+    		echo $account_id=$this->input->post('account_id');
     		//echo $last_name;exit;
-    		$data['members']=$this->administration->search_members_by_name($first_name,$last_name);
+    		$data['members']=$this->administration->search_members_by_name($first_name,$last_name,$account_id);
+    		//var_dump($this->mongo_db->last_query());
     	} else {
     		$data['members']=$this->administration->search_members_by_name();
     		}

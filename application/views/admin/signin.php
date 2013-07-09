@@ -15,10 +15,10 @@
 <?php echo $this->session->flashdata('response'); ?>
 <!-- /Notification -->
 
-<input type="text" name="username" value="" required="required" id="username" class="input-block-level" placeholder="Email Username"><input type="password" required="required" name="password" value="" id="password" class="input-block-level" placeholder="Password"><div class="row-fluid">
-    <div class="span12"><button type="submit" class="btn btn-primary">Login</button>
-    </div>
-</div>
+<input type="text" name="username" value="" required="required" id="username" class="input-block-level" placeholder="Email Username"><input type="password" required="required" name="password" value="" id="password" class="input-block-level" placeholder="Password">
+    <button type="submit" class="btn btn-primary">Login</button>
+<a href="<?php echo base_url('administration/login/forgot_password'); ?>">Forgot Password?</a>
+
 </form><!-- /Login Form -->
 
 </div>

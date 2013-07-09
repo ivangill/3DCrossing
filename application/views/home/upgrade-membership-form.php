@@ -4,13 +4,13 @@
 <legend><h2 class="form-signin-heading">Purchase Summary.</h2></legend>
       <form class="form-signin" method="POST" action="<?php echo base_url('upgrade/upgrade_membership'); ?>" autocomplete="off">
       
-      <div style="margin-top:20px;"><?php echo $this->session->flashdata('response'); ?>  </div>
+      <?php echo $this->session->flashdata('response'); ?>
 
         
-        <h5 class="form-signin-heading">You are purchasing a <?php echo strtoupper($this->uri->segment(3)); ?> account.</h5>
+        <div class="span12">You are purchasing a <b><?php echo strtoupper($this->uri->segment(3)); ?></b> account.</div>
         
-        <label>First Name:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-         <label>Last Name:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
+        <label>First Name on Credit Card:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
+         <label>Last Name on Credit Card:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
          <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
         <label class="control-label" for="select01">Expiry Date</label>
        <div class="controls">

@@ -5,7 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Arfeen Arif -- arfeen@pwoxisolutions.com">
+         <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
+         	
+  
         <!-- Le styles -->
        <?php echo add_style('bootstrap.css'); ?>
        <?php echo add_style('style.css'); ?>
@@ -53,5 +56,8 @@ tinyMCE.init({
     });
   });
 </script>
+
+
+
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
     </head>

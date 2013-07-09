@@ -4,7 +4,7 @@
  <h2 class="withbtn">Sold Products</h2>
  
  <form class="form-search" method="POST" action="<?php echo base_url('administration/all_products/'); ?> " style="float: left;">
-  <label>Filter by Category: </label><br />
+  <!--<label>Filter by Category: </label><br />
    <select name="product_category" required="required">
          	<option value="">Select Category</option>
          	<option value="all">All Products</option>
@@ -12,9 +12,9 @@
          	<option  value="<?php //echo $product_category['slug']; ?>"><?php //echo ucfirst($product_category['cat_name']); ?></option>
          	<?php //} ?>
    </select>
-  <button type="submit" class="btn">Search</button>
+  <button type="submit" class="btn">Search</button>-->
 </form>
-<table class="table table-bordered table-striped">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   
             <th>Buyer ID</th>  

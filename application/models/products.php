@@ -102,6 +102,17 @@ class Products extends CI_Model
         }
     }
     
+    function get_all_products_by_id_for_backend ($product_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$product_id=new MongoID($product_id);
+        	$this->mongo_db->where(array('_id'=>$product_id));
+            return $this->mongo_db->get('products');
+        }
+    	
+    }
+    
     function get_products_by_memberid ($memberid)
     {
     	

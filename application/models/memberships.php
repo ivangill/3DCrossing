@@ -31,6 +31,17 @@ class Memberships extends CI_Model
     	
     }
     
+     function search_member_memberships_by_id ($id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$id=new MongoID($id);
+        	$this->mongo_db->where(array('_id' => $id));
+            return $this->mongo_db->get('memberships');
+        }
+    	
+    }
+    
     function add_credit_card_info($data)
     {
     	

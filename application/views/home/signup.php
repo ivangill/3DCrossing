@@ -55,18 +55,20 @@ function changeText2(){
       <form class="form-signin" method="POST" action="<?php echo base_url('home/signup'); ?>" enctype="multipart/form-data">
         
          <label>Email:</label><input type="email" required="required" name="email" id="email" class="input-block-level" placeholder="Email address">
-        <label>Password:</label> <input type="password" required="required" name="password" id="password" class="input-block-level" placeholder="Password">
-        <button class="btn btn-large btn-primary" type="Sign up" onclick="changeText2()">Sign up</button>
+        <label>Password: (Minimum of 8+chars, Min 1 Numeric, Min 1 Alpha, Min 1 Capital Letter)</label> <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" title="Minimum of 8+chars, Min 1 Numeric, Min 1 Alpha, Min 1 Capital Letter" required="required" name="password" id="password" class="input-block-level" placeholder="Password">
+        <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" name="avatar">
+       <label>Upload Avatar (Max Size: 500 x 500)</label>
+       <!-- <button class="btn btn-large btn-primary" type="Sign up" onclick="changeText2()">Sign up</button>-->
 
-    </div> <!-- /container -->
+    <!--</div>  /container -->
 
-  <div style="display:none;" id="contact_div_2">
-      	<label>Email:</label><input type="email" required="required" name="emaill" id="emaill" class="input-block-level" value="" readonly>
+  <!--<div style="display:none;" id="contact_div_2">-->
+  
+      <!--	<label>Email:</label><input type="email" required="required" name="emaill" id="emaill" class="input-block-level" value="" readonly>-->
          <label>First Name:</label><input type="text"  name="first_name" required="required" class="input-block-level" placeholder="First Name">
          <label>Last Name:</label><input type="text"  name="last_name" required="required" class="input-block-level" placeholder="Last Name">
          <label>About Me:</label><input type="text"  name="about_me" required="required" class="input-block-level" placeholder="About Me">
-         <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" name="avatar">
-       <label>Upload Avatar (Max Size: 500 x 500)</label> <button class="btn btn-large btn-primary" type="Finish">Finish</button>
+          <button class="btn btn-large btn-primary" type="Finish">Finish</button>
       </form>
       
       

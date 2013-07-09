@@ -36,7 +36,12 @@ class Member_Memberships extends CI_Controller
     		//var_dump($start_date);exit;
     		$data['membersips']=$this->memberships->search_member_memberships_by_date($start_date,$end_date);
     		//var_dump($data['membersips']);exit;
-    	}else {
+    	} elseif($this->input->post('membership_id')){
+    		$id=$this->input->post('membership_id');
+    		$data['membersips']=$this->memberships->search_member_memberships_by_id($id);
+    		
+    	}
+    	else {
     		$data['membersips']=$this->memberships->search_member_memberships_by_member_name();
     		}
     	

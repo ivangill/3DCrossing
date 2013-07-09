@@ -68,6 +68,57 @@ class Login extends CI_Controller
 		}
 		
 	}
+	
+	public function forgot_password()
+	{
+		if ($this->input->post('password')) {
+			$admin_id=$this->input->post('adminid');
+			//echo $password=md5($this->input->post('password'));
+			//unset($this->input->post('confirm_password'));
+			$password=array('password'=>$password);
+			$update_password = $this->administration->update_admin_password( $password,$admin_id );
+			//var_dump($update_password);exit;
+			$this->session->set_flashdata('response', '<div class="alert alert-success">Password has been updated successfully.</div>');
+			//$this->session->unset_userdata('entered_email_for_login');
+			redirect('administration/login','refresh');
+		}
+		
+		if($this->input->post('email')){
+			$email=$this->input->post('email');
+			
+			$get_admin=$this->administration->get_admin_by_email($email);
+			$admin_id=$get_admin['_id'];
+			$admin_username=$get_admin['username'];
+			$admin_password=$get_admin['password'];
+			$admin_email=$get_admin['email'];
+			
+			
+			if($get_admin==''){
+				$this->session->set_flashdata('response', '<div class="alert alert-error">There is no accout for this email.Please Re-enter.</div>');
+				//$this->session->unset_userdata('entered_email_for_login');
+				redirect('administration/login/forgot_password');
+			} else {
+				
+				
+			$mail_body="Hello $admin_username,<br/><br/>";
+			$mail_body.="To change password for 3DCrossing Account, click this link  :
+			<a target='_blank' href='http://localhost/3DCrossing/administration/login/forgot_password/$admin_id'>Click Here</a><br/><br/>";
+			//echo $mail_body;
+			//var_dump($mail_body);exit;
+			$this->email->from('noreply@3dcrossing.com');
+			$this->email->to($admin_email);
+			$this->email->subject('3D Crossing Account Password');
+			$this->email->message($mail_body);
+			$this->email->send();
+			echo $this->email->print_debugger();
+	
+			$this->session->set_flashdata('response', '<div class="alert alert-success">Link has been sent to your email address.</div>');
+			redirect('administration/login');
+			}
+		}
+		
+		$this->load->view('admin/forgot-password');
+	}
 
     public function logout()
 	{

@@ -127,11 +127,13 @@ class Upgrade extends CI_Controller
 								);*/
 								
 			//$insert = array("cards" => $membership_info);
-			
+			$get_member=$this->home_model->get_member( $this->session->userdata("memberid") );
+			$first_name=$get_member['first_name'];
+			$last_name=$get_member['last_name'];
 			
 			if ($paid_status=='1' || $card_charge['failure_message']="" || $card_charge['failure_code']="") {
 				
-					if ($member=="") {
+					if ($get_member=="") {
 				
 				$cards = array ("customer_id" => $customer_id, 
 							"name" => $customer_name,
@@ -143,8 +145,12 @@ class Upgrade extends CI_Controller
 							);
 			
 			//$card_info = array("cards" => $membership_info);
+			
+			
 			$cards=array(0=>$cards);
 			$membership_info=array(	'memberid'=>$this->session->userdata("memberid"),
+									'first_name'=>$first_name,
+									'last_name'=>$last_name,
 									'cards'=>$cards,
 									'receipt_id'=>$stripe_id,
 									'amount'=>$stripe_amount,
