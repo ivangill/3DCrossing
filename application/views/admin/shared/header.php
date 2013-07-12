@@ -10,17 +10,17 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="<?php echo base_url(); ?>administration/cpanel">3D Crossing</a>
-                    <div class="btn-group pull-right">
+                   <!-- <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" >
                             <i class="icon-user"></i>&nbsp;Super Admin&nbsp;
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url('administration/settings'); ?>">My Settings</a></li>
+                            <li><a href="<?php //echo base_url('administration/settings'); ?>">My Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo base_url('administration/login/logout'); ?>">Logout</a></li>
+                            <li><a href="<?php //echo base_url('administration/login/logout'); ?>">Logout</a></li>
                         </ul>
-                    </div>
+                    </div>-->
                     
    
         <style>
@@ -48,7 +48,8 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
                         <li><a href="<?php echo base_url('administration/cpanel'); ?>">Payments</a></li>
                         <li><a href="<?php echo base_url('administration/all_products'); ?>">Products</a></li>
                         <li><a href="<?php echo base_url('administration/sold_products'); ?>">Sold Products</a></li>
-                        <li><a href="<?php echo base_url('administration/settings'); ?>">Admin Profile</a></li>
+                        <li><a href="<?php echo base_url('administration/settings'); ?>">Admin Settings</a></li>
+                        <li><a href="<?php echo base_url('administration/admin_profiles'); ?>">Admin Profiles</a></li>
                         <li><a href="<?php echo base_url('administration/newsletters'); ?>">Newsletter</a></li>
                          <li class="dropdown" id="accountmenu">
                           <a class="dropdown-toggle"href="#">Global Settings</a>

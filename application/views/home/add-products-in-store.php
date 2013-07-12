@@ -5,11 +5,9 @@
  <h3>My Products</h3>
  
  <div class="pull-right">
- <button class="btn btn-primary" type="button">
-	<a href="<?php echo base_url('store/'); ?>" style="color:white;">Back to My Store</a></button>
+	<a class="btn btn-primary" href="<?php echo base_url('store/'); ?>" style="color:white;">Back to My Store</a>
 	
-	<button class="btn btn-primary" type="button">
-	<a href="<?php echo base_url('store/my_products/add'); ?>" style="color:white;">Add New Product</a></button>
+	<a class="btn btn-primary" href="<?php echo base_url('store/my_products/add'); ?>" style="color:white;">Add New Product</a>
 	
  </div>&nbsp;
  <div class="pull-left">
@@ -71,7 +69,15 @@
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php echo substr($product['product_details'],0,120)."...."; ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
-            <td><?php echo img_tag($product['product_img'],"style='height:50px;width: 70px;'"); ?></td>  
+            <td><?php 
+            if (isset($product['product_img'])) {
+           // if (isset($product['product_img']) && file_exists($product['product_img'])) {
+            	echo img_tag($product['product_img'],"style='height:50px;width: 70px;'");
+            } else {
+            	echo img_tag('icons/no-image-found.jpg',"style='height:50px;width: 70px;'");
+            }
+            
+             ?></td>  
             <td><?php echo ucfirst($product['product_category']); ?></td>
             
             <td>
@@ -112,8 +118,8 @@ function calculateAmount(){
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
        <label>Product Name:</label><input type="text" required="required" name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
        <label>Product Price: </label>
-       <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_price'])) echo $get_single_product['product_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
-       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner" id="price_paid_to_owner" id="product_price" class="input-block-level" >
+       <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
+       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
         <label>Product Description:</label>
         <textarea name="product_details" placeholder="Product Details"><?php if(isset($get_single_product['product_details'])) echo $get_single_product['product_details'] ?></textarea>
         <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required="required" class="input-block-level" placeholder="Product Details">
@@ -121,7 +127,9 @@ function calculateAmount(){
         <select name="product_category" required="required">
          	<option value="">Select Category</option>
          	<?php foreach ($get_product_categories as $product_category){ ?>
-         	<option  value="<?php echo $product_category['slug']; ?>"><?php echo ucfirst($product_category['cat_name']); ?></option>
+         	<option <?php if ($this->uri->segment(3)!='add' && $get_single_product['product_category']==$product_category['slug']) { echo "selected";
+         		
+         	} ?> value="<?php echo $product_category['slug']; ?>"><?php echo ucfirst($product_category['cat_name']); ?></option>
          	<?php } ?>
          </select>
         <label>Product Image:</label>

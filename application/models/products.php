@@ -46,11 +46,21 @@ class Products extends CI_Model
         }
     }
     
+    function get_featured_products ()
+    {
+    	
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('featured'=>'yes'));
+            return $this->mongo_db->get('products');
+        }
+    	
+    }
     function get_all_products_for_admin_side()
     {
     	 if (DBTYPE == 'mongo_db')
         {
-        
+        	$this->mongo_db->order_by(array('featured'=>'yes'));
             return $this->mongo_db->get('products');
         }
     }
@@ -61,6 +71,28 @@ class Products extends CI_Model
         
             return $this->mongo_db->get('product_buy');
         }
+    }
+    function update_product_feature_to_yes ($product_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+    	 $product_id=new MongoID($product_id);
+         $this->mongo_db->where(array('_id'=>$product_id));
+         $this->mongo_db->set(array('featured'=>'yes'));
+         return $this->mongo_db->update('products');
+        }
+    	
+    }
+    function update_product_feature_to_no ($product_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+    	 $product_id=new MongoID($product_id);
+         $this->mongo_db->where(array('_id'=>$product_id));
+         $this->mongo_db->set(array('featured'=>'no'));
+         return $this->mongo_db->update('products');
+        }
+    	
     }
     function filter_products_by_category_for_adminside ($product_category)
     {

@@ -736,7 +736,7 @@ class Home extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
 		}
-		$page=$this->uri->segment(3);
+		echo $page=$this->uri->segment(1);exit;
 		$data['my_page'] = $this->content_pages->get_page_by_url( $page );
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
@@ -780,13 +780,14 @@ class Home extends CI_Controller
 			
 			$info=json_decode($this->stripe->customer_create($values,$email),TRUE);
 			//var_dump($info);
-			//$info['error']='';
-			if ($info['error']) {
+			
+			if (isset($info['error'])) {
 				$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
+				//var_dump($info['error']);exit;
 				redirect('home/my_payment_account','refresh');
+				
 			}
 			else {
-			
 			$customer_id=$info['id'];
 			$customer_name=$info['active_card']['name'];
 			$card_type=$info['active_card']['type'];

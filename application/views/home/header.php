@@ -11,6 +11,9 @@
         <!-- Le styles -->
         <?php echo add_style('bootstrap.css'); ?>
         <?php echo add_style('style.css'); ?>
+        <?php echo add_style('jquery.flipster.css'); ?>
+        <?php //echo add_style('bootstrap-combined.min.css'); ?>
+       
 <?php $this->load->view( 'home/header_inc.php' ); ?>
 
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />

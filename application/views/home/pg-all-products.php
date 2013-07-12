@@ -37,16 +37,23 @@
 
 </div>
 <div class="span8">
-		  <div class="row-fluid">
+		  <div>
 		  <?php if (count($get_products) > 0) { ?>
             <ul class="thumbnails">
 		<?php 
 		
 		foreach ($get_products as $products){ ?>
-             <li class="span3">
+             <li class="span3" style="float:left;margin-left:0px;margin-right:8px;">
 				<div class="thumbnail">
 					  <a href="<?php echo base_url('shop/product_detail/'.$products['_id']); ?>" style="width: 300px; height: 200px;">
-	                    <?php echo img_tag($products['product_img'],'style="height:200px;width: 300px;"'); ?>
+	                    <?php 
+	                   // if (isset($products['product_img']) && file_exists($products['product_img'])) {
+	                    if (isset($products['product_img'])) {
+	                    echo img_tag($products['product_img'],'style="height:200px;width: 300px;"');	
+	                    } else {
+	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
+	                    }
+	                     ?>
 	                    <h4> <?php echo $products['product_name'];  ?></h4>
 	                    
 	                  </a>

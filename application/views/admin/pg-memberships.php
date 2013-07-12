@@ -55,8 +55,16 @@
          <?php foreach($membersips as $memberhip) { ?> 
           <tr id="row_1">  
             <td><?php echo $memberhip['_id']; ?></td>  
-            <td><?php echo ucfirst($memberhip['first_name']); ?></td>  
-            <td><?php echo ucfirst($memberhip['last_name']); ?></td>  
+            <td><?php 
+            if (isset($memberhip['first_name'])) {
+            	 echo ucfirst($memberhip['first_name']);
+            }
+            ?></td>  
+            <td><?php
+            if (isset($memberhip['last_name'])) {
+            	echo ucfirst($memberhip['last_name']);
+            }
+             ?></td>  
             <td><?php echo $memberhip['receipt_id']; ?></td>  
             <td><?php echo $memberhip['customer_id_by_stripe']; ?></td>  
             <td><?php 

@@ -56,6 +56,8 @@ class Shop extends CI_Controller
 			$data['get_widget_four']=$this->global_settings->get_widget_four();
 			$data['get_widget_five']=$this->global_settings->get_widget_five();
 			//var_dump($data['get_widget_one']);exit;
+			$data['get_featured_products']=$this->products->get_featured_products();
+			
 			$data['site_title']='/Shop';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
@@ -338,6 +340,19 @@ class Shop extends CI_Controller
 		
     }
     
+    function download_product()
+    {
+    	$product_id=$this->uri->segment(3);
+    	$get_product = $this->products->get_product_by_id( $product_id );
+    	$product_img=$get_product['product_img'];
+    	$this->load->helper('download_helper');
+    	$data = file_get_contents("http://3dcrossing.aws.af.cm/assets/images/".$product_img); // Read the file's contents
+		//$name = 'myphoto.jpg';
+		//var_dump($data);exit;
+
+		force_download($product_img, $data);
+    }
+    
     function send_to_friend()
     {
     	if ($this->input->post('email_one')) {
@@ -509,7 +524,7 @@ class Shop extends CI_Controller
 				
 				$info=json_decode($this->stripe->customer_create($values,$email),TRUE);
 				//$info['error']='';
-				if ($info['error']) {
+				if (isset($info['error'])) {
 					//echo "error";exit;
 					$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
 					redirect('shop/buy/'.$product_id,'refresh');
@@ -548,6 +563,12 @@ class Shop extends CI_Controller
 									'buy_time'=>time(),
 									'stripe_processing_time'=>time()+604800,
 									'deleted_status'=>0,
+									'billing_street_address'=>$street_address,
+									'billing_country'=>$country,
+									'billing_state'=>$state,
+									'billing_city'=>$city,
+									'billing_zip'=>new MongoInt32($zip_code),
+									'billing_phone'=>new MongoInt32($phone),
 								);	
 					
 					

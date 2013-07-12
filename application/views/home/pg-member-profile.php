@@ -43,11 +43,14 @@ success: function()
 <div class="row-fluid">
 	<div class="span3" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;">
 	<?php 
+	$path='http://localhost/3DCrossing/assets/images/'.$get_member_profile['avatar'];
+	
 	if (isset($get_member_profile['avatar'])) {
 	echo img_tag($get_member_profile['avatar'], 'style="height:110px;width:100px;"');  
-	} else {
+	}else {
 	echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:100px;"'); 
 	}
+	
 	?>
 	<div class="span6 pull-right"><h4><?php echo ucfirst($get_member_profile['first_name'])." ".ucfirst($get_member_profile['last_name']); ?></h4>
 	<?php if ($this->session->userdata("memberid")!=$this->uri->segment(3)) { ?> 
@@ -70,7 +73,9 @@ success: function()
 	
 	<div class="span2" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:10px;height: 128px;">
 	<h4>About Me:</h4>
-	<?php echo ucfirst($get_member['about_me']); ?>
+	<?php if (isset($get_member['about_me'])) { $about_me= ucfirst($get_member['about_me']);
+		echo substr($about_me,0,80).' ...';
+	} ?>
 	</div>
 	
 	
@@ -119,6 +124,7 @@ success: function()
             
         <?php   
         	if (isset($get_member['avatar'])) {
+        	//if (isset($get_member['avatar']) && file_exists($get_member['avatar'])) {
 			echo img_tag($get_member['avatar'], 'style="height:110px;width:90px;"');  
 			} else {
 			echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:90px;"'); 

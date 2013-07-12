@@ -48,6 +48,52 @@
 </ul>
 
 </div>
+
+<script type="text/javascript">
+function featureProduct(){
+	var userInput = document.getElementById('feature').value;
+	var myData = 'feature='+userInput;
+	//alert(userInput);exit;
+$.ajax
+({
+type: "POST",
+url: "<?php echo site_url('administration/all_products/index')?>", //=> Controller function call
+data: myData,
+cache: false,
+async:false,
+success: function()
+	{    
+		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
+		document.getElementById('feature').value='';
+		document.getElementById('feature').innerHTML='Featured Successfully';
+		return false;
+       }
+});
+}
+
+function UnfeatureProduct(){
+	var userInput = document.getElementById('unfeature').value;
+	var myData = 'unfeature='+userInput;
+	//alert(myData);
+$.ajax
+({
+type: "POST",
+url: "<?php echo site_url('administration/all_products/index')?>", //=> Controller function call
+data: myData,
+cache: false,
+async:false,
+success: function()
+	{    
+		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
+		document.getElementById('feature').value='';
+		document.getElementById('unfeature').innerHTML='UnFeatured Successfully';
+		return false;
+       }
+});
+}
+
+</script>
+
  <div class="span10"> 
 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
@@ -65,7 +111,14 @@
         
          <?php foreach($get_products as $product) { ?> 
           <tr id="row_1">  
-            <td><?php echo $product['_id']; ?></td>  
+            <td><?php 
+            $pid=$product['_id'];
+            echo $pid; 
+            if (isset($product['featured']) && $product['featured']=='yes') { ?>
+            	<button class="badge badge-success" value="<?php echo $pid ?>" id="unfeature" onclick="UnfeatureProduct();">Featured</span>
+        <?php    } else { ?>
+            	<button class="badge badge-info" value="<?php echo $pid ?>" id="feature" onclick="featureProduct();">Feature Product</button>
+         <?php   } ?></td>  
             <td><?php echo $product['member_id']; ?></td>  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php echo ucfirst($product['product_details']); ?></td> 

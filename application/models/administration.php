@@ -36,6 +36,14 @@ class Administration extends CI_Model
                             ->get_one('admin');
         }
     }
+    function get_all_admins ()
+    {
+        if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('deleted_status'=>0));
+            return $this->mongo_db->get('admin');
+        }
+    }
     
     function get_admin_by_email ($email)
     {
@@ -207,18 +215,23 @@ class Administration extends CI_Model
     } 
 
     
-    function update_admin ($data,$adminid)
+    function update_admin ($data,$adminid='')
     {
     	
     	
         if (DBTYPE == 'mongo_db')
         {
-    	    $id=new MongoID($adminid);
+        	if ($adminid!='') {
+        		
+    	    $adminid=new MongoID($adminid);
         	$this->mongo_db->where(array('_id'=>$adminid));
         	$this->mongo_db->set(array('email'=> $data['email'],
-        							   'username'=> $data['username'],
-        							   'password'=> $data['password']));
+        							   'name'=> $data['name'],
+        							   'username'=> $data['username']));
             return $this->mongo_db->update('admin');
+        	} else {
+        	return $this->mongo_db->insert('admin',$data);
+        	}
         }
     }  
     
@@ -231,6 +244,17 @@ class Administration extends CI_Model
     	    $id=new MongoID($id);
     	    $this->mongo_db->where(array('_id'=>$id));
         	 return $this->mongo_db->set(array("deleted_status" => 1))->update('members');
+        }
+    }
+    function delete_admin ($id)
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+    	    $id=new MongoID($id);
+    	    $this->mongo_db->where(array('_id'=>$id));
+        	 return $this->mongo_db->set(array("deleted_status" => 1))->update('admin');
         }
     } 
     

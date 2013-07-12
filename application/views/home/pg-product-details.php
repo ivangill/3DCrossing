@@ -73,7 +73,14 @@ class="twitter-share-button"></a>
 <div class="nav-collapse collapse">
 			
                 <div class="span8" style="height: 490px;border:1px solid grey;">
-                <?php echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"'); ?>
+                <?php 
+                if (isset($get_product_by_id['product_img'])) {
+             //   if (isset($get_product_by_id['product_img']) && file_exists($product['product_img'])) {
+                	 echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"');
+                } else {
+                	echo img_tag('icons/no-image-found.jpg', 'style="height:490px;"');
+                }
+                ?>
                 </div>
                
                 
@@ -139,7 +146,7 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 	                	<a href="" style="color:white;">Commosion Designer</a>
 	                </button></div>
 	                <?php 
-	                if (isset($get_product_creator['avatar']) && $get_product_creator['avatar']!='') {
+	                if (isset($get_product_creator['avatar']) && file_exists($get_product_creator['avatar'])) {
 	                echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 
 	                } else {
 	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
@@ -151,7 +158,7 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
                  <?php if (isset($get_product_by_id['offer_download']) && $get_product_by_id['offer_download']=='on') { ?>
                  <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>Make it yourself</h3>
 	                <div class="span3" style="margin-bottom:5px;"><button class="btn btn-primary" type="button">
-	                	<a href="" style="color:white;">Download</a>
+	                	<a href="<?php echo base_url('shop/download_product').'/'.$get_product_by_id['_id']; ?>" style="color:white;">Download</a>
 	                </button></div>
                 </div>
                 <?php } ?>
@@ -275,7 +282,13 @@ success: function()
 		<li class="dropdown">
 		<?php $memberid=$comment['memberid'];
 			$members= $this->home_model->get_member( $memberid );
-			echo "<u>".ucfirst($members['first_name'])." ".ucfirst($members['last_name']).":</u>";
+			if (isset($members['avatar'])) {
+			//if (isset($members['avatar'])  && file_exists($members['avatar'])) {
+			echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');
+			} else {
+			echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	
+			}
+			echo ' '."<u>".ucfirst($members['first_name'])." ".ucfirst($members['last_name']).":</u>";
 		?>
 		<?php $time=time()-$comment['time'];
 		//echo $time;

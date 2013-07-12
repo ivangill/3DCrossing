@@ -13,12 +13,24 @@
 </div> <!-- /end container-fluid -->
 <div class="clearfix"></div>
                     <hr>            
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=432731593491158";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <footer>
+
 <?php foreach ($footer_links as $link){ ?>
 <p style="text-align:center;">
-<div class="span2" style="text-align: center;"><a href="<?php echo base_url('home/content'); ?><?php echo "/".$link['url'];  ?>"><?php echo $link['page_title']; ?></a></div></p>
+<div class="span2" style="text-align: center;"><a href="<?php echo base_url('content'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></div></p>
 <?php } ?>
-                <br /><p style="text-align:center;">Copyright (c) 2013, 3D Crossing. All rights reserved.</p> 
+<div class="span4">
+<div class="fb-like" data-href="http://3dcrossing.aws.af.cm/" data-send="true" data-width="450" data-show-faces="true"></div>
+</div>
+                <p style="text-align:center;">Copyright (c) 2013, 3D Crossing. All rights reserved.</p> 
             </footer>
    </div>
         <!-- Le javascript
@@ -27,6 +39,9 @@
        
         <?php echo add_jscript('bootstrap.js'); ?>
         <?php echo add_jscript('script.js'); ?>
+        <?php echo add_jscript('jquery.flipster.js'); ?>
+       
+        <?php //echo add_jscript('script.js'); ?>
         <?php //echo add_jscript('jquery.raty.min.js'); ?>
         <?php //echo add_jscript('bootstrap-scrollspy.js'); ?>
 

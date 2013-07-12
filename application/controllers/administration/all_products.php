@@ -25,6 +25,16 @@ class All_Products extends CI_Controller
     		//echo $last_name;exit;
     		$data['get_products']=$this->products->filter_products_by_category_for_adminside($product_category);
     	} else {*/
+    	if ($this->input->post('feature')) {
+    		$productid=$this->input->post('feature');
+    		$this->products->update_product_feature_to_yes($productid);
+    		exit;
+    	}
+    	if ($this->input->post('unfeature')) {
+    		$productid=$this->input->post('unfeature');
+    		$this->products->update_product_feature_to_no($productid);
+    		exit;
+    	}
     	if ($this->input->post('product_id')) {
     		$product_id=$this->input->post('product_id');
     		//echo $last_name;exit;

@@ -70,7 +70,7 @@ class Upgrade extends CI_Controller
 			$info=json_decode($this->stripe->customer_create($values,$email),TRUE);
 			$customer_name=$info['active_card']['name'];
 			
-			if ($info['error']) {
+			if (isset($info['error'])) {
 				$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
 			}
 			else {

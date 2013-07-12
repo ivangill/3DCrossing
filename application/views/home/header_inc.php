@@ -1,5 +1,7 @@
-
  <?php echo add_jscript('libs/jquery.js'); ?> 
+ <?php echo add_jscript('nod.js'); ?>
+ 
+
   <?php if(isset($rating) && $rating == 1){ ?>
 	<script type="text/javascript">
 $(document).ready(function()
