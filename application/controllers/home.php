@@ -245,7 +245,7 @@ class Home extends CI_Controller
     	}
     	$data['get_store_categories']=$this->store_details->get_all_store_categories();	
     	$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-    	$data['site_title']='/Sign up';
+    	$data['site_title']=' / Sign up';
         $this->load->view( 'home/signup',$data);
     }
     
@@ -436,73 +436,13 @@ class Home extends CI_Controller
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		
-		$data['site_title']='/Sign In';
+		$data['site_title']=' / Sign In';
 		//var_dump($data['footer_links']);
 		$this->load->view('home/signin', $data);
 	}
-	public function my_account()
-	{
-		if ($this->session->userdata("memberid")) {
-			$id=$this->session->userdata("memberid");
-			$data['get_member'] = $this->home_model->get_member( $id );
-
-		
-		if ($this->uri->segment(3)!="") {
-			$id=$this->session->userdata("memberid");
-			$update_password = $this->home_model->update_member_status( $id );
-			//var_dump($update_password);exit;
-			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.</div>');
-
-		}
-		
-		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
-		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/My Account';
-		$this->load->view('home/my-account',$data);
-		}
-		else {
-			redirect('home/login','refresh');
-		}
-	}
 	
-	public function edit_account()
-	{
-		if ($this->session->userdata("memberid")) {
-			$id=$this->session->userdata("memberid");
-			$data['get_member'] = $this->home_model->get_member( $id );
-			if($this->input->post('email')){
-				$filter['first_name']=$this->input->post('first_name');
-    			$filter['last_name']=$this->input->post('last_name');
-    			$filter['about_me']=$this->input->post('about_me');
-    			
-    			// upload user image
-				if ($_FILES["avatar"]["name"]!=""){
-					$image=upload_image('./assets/images/','avatar');
-					//var_dump($image);exit;
-					if(isset($image['error'])){
-					echo $filter["error_msg"] = $image['error'];
-					$this->session->set_flashdata('response', '<div id="error">'.$filter['error_msg'].'</div>');
-					redirect('home/edit_account');
-					} else {
-					$filter['avatar']=$image['file_name'];
-					}
-					}
-					//var_dump($filter['avatar']);exit;
-    			
-				$update_user_profile = $this->home_model->update_member( $filter,$id );
-				
-				$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been updated successfully.</div>');
-				redirect('home/my_account');
-			}
-		
-		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
-		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Edit Account';
-		$this->load->view('home/edit-account',$data);
-		} else {
-			redirect('home/login','refresh');
-		}
-	}
+	
+	
 	
 	public function upgrade_membership()
 	{
@@ -520,35 +460,8 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Upgrade Membership';
+		$data['site_title']=' / Upgrade Membership';
 		$this->load->view('home/upgrade-membership.php',$data);
-	}
-	
-	public function change_password()
-	{
-		if ($this->session->userdata("memberid")!="") {
-		//echo $this->session->userdata("memberid");exit;
-		if ($this->input->post('password')) {
-			$id=$this->session->userdata("memberid");
-			$password=md5($this->input->post('password'));
-			//unset($this->input->post('confirm_password'));
-			$update_password = $this->home_model->update_password( $password,$id );
-			//var_dump($update_password);exit;
-			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Password has been updated successfully.</div>');
-			redirect('home/change_password');
-		}
-		
-			$id=$this->session->userdata("memberid");
-			$data['get_member'] = $this->home_model->get_member( $id );
-			
-			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
-			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/Change Password';
-			$this->load->view('home/change-password',$data);
-		} else {
-			redirect('home/login','refresh');
-		}
-		
 	}
 	
 	public function forgot_password()
@@ -600,7 +513,7 @@ class Home extends CI_Controller
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Forgot Password';
+		$data['site_title']=' / Forgot Password';
 		$this->load->view('home/forgot-password',$data);
 	}
     
@@ -742,7 +655,7 @@ class Home extends CI_Controller
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		
-		$data['site_title']='/'.ucfirst($data['my_page']['page_title']);
+		$data['site_title']=' / '.ucfirst($data['my_page']['page_title']);
 		$this->load->view( 'home/content-page', $data );
 		
 	}
@@ -926,7 +839,7 @@ class Home extends CI_Controller
 		//$data['get_member_bankaccount']=$this->home_model->get_member_bankaccount($this->session->userdata("memberid") );
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Payments / Transaction Account';
+		$data['site_title']=' / Payments / Transaction Account';
 		$this->load->view( 'home/pg-setup-transaction-account',$data);
 		} else {
 			redirect('home/login','refresh');

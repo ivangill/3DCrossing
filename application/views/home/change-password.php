@@ -28,11 +28,11 @@ $(document).ready(function () {
  <div class="span6">  
  <?php echo $this->session->flashdata('response'); ?> 
 <legend><h2 class="form-signin-heading">Change Password</h2></legend>   
-      <form class="form-signin" method="POST" action="<?php echo base_url('home/change_password')?>">
+      <form class="form-signin" method="POST" action="<?php echo base_url('member/change_password')?>">
        
-      <div class="registrationFormAlert" id="divCheckPasswordMatch">
-</div>
-        <label>Password:</label><input type="password" required="required" name="password" id="password" class="input-block-level" placeholder="Enter Your Password">
+      <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+      <label>Old Password:</label><input type="password" required="required" name="old_password" id="old_password" class="input-block-level" placeholder="Enter Your Old Password">
+        <label>New Password:</label><input type="password" required="required" name="password" id="password" class="input-block-level" placeholder="Enter Your New Password">
         <label>Confirm Password:</label><input type="password" required="required" name="confirm_password" onchange="checkPasswordMatch()" id="confirm_password" class="input-block-level" placeholder="Confirm Your Password">
         <button class="btn btn-large btn-primary" id="mybutton" type="Submit">Submit</button>
       </form>

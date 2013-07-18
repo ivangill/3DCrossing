@@ -48,7 +48,7 @@
 <legend><h2>Your Credit Cards</h2></legend>
 
 <a href="<?php echo base_url('home/my_payment_account/add'); ?>"><button type="button" class="btn btn-info">Add Credit Card</button></a>
-
+<?php  if (isset($get_user_credit_cards_info[0]['cards'])) { ?>
 
 <table class="table table-hover">
  <thead>
@@ -63,7 +63,7 @@
         <tbody>
         
          <?php 
-         if (isset($get_user_credit_cards_info[0]['cards'])) {
+        
          	
          
          foreach($get_user_credit_cards_info[0]['cards'] as $card) { 
@@ -78,11 +78,11 @@
         <td><?php echo date('F j, Y',$card['created_time']); ?></td>
        <!--<td> <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php //echo base_url(); ?>store/delete_my_card_info/<?php //echo $card[0]; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a></td>
        --> </tr>
-        <?php   } } ?>
+        <?php   }  ?>
          </tbody>
 </table>
 
-<?php } ?>
+<?php } } ?>
                 
 
 </div>

@@ -374,6 +374,30 @@ class Administration extends CI_Model
         }
     }
     
+   function check_review_cut_exists ()
+   {
+   	if (DBTYPE == 'mongo_db')
+        {
+            $this->mongo_db->where(array('type' =>'review_cut'));
+            return $this->mongo_db->get_one('global_settings');
+        }
+   	
+   }
+   
+    function update_review_cut ($amount)
+   {
+   	if (DBTYPE == 'mongo_db')
+        {
+            $this->mongo_db->where(array('type' =>'review_cut'));
+            $this->mongo_db->set(array('amount' =>$amount,
+            						   'created_date' => time(),
+            
+            ));
+            return $this->mongo_db->update('global_settings');
+        }
+   	
+   }
+    
  
     
 

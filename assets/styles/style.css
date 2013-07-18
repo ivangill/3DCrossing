@@ -32,7 +32,7 @@ Header
 Layouts
 ----------------------------------------------------------------------------
 */
-=======
+
 /*
 ----------------------------------------------------------------------------
 Footer
@@ -66,7 +66,20 @@ Header
 Layouts
 ----------------------------------------------------------------------------
 */
-
+/*
+@font-face {
+ font-family: 'NeoSans';
+ src: local('Social Font Face Regular'), local('Social Font Face'), url('NeoSans/NeoSans-Black.otf') format('truetype');
+ url('NeoSans/NeoSans-BlackItalic.otf');
+ url('NeoSans/NeoSans-Bold.otf');
+ url('NeoSans/NeoSans-BoldItalic.otf');
+ url('NeoSans/NeoSans-Italic.otf');
+ url('NeoSans/NeoSans-Light.otf');
+ url('NeoSans/NeoSans-LightItalic.otf');
+ url('NeoSans/NeoSans-Medium.otf');
+}
+*/
+ 
 .star-rating s:hover {
     color: yellow;
     font-size: 30px;
@@ -95,7 +108,7 @@ color:white;
 }
       .code { display: none }
       .nod_msg { background: #fcc; display: inline-block; padding: 2px 5px; margin-left: 5px; border-radius: 5px; margin-top: -10px; }
-      .container {margin-top:20px}
+      .container {margin-top:20px;width:1196px;}
       h2 {margin-top:1.4em}
       .nod_msg {
         font-weight: bold;
@@ -133,3 +146,79 @@ color:white;
         text-shadow: 0 1px 0 #fff;
       }
       
+.footer{
+  height: 100px;
+  background-color: #191919;
+}
+.footer-top-border{
+  border:0px solid red;
+  height:5px;
+  background-color:#13bdee
+}
+.footer-first-text{
+  color: #ffb401;
+  font-size: 28px;
+  float: left;
+  margin-left: 45px;
+  margin-top: 15px;
+  font-family: 'NeoSans';
+}
+.footer-second-text{
+  color: #dc2128;
+  font-size: 28px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 15px;
+  font-family:NeoSans;
+}
+.footer-third-text{
+  color: #39babc;
+  font-size: 28px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 15px;
+  font-family:NeoSans;
+}
+.pull-right{
+  margin-right:40px;
+}
+[class*="span"]{
+  margin-right: 22px;
+}
+.show-hower{
+ float: left;
+height: 53px;
+width: 267px;
+border: 1px solid red;
+position: absolute;
+margin-top: 214px;
+background-color:#4c4c4c;
+opacity: 0.5;
+
+}
+.img-title {
+  color:white;
+  font-size: 16px;
+}
+span.dropt {  float: left;}
+span.dropt:hover span {left: 2%; } 
+span.dropt span {position: absolute; left: -9999px;
+margin: 4px 0 0 0px; padding: 3px 3px 3px 3px; 
+border-style:solid;  border-width:0px;}
+
+a.menu:after, .dropdown-toggle:after {
+    content: none;
+}
+ul.nav li.dropdown:hover > ul.dropdown-menu{
+    display: block;    
+}
+
+.navbar .dropdown-menu {
+ margin-top: 0px;
+}
+.my-menu{
+border: 0px solid red;
+display: inline;
+float: left;
+margin-left: 3px;
+}

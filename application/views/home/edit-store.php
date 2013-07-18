@@ -18,7 +18,13 @@
          	<?php } ?>
          </select>
          <input type="hidden"  name="_id" required="required" class="input-block-level" value="<?php echo $get_store['_id'] ?>">
-         <label>Logo:</label><input type="file" id="store_logo" class="btn btn-file" name="store_logo"><?php echo img_tag($get_store['store_logo'],"style='height:60px;'"); ?>
+         <label>Logo:</label><input type="file" id="store_logo" class="btn btn-file" name="store_logo">
+          <?php 
+         if (isset($get_store['store_logo'])) {
+                	echo img_tag($get_store['store_logo'],"style='height:60px;'");
+                } else {
+                	echo img_tag('icons/no-image-found.jpg',"style='height:60px;'");
+                } ?>
         <button class="btn btn-large btn-primary" type="Update">Update</button><br />
       </form>
        <a href="<?php echo base_url('store/'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>

@@ -139,5 +139,15 @@ class Global_Settings extends CI_Model
             return $this->mongo_db->update('global_settings');
         }
     }
+    
+    function get_review_cut_amount ()
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('type' =>'review_cut'));
+            return $this->mongo_db->get_one('global_settings');
+        }
+    	
+    }
 
 }

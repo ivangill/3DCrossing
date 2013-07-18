@@ -50,10 +50,10 @@
 </div>
 
 <script type="text/javascript">
-function featureProduct(){
-	var userInput = document.getElementById('feature').value;
-	var myData = 'feature='+userInput;
-	//alert(userInput);exit;
+function featureProduct(id){
+	//var userInput = document.getElementById('feature').value;
+	var myData = 'feature='+id;
+	//alert(id);exit;
 $.ajax
 ({
 type: "POST",
@@ -64,16 +64,15 @@ async:false,
 success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
-		document.getElementById('feature').value='';
-		document.getElementById('feature').innerHTML='Featured Successfully';
+		document.getElementById(id).innerHTML='Featured Successfully';
 		return false;
        }
 });
 }
 
-function UnfeatureProduct(){
-	var userInput = document.getElementById('unfeature').value;
-	var myData = 'unfeature='+userInput;
+function UnfeatureProduct(id){
+	//var userInput = document.getElementById('unfeature').value;
+	var myData = 'unfeature='+id;
 	//alert(myData);
 $.ajax
 ({
@@ -85,8 +84,7 @@ async:false,
 success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
-		document.getElementById('feature').value='';
-		document.getElementById('unfeature').innerHTML='UnFeatured Successfully';
+		document.getElementById(id).innerHTML='UnFeatured Successfully';
 		return false;
        }
 });
@@ -115,9 +113,9 @@ success: function()
             $pid=$product['_id'];
             echo $pid; 
             if (isset($product['featured']) && $product['featured']=='yes') { ?>
-            	<button class="badge badge-success" value="<?php echo $pid ?>" id="unfeature" onclick="UnfeatureProduct();">Featured</span>
+            	<button class="badge badge-success" value="<?php echo $pid ?>" id="<?php echo $pid; ?>" onclick="UnfeatureProduct(this.value);">Featured</span>
         <?php    } else { ?>
-            	<button class="badge badge-info" value="<?php echo $pid ?>" id="feature" onclick="featureProduct();">Feature Product</button>
+            	<button class="badge badge-info" value="<?php echo $pid ?>" id="<?php echo $pid; ?>" onclick="featureProduct(this.value);">Feature Product</button>
          <?php   } ?></td>  
             <td><?php echo $product['member_id']; ?></td>  
             <td><?php echo ucfirst($product['product_name']); ?></td>  

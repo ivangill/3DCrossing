@@ -66,13 +66,21 @@ class Settings extends CI_Controller
     
     function global_settings() {
 		
-    	if ($this->input->post('review_cut')) {
-    		$review_cut=$this->input->post('review_cut');
-    		
-    		$db_insert = array('review_cut'=>$review_cut,
+    	if ($this->input->post('amount')) {
+    		$review_cut_amount=$this->input->post('amount');
+    		$check_review_cut_exists=$this->administration->check_review_cut_exists();
+    		//var_dump($check_review_cut_exists);exit;
+    		if ($check_review_cut_exists=='') {
+    		$db_insert = array('amount'=>$review_cut_amount,
+    						   'type'=>'review_cut',
+    						   'created_date' => time(),
     		
     						);
     		$this->administration->add_review_cut( $db_insert );
+    		} else {
+    		 $review_cut_amount=$this->input->post('amount');
+    		 $this->administration->update_review_cut( $review_cut_amount );
+    		}
     		
     	}
         $this->load->view( 'admin/global-settings');
@@ -151,7 +159,7 @@ class Settings extends CI_Controller
     		//var_dump($data['get_store_category']);exit;
    		}
    	
-   	$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+   	$data['get_store_categories']=$this->store_details->get_all_store_categories_for_admin_side();	
    	$this->load->view( 'admin/shop-categories-dropdown',$data);
    	
    }

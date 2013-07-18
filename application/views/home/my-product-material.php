@@ -53,50 +53,50 @@ function calculateAmount(){
             <th>Product Name</th>  
             <th>Product Material Name</th> 
             <th>Product Price</th> 
-            <th>Action</th>
+            
           </tr>
         </thead>
         <tbody>
         
          <?php 
          
-         foreach($get_products_by_memberid as $product) { 
+         foreach($get_products_by_memberid  as  $product) { 
+         	if (isset($product['product_material'])) {
          	
          	 //foreach($get_user_credit_cards_info[0]['cards'] as $card) { 
          	?> 
           <tr id="row_1">  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php
-            if (isset($product['product_material'])) {
+            
             
            echo "<ul>";
               foreach ($product['product_material'] as $material){
-          
-              	echo "<li>".$material['product_material_name']."</li>";
-			}
+          		if ($material['deleted_status']!=1){
+              	echo "<li>".$material['product_material_name']."</li><br />";
+			} }
              echo "</ul>";
-            }  ?></td> 
+             ?></td> 
              <td><?php 
               if (isset($product['product_material'])) {
              echo "<ul>";
-              foreach ($product['product_material'] as $material){
-          
-              	echo "<li>"."$".$material['product_material_price']."</li>";
-			}
+              foreach ($product['product_material'] as $key => $material){
+          			if ($material['deleted_status']!=1){
+              	echo "<li>"."$".$material['product_material_price']; ?>
+              	<a style="border:1px solid grey;padding:1px;" title="Delete" href="<?php echo base_url(); ?>store/delete_my_product_material/<?php echo $product['_id'].'/'.$key; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash"></i></a>
+              	<!--<a style="border:1px solid grey;padding:1px;" title="Edit" href="<?php //echo base_url(); ?>store/my_products/edit/<?php //echo $key; ?>"><i class="icon-edit"></i></a>-->
+             <?php 	
+		echo "</li><br />";	} }
              echo "</ul>";
 
-              }  ?></td>
-            
-            <td>
-           <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>">Edit</a>
-            <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
-            </td>
+              }   ?></td>
+           
           </tr>
          <?php 
          
          
          
-          }  ?>
+          } }  ?>
     
          </tbody>
 	</table>

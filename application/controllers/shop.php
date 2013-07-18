@@ -58,7 +58,7 @@ class Shop extends CI_Controller
 			//var_dump($data['get_widget_one']);exit;
 			$data['get_featured_products']=$this->products->get_featured_products();
 			
-			$data['site_title']='/Shop';
+			$data['site_title']=' / Shop';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-shop',$data);
@@ -82,7 +82,7 @@ class Shop extends CI_Controller
 			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/Shop/Recent';
+			$data['site_title']=' / Shop / Recent';
 			$this->load->view('home/pg-all-products',$data);
 		
     }
@@ -143,7 +143,7 @@ class Shop extends CI_Controller
 			//var_dump($data['get_five_designers']);exit;
 			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
-			$data['site_title']='/Shop/'.ucfirst($category_name);
+			$data['site_title']=' / Shop / '.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-all-products',$data);
 		
@@ -167,7 +167,7 @@ class Shop extends CI_Controller
 			
 			//var_dump($data['get_five_designers']);exit;
 			
-			$data['site_title']='/Shop/'.ucfirst($category_name);
+			$data['site_title']=' / Shop / '.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-all-products',$data);
 		
@@ -335,7 +335,7 @@ class Shop extends CI_Controller
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['rating']=1;
 			$data['like_and_favourite']=1;
-			$data['site_title']='/Product/Detail';
+			$data['site_title']=' / Product / Detail';
 			$this->load->view('home/pg-product-details',$data);
 		
     }
@@ -462,7 +462,7 @@ class Shop extends CI_Controller
 			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/ Shop/ All Designs';
+			$data['site_title']=' / Shop / All Designs';
 			$this->load->view('home/pg-all-products',$data);
     }
     
@@ -609,7 +609,7 @@ class Shop extends CI_Controller
 		$data['get_store'] = $this->home_model->get_store( $id );
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Product/Buy';
+		$data['site_title']=' / Product / Buy';
 		$this->load->view('home/pg-product-buy',$data);
 		} else {
 			redirect('home/login/');
@@ -626,7 +626,7 @@ class Shop extends CI_Controller
 			$data['get_store'] = $this->home_model->get_store( $id );
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/Thank you';
+			$data['site_title']=' / Thank you';
 			$this->load->view('home/pg-product-buy-completed',$data);
 		} else {
 			redirect('home/login');
@@ -655,7 +655,7 @@ class Shop extends CI_Controller
 			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 		
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/ Product / Search';
+		$data['site_title']=' / Product / Search';
 		$this->load->view('home/pg-all-products',$data);
 	}
 	
@@ -711,7 +711,7 @@ class Shop extends CI_Controller
 			}
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/ Subscriber Activation';
+			$data['site_title']=' / Subscriber Activation';
 		
 			$this->load->view('home/pg-subscriber-activation',$data);	
 		}

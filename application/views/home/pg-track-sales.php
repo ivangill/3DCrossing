@@ -9,8 +9,8 @@
 	<a href="<?php echo base_url('store/export_track_sales'); ?>" style="color:white;" target="_blank">Export Track Sales</a></button>
 	
  </div>
- 
- <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h4>Top Sales</h3>
+ <?php if ($count_my_total_sales>0) {  ?>
+ <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;height: 120px;"><h4>Top Sales</h3>
  					<?php 
  					//global $i;
  					//$i=0;
@@ -35,12 +35,12 @@
 					</div>
 					<?php } } } ?>
 </div>
- <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h4>Total Sales</h3>
+ <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;height: 120px;"><h4>Total Sales</h3>
 	               
 	                	 <?php echo 'Number of Sales are: <span class="badge badge-info">'.$count_my_total_sales.'</span>'; ?>
 					
 </div>
- <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h4>Total Amount</h3>
+ <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;height: 120px;"><h4>Total Amount</h3>
 	                <?php 
 	                global $total;
 	                $total=0;
@@ -57,8 +57,10 @@
 	             $total= sprintf ("%.2f", $total);
 	              echo 'Amount earned: <span class="badge badge-info">'.'$'.$total.'</span>'; ?>
 </div>
+<?php } ?>
 <legend><h2 class="form-signin-heading">Track Sales</h2></legend>
 
+ <?php if ($count_my_total_sales>0) {  ?>
 <table class="table table-bordered table-striped">
         <thead>
           <tr>   
@@ -102,7 +104,9 @@
          </tbody>
 	</table>
 
-
+<?php } else { 
+echo '<span class="label label-warning">No Track Sales Found yet.</span>'; 
+} ?>
 </div>
  <?php //} ?>
  

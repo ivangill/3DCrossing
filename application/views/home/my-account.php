@@ -8,6 +8,12 @@
 <?php $this->load->view('home/shared/account-left-panel'); ?>
  <div class="span6">  
 <legend><h2><?php echo ucwords($get_member['first_name'].' '.$get_member['last_name']); ?></h2></legend>
+	<?php if ($get_member['status']=='inactive') {
+		
+		echo "Your account is Inactive ,so you have limited access If you want full access then Check your mail and activate your account.";
+		
+	} else { ?>
+	
 	<div class="span5"><b>First Name:</b> <?php echo strtoupper($get_member['first_name']); ?> </div>
 	
 	<div class="span2 pull-right">
@@ -24,7 +30,11 @@
 	
 	<div class="span5"><b>Email:</b> <?php echo $get_member['email']; ?> </div>
 	<div class="span4"><b>Membership Type:</b> <?php echo strtoupper($get_member['membership_type']); ?> </div>
-	<div class="span5"><b>About Me:</b> <?php echo ucfirst($get_member['about_me']); ?> </div>
+	<div class="span5"><b>About Me:</b> <?php 
+	$about_me= ucfirst($get_member['about_me']);
+	echo substr($about_me,0,80).' ...';
+	
+	//echo ucfirst($get_member['about_me']); ?> </div>
 	 <?php if ($get_member['status']=="inactive" && $this->uri->segment(3)=="") { ?>
  		<div class="span8"><b>Status:</b> 
                 	<?php echo "Inactive (Check your mail and activate your account)"; ?>
@@ -34,7 +44,7 @@
         <div class="span5"><b>Status:</b>  
                 <?php	echo "Active"; ?>
         </div>
-                <?php   } ?>
+                <?php   } } ?>
 	
 </div> <!-- end of span6 class -->
 

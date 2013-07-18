@@ -32,7 +32,7 @@ class Upgrade extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/Upgrade';
+			$data['site_title']=' / Upgrade';
 			$this->load->view('home/upgrade-membership',$data);
 		}else {
 			redirect('home/login');

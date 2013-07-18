@@ -76,7 +76,7 @@ class Member extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			
-			$data['site_title']='/ Profile';
+			$data['site_title']=' / Profile';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-member-profile',$data);
@@ -168,7 +168,7 @@ class Member extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			
-			$data['site_title']='/ Profile';
+			$data['site_title']=' / Profile';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-member-profile',$data);
@@ -191,11 +191,111 @@ class Member extends CI_Controller
 			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			
-			$data['site_title']='/ Profile';
+			$data['site_title']=' / Profile';
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$this->load->view('home/pg-member-profile',$data);
         }
+        
+    public function my_account()
+		{
+		if ($this->session->userdata("memberid")) {
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+
+		
+		if ($this->uri->segment(3)!="") {
+			$id=$this->session->userdata("memberid");
+			$update_password = $this->home_model->update_member_status( $id );
+			//var_dump($update_password);exit;
+			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.</div>');
+
+		}
+		
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']=' / My Account';
+		$this->load->view('home/my-account',$data);
+		}
+		else {
+			redirect('home/login','refresh');
+		}
+	}
+	public function edit_account()
+	{
+		if ($this->session->userdata("memberid")) {
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+			if($this->input->post('email')){
+				$filter['first_name']=$this->input->post('first_name');
+    			$filter['last_name']=$this->input->post('last_name');
+    			$filter['about_me']=$this->input->post('about_me');
+    			
+    			// upload user image
+				if ($_FILES["avatar"]["name"]!=""){
+					$image=upload_image('./assets/images/','avatar');
+					//var_dump($image);exit;
+					if(isset($image['error'])){
+					echo $filter["error_msg"] = $image['error'];
+					$this->session->set_flashdata('response', '<div id="error">'.$filter['error_msg'].'</div>');
+					redirect('home/edit_account');
+					} else {
+					$filter['avatar']=$image['file_name'];
+					}
+					}
+					//var_dump($filter['avatar']);exit;
+    			
+				$update_user_profile = $this->home_model->update_member( $filter,$id );
+				
+				$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been updated successfully.</div>');
+				redirect('home/my_account');
+			}
+		
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']=' / Edit Account';
+		$this->load->view('home/edit-account',$data);
+		} else {
+			redirect('home/login','refresh');
+		}
+	}
+	
+	public function change_password()
+	{
+		if ($this->session->userdata("memberid")!="") {
+		//echo $this->session->userdata("memberid");exit;
+		if ($this->input->post('old_password')) {
+			$id=$this->session->userdata("memberid");
+			echo $old_password=md5($this->input->post('old_password'))." ";
+			$get_member=$this->home_model->get_member( $id );
+			echo $meber_password=$get_member['password']. " ";
+			
+			if ($old_password===$meber_password) {
+				//echo $password=md5($this->input->post('password')); exit;
+			$password=md5($this->input->post('password'));
+			//unset($this->input->post('confirm_password'));
+			$update_password = $this->home_model->update_password( $password,$id );
+			//var_dump($update_password);exit;
+			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Password has been updated successfully.</div>');
+			redirect('member/change_password');
+		} else {
+			$this->session->set_flashdata('response', '<div class="alert alert-error">Your entered wrong Old Password.</div>');
+			redirect('member/change_password');
+			}
+		} 
+		
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']=' / Change Password';
+			$this->load->view('home/change-password',$data);
+		} else {
+			redirect('home/login','refresh');
+		}
+		
+	}
     
     
 }

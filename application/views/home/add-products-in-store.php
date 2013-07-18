@@ -12,6 +12,7 @@
  </div>&nbsp;
  <div class="pull-left">
  <?php if($this->uri->segment(3)=='grid' ) { ?>
+ 
  <form method="POST" id="form" name="form" action="<?php echo base_url('store/my_products/table'); ?>">
  <select name="view" required="required" onchange="document.form.submit();">
          	<option <?php if ($this->uri->segment(3)=='grid') { echo "selected"; } ?> value="grid">Grid View</option>
@@ -29,11 +30,15 @@
  <?php } ?>
  </div>
  <?php if($this->uri->segment(3)=='grid' ) {  ?>
+ 
   <div class="row-fluid">
+  
 <div class="span8">
+
             <ul class="thumbnails">
+            <?php if (count($get_products_by_memberid)>0) { ?>
 		<?php foreach ($get_products_by_memberid as $product){ ?>
-             <li class="span3">
+             <li class="span3" style="float: left;margin-left: 0px;margin-right:10px;">
 				<div class="thumbnail">
 					<a title="Delete" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="return confirm('Are you sure to delete?');"><i class="icon-remove"></i></a>
 					<a href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>" title="Edit"><i class="icon-edit"></i></a>
@@ -44,13 +49,15 @@
 				</div>
 			  </li>
 		<?php } ?>
+		<?php } else { ?>
+		<?php echo '<span class="label label-warning">No Products Added yet.</span>'; } ?>
             </ul>
-
+		
 </div>
 </div>
- <?php } ?>
+<?php } ?>
  <?php if($this->uri->segment(3)=='table' ) { ?>
- 
+ <?php if (count($get_products_by_memberid)>0) { ?>
 <table class="table table-bordered table-striped">
         <thead>
           <tr>   
@@ -89,13 +96,17 @@
     
          </tbody>
 	</table>
+	<?php } else { ?>
+		<?php echo '<span class="label label-warning">No Products Added yet.</span>'; } ?>
 	<?php } ?>
 	<?php } else { ?>
+	<?php $review_cut_amount= $get_review_cut_amount['amount']; ?>
 <script type="text/javascript">
 function calculateAmount(){
 	var userInput = document.getElementById('product_total_price').value;
 	var stripeAmount=((userInput * 2.9)/100)+0.30;
-	var reviewCut=(userInput * 8.5)/100;
+	var reviewCut=(userInput * <?php echo $review_cut_amount ?>)/100;
+   // alert(reviewCut);
 	var totalCut=stripeAmount + reviewCut;
 	var remainAmount=userInput - totalCut;
 	if (userInput <= 1) {
@@ -119,7 +130,7 @@ function calculateAmount(){
        <label>Product Name:</label><input type="text" required="required" name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
        <label>Product Price: </label>
        <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
-       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
+       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & <?php echo $get_review_cut_amount['amount']; ?>% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
         <label>Product Description:</label>
         <textarea name="product_details" placeholder="Product Details"><?php if(isset($get_single_product['product_details'])) echo $get_single_product['product_details'] ?></textarea>
         <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required="required" class="input-block-level" placeholder="Product Details">

@@ -317,9 +317,11 @@ class Products extends CI_Model
 			$material=array(
     			'product_material_name'=>$this->input->post('product_material_name'),
     			'product_material_price'=>$this->input->post( 'product_material_price' ),
+    			'deleted_status'=>0,
     		);
     	        	    $material = array ("product_material_name" => $material['product_material_name'], 
-							"product_material_price" => $material['product_material_price']
+							"product_material_price" => $material['product_material_price'],
+							"deleted_status" => $material['deleted_status']
 					);
 
       return  $this->mongo_db->where(array('_id'=>$product_id))->push('product_material', $material)->update('products');
@@ -327,6 +329,22 @@ class Products extends CI_Model
         }
     	
     }
+     function delete_my_product_material ($memberid,$productid,$index)
+   {
+   		if (DBTYPE == 'mongo_db')
+    
+        {
+        	$memberid=new MongoID($memberid);
+        	$productid=new MongoID($productid);
+        	$this->mongo_db->where(array('_id'=>$productid));
+        	$this->mongo_db->where(array('member_id'=>$memberid));
+        	$this->mongo_db->set(array('product_material.'.$index.'.deleted_status' =>1));
+        	return $this->mongo_db->update('products');
+        	//var_dump($products);exit;
+
+        }
+   	
+   }
     
     function add_product_size($size,$product_id)
     {

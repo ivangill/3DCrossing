@@ -30,7 +30,11 @@
 	
  </div>
 <legend><h2 class="form-signin-heading">Product Size</h2></legend>
-
+<?php 
+ foreach($get_products_by_memberid as $product) { 
+if (isset($product['size'])) { 
+	
+} }	?>
 <table class="table table-bordered table-striped">
         <thead>
           <tr>   
@@ -42,10 +46,12 @@
         <tbody>
         
          <?php 
-         
+          
          foreach($get_products_by_memberid as $product) { 
+         	if (isset($product['size'])) {
+         	 //foreach($get_user_credit_cards_info[0]['cards'] as $card) {
+       
          	
-         	 //foreach($get_user_credit_cards_info[0]['cards'] as $card) { 
          	?> 
           <tr id="row_1">  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
@@ -53,7 +59,7 @@
             if (isset($product['size'])) {
             
            echo "<ul>";
-              foreach ($product['size'] as $size){
+              foreach ($product['size'] as $key => $size){
           		
               	echo "<li>".$size['product_size']."</li>";
 			}
@@ -61,15 +67,15 @@
             } ?></td> 
             
             <td>
-           <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>">Edit</a>
-            <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
+           <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $key; ?>">Edit</a>
+            <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $key; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
             </td>
           </tr>
          <?php 
          
          
          
-          }  ?>
+          } }  ?>
     
          </tbody>
 	</table>

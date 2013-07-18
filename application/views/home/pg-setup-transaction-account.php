@@ -96,7 +96,7 @@ if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3
   <a href="<?php echo base_url('home/setup_transaction_account/paypal'); ?>"><button type="button" class="btn btn-info">Setup Paypal Account</button></a>
   </div>
 </div>
-
+<?php  if (isset($get_member['bank_account_info'])) { ?>
 <table class="table table-hover">
  <thead>
           <tr>   
@@ -115,7 +115,7 @@ if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3
         
          <?php 
          //var_dump($get_member['bank_account_info']);
-        if (isset($get_member['bank_account_info'])) {
+       
          	
          
          foreach($get_member['bank_account_info'] as $key => $card) { 
@@ -141,11 +141,11 @@ if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3
        <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>home/setup_transaction_account/bankaccount/<?php echo $key; ?>"><i class="icon-edit icon-white"></i></a>
        </td>
        </tr>
-        <?php   } } } ?>
+        <?php    } } ?>
          </tbody>
 </table>
 
-<?php } ?>
+<?php } } ?>
                 
 
 </div>

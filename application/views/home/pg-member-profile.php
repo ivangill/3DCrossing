@@ -93,7 +93,7 @@ success: function()
 		<?php 
 		
 		foreach ($get_my_products as $products){ ?>
-             <li class="span3">
+             <li class="span2" style="float: left;margin-left: 0px;margin-right: 10px;">
 				<div class="thumbnail">
 					  <a href="<?php echo base_url('shop/product_detail/'.$products['_id']); ?>">
 	                   <span class="text-center"><?php echo img_tag($products['product_img'],'style="height:200px;width: 260px;"'); ?>

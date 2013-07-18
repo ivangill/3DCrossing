@@ -20,6 +20,7 @@ class Store extends CI_Controller
         $this->load->model( 'content_pages' );
         $this->load->model( 'store_details' );
         $this->load->model( 'products' );
+        $this->load->model( 'global_settings' );
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -36,7 +37,7 @@ class Store extends CI_Controller
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-			$data['site_title']='/My Store';
+			$data['site_title']=' / My Store';
 			$this->load->view('home/my-store',$data);
 		}else {
 			redirect('home/login');
@@ -86,7 +87,7 @@ class Store extends CI_Controller
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Add Store';
+		$data['site_title']=' / Add Store';
 		$this->load->view('home/add-store',$data);
 		
 		} else {
@@ -137,7 +138,7 @@ class Store extends CI_Controller
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 			
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/Edit Store';
+		$data['site_title']=' / Edit Store';
 		$this->load->view('home/edit-store',$data);
 		} else {
 			redirect('home/login');
@@ -221,10 +222,11 @@ class Store extends CI_Controller
 		$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		
-		$data['get_products_by_memberid']=$this->products->get_products_by_memberid($this->session->userdata("memberid"));	
+		$data['get_products_by_memberid']=$this->products->get_products_by_memberid($this->session->userdata("memberid"));
+		$data['get_review_cut_amount']=$this->global_settings->get_review_cut_amount();	
 			
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
-		$data['site_title']='/My Products';
+		$data['site_title']=' / My Products';
 		$this->load->view('home/add-products-in-store',$data);	
 		
 		} else {
@@ -240,6 +242,7 @@ class Store extends CI_Controller
 				$material=array(
     			'product_material_name'=>$this->input->post('product_material_name'),
     			'product_material_price'=>$this->input->post( 'product_material_price' ),
+    			'deleted_status'=>0,
     		);
     		$product_id=$this->input->post( 'product_id' );
     		
@@ -298,6 +301,7 @@ class Store extends CI_Controller
 		//echo "<pre>";	
 		//print_r($data['get_products_by_memberid']);exit;
 		$data['get_store'] = $this->home_model->get_store( $id );
+		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		$data['site_title']='';
@@ -355,6 +359,20 @@ class Store extends CI_Controller
 		$this->products->delete_product($this->uri->segment(3));
 		$this->session->set_flashdata('response', '<div class="alert alert-success">The Product has been deleted successfully.</div>');
 		redirect('store/my_products/table', 'refresh');
+	}
+	
+	public function delete_my_product_material ()
+	{
+		if ($this->session->userdata("memberid")!="") {
+			$id=$this->session->userdata("memberid");
+			$data['get_member'] = $this->home_model->get_member( $id );
+			$productid=$this->uri->segment(3);
+			$index_value=$this->uri->segment(4);
+			$this->products->delete_my_product_material($id,$productid,$index_value);
+			redirect('store/product_material');
+			//var_dump($this->mongo_db->last_query());
+			//var_dump($data['get_member']['bank_account_info'][$index_value]);
+		}
 	}
 	
 
