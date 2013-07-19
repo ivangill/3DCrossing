@@ -9,17 +9,17 @@ if ($error)
     <?php echo $error; ?>
     </div>
 
-        <a class="btn btn-large btn-success" href="<?php echo $login_url; ?>">Try to Sign in with Facebook again.</a>
+        <a class="btn btn-large btn-success" href="<?php echo $login_url; ?>">Try to Login with Facebook again.</a>
  <?php } ?>
 
-  <legend><h2>Please sign in</h2></legend>
+  <legend><h2>Please Login</h2></legend>
       <form class="form-signin" method="POST" id="ex1" action="<?php echo base_url('home/login'); ?>">
       <?php echo $this->session->flashdata('response'); ?>  
     <input type="hidden" name="product_id" value="<?php echo $this->uri->segment(3) ?>" >
         <label>Email:</label><input type="email" id="email" required="required" class="input-block-level" name="email"  placeholder="Email address">
         <label>Password:</label><input type="password" required="required" id="password" class="input-block-level"  name="password" placeholder="Password"><br />
         <div class="controls">
-        <button class="btn btn-large btn-primary" type="submit">Log In</button>
+        <button class="btn btn-large btn-primary" type="submit">Login</button>
         </div>
        
       </form>
@@ -37,16 +37,6 @@ $("#ex1").nod( metrics );*/
 
  </script>   
     
- 
-<style>
-#twitter-btn {
-text-align: center;115px;height: 26px;
-}
-#facebook-btn {
-text-align: center;115px;height: 26px;
-}
-
-</style>
  <div id="twitter-btn" >
      <?php echo '<a href="' . base_url() . 'home/redirect">'.img_tag('sign-in-twitter.jpg').'</a>'; ?>
     </div>

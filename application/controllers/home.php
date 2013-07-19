@@ -226,21 +226,42 @@ class Home extends CI_Controller
     		$insert = $this->home_model->add_member( $insert );
     		//var_dump($insert);exit;
     		$this->session->set_userdata("memberid",$insert);  
-    		//var_dump($insert);
+    		
+    		
+    		
+
+            $this->email->from('noreply@3dcrossing.com');
+            $this->email->to($email);
+            $this->email->subject('3D Crossing Account Activation');
+            $data['email_title'] = 'Welcome - Account Activation';
+            $data['email_body'] = 'Hello '.ucwords($username). ',<br /><br />
+            Congratulations on creating your new account, To get started with your new account you need to click on the link below to 
+            activate your account.<br /><br /><a target="_blank" href=http://3dcrossing.aws.af.cm/member/my_account/'.$insert.'>
+            Activate Account</a><br /><br />If the link is not clickable, you can copy and paste the URL below into your browser address 
+            box.<br />http://3dcrossing.aws.af.cm/member/my_account/'.$insert.'<br /><br />Do not reply to this message, 
+            as no recipient has been designated. Replying to this message will not activate your account.<br />
+            <br /><br />Thank you for using 3D Crossing<br /><br />3D Crossing Team.';
+
+            $template = $this->load->view( 'template_email.view.php', $data, TRUE );
+            
+            //var_dump($template);exit;
+            $this->email->message( $template );
+            $this->email->send();
+
     	
-    		$mail_body="Hello $username,<br/><br/>";
+    		/*$mail_body="Hello $username,<br/><br/>";
 			$mail_body.="To activate your account 3DCrossing Account, click this link  :
-			<a target='_blank' href=http://3dcrossing.aws.af.cm/home/my_account/$insert>Click Here</a><br/><br/>";
+			<a target='_blank' href=http://3dcrossing.aws.af.cm/member/my_account/$insert>Click Here</a><br/><br/>";
 			//echo $mail_body;
 			//var_dump($mail_body);exit;
-			$this->email->from('noreply@3dcrossing.com');
-			$this->email->to($email);
-			$this->email->subject('3D Crossing Account Password');
+			
+			
+			
 			$this->email->message($mail_body);
 			$this->email->send();
-			echo $this->email->print_debugger();
+			echo $this->email->print_debugger();*/
     		  		
-    		redirect('home/index');
+    		redirect('member/my_account');
     		}	
     	}
     	$data['get_store_categories']=$this->store_details->get_all_store_categories();	
@@ -414,6 +435,7 @@ class Home extends CI_Controller
 			//var_dump($user);exit;
 			$userid=$user['_id'];
 			$useremail=$user['email'];
+			$user_status=$user['status'];
 			
 			if($user==''){
 				$this->session->set_flashdata('response', '<div class="alert alert-error">Incorrect Username/Password or your Account has been deleted.</div>');
@@ -423,6 +445,7 @@ class Home extends CI_Controller
 			} else {
 				$this->session->set_userdata("memberid",$userid);
 				$this->session->set_userdata("memberemail",$useremail);
+				$this->session->set_userdata("memberstatus",$user_status);
 				
 				if ($this->input->post('product_id')!='') {
 				redirect('shop/product_detail/'.$this->input->post('product_id'));
@@ -492,7 +515,6 @@ class Home extends CI_Controller
 				$this->session->unset_userdata('entered_email_for_login');
 				redirect('home/forgot_password');
 			} else {
-				
 				
 			$mail_body="Hello $user_name,<br/><br/>";
 			$mail_body.="To change password for 3DCrossing Account, click this link  :
@@ -624,10 +646,10 @@ class Home extends CI_Controller
     }
     public function logout()
 	{
-		//$this->session->unset_userdata("memberid");
-		
 		$this->session->sess_destroy();
 		$this->session->unset_userdata("memberid");
+		$this->session->unset_userdata("memberemail");
+		$this->session->unset_userdata("memberstatus");
 		$fbinit_array = array(
 			'appId' => config_item('appId'),
 			'secret' => config_item('secret')

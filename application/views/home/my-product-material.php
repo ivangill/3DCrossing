@@ -47,7 +47,7 @@ function calculateAmount(){
  </div>
 <legend><h2 class="form-signin-heading">Product Material</h2></legend>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="mytable">
         <thead>
           <tr>   
             <th>Product Name</th>  
@@ -96,7 +96,16 @@ function calculateAmount(){
          
          
          
-          } }  ?>
+          } else { ?>
+<script language="javascript">
+$(document).ready(function() {
+ $('#mytable').hide();
+});
+
+</script> 
+       <?php echo '<span class="label label-warning">No Product Material Found.</span>';  }
+         
+          }  ?>
     
          </tbody>
 	</table>

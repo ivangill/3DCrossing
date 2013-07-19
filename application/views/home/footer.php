@@ -13,20 +13,20 @@
  </div><!--/container-->
    <div class="footer">
         <div class="footer-top-border"></div>
-        <div class="footer-first-text pull-left">Create</div>
-        <div class="footer-second-text pull-left">Share</div>
+        <div class="footer-top-border-bottom"></div>
+        <div class="footer-first-text pull-left">Create,</div>
+        <div class="footer-second-text pull-left">Share,</div>
          <div class="footer-third-text pull-left">Profit</div>
           <div class="pull-right navbar">
-            <ul class="nav">
+            <ul class="myfooter nav">
             <?php foreach ($footer_links as $link){ ?>
               <li><a href="<?php echo base_url('content'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></li>
            <?php } ?>
-            
             </ul>
-            
+            <div class="footer-copyright">&copy; 2013 3D Crossing</div>
           </div>
        
-      </div>
+    </div> 
 <!--<div class="clearfix"></div>
                     <hr>            
 <div id="fb-root"></div>
@@ -55,6 +55,7 @@
        
         <?php echo add_jscript('bootstrap.js'); ?>
         <?php echo add_jscript('script.js'); ?>
+        
         <?php echo add_jscript('jquery.flipster.js'); ?>
          <?php echo add_style('style.css'); ?>
        

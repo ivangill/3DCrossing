@@ -44,10 +44,15 @@ class Shop extends CI_Controller
 		//	$id=$this->session->userdata("memberid");
 		//	$data['get_store'] = $this->home_model->get_store( $id );
 			//var_dump($data['get_store']);exit;
-			
-			$id=$this->session->userdata("memberid");
-			$data['get_member'] = $this->home_model->get_member( $id );
-			
+			if ($this->session->userdata("memberid"))
+		   {
+		    $id=$this->session->userdata("memberid");
+		    $data['get_member'] = $this->home_model->get_member( $id );
+		   }
+		   else
+		   {
+		    $data['get_member'] = NULL;
+		   }			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			
 			$data['get_widget_one']=$this->global_settings->get_widget_one();

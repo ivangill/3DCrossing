@@ -3,7 +3,7 @@
    
 <div class="row-fluid">
 <?php $this->load->view('home/shared/account-left-panel'); ?>
- <div class="span10">  
+ <div class="span9">  
  <?php echo $this->session->flashdata('response'); ?> 
 <div class="nav-collapse collapse">
 <?php if ($this->uri->segment(2)=="my_payment_account" && $this->uri->segment(3)=="add") { ?>

@@ -49,7 +49,7 @@ function changeText2(){
 }
 </script>
 
-<legend><h2>Please sign Up</h2></legend>
+<legend><h2>Please Join Us</h2></legend>
 <div id="contact_div_1">
  <div style="margin-top:40px;"><?php echo $this->session->flashdata('response'); ?></div>
       <form class="form-signin" method="POST" action="<?php echo base_url('home/signup'); ?>" enctype="multipart/form-data">
@@ -77,15 +77,6 @@ function changeText2(){
 
     </div> <!-- /container --> 
     
-             <style>
-#twitter-btn {
-text-align: center;115px;height: 26px;
-}
-#facebook-btn {
-text-align: center;115px;height: 26px;
-}
-
-</style>
 <div id="twitter-btn" >
      <?php echo '<a href="' . base_url() . 'home/redirect">'.img_tag('sign-in-twitter.jpg').'</a>'; ?>
 </div>

@@ -4,11 +4,10 @@
 <?php $this->load->view('home/shared/store-left-panel'); ?>
 <div class="span8">  
   <div class="pull-right">
-	
-	<button class="btn btn-primary" type="button">
-	<a href="<?php echo base_url('store/export_track_sales'); ?>" style="color:white;" target="_blank">Export Track Sales</a></button>
+	<a class="btn btn-primary" href="<?php echo base_url('store/export_track_sales'); ?>" style="color:white;" target="_blank">Export Track Sales</a>
 	
  </div>
+ <div class="clearfix"></div>
  <?php if ($count_my_total_sales>0) {  ?>
  <div class="span3" style="border:1px solid grey;padding:5px;margin-bottom:5px;height: 120px;"><h4>Top Sales</h3>
  					<?php 

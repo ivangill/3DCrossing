@@ -63,7 +63,7 @@ success: function()
 	
 	</div>
 	
-	<div class="span2" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:23px;">
+	<div class="span2 profile-reviews-box">
 	<?php echo '<b>Views:</b> '.'<span class="label label-important">'.$get_number_of_views.'</span><br />';
 		  echo '<b>Likes:</b> '.'<span class="label label-important">'.$get_number_of_likes.'</span><br />';
 		  echo '<b>Favourites:</b> '.'<span class="label label-important">'.$get_number_of_favourites.'</span><br />'; 
@@ -71,10 +71,10 @@ success: function()
 		  ?>
 	</div>
 	
-	<div class="span2" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:10px;height: 128px;">
+	<div class="span2 profile-about-me-box">
 	<h4>About Me:</h4>
 	<?php if (isset($get_member['about_me'])) { $about_me= ucfirst($get_member['about_me']);
-		echo substr($about_me,0,80).' ...';
+		echo substr($about_me,0,60).' ...';
 	} ?>
 	</div>
 	
@@ -85,15 +85,14 @@ success: function()
 <span class="label"><a class="text-white" href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
-
-<div class="row-fluid">
+<div class="row-fluid top-bottom-margin">
 
 		  <?php if (count($get_my_products) > 0) { ?>
-            <ul class="thumbnails">
+            <ul class="thumbnails" style="margin-top:10px;">
 		<?php 
 		
 		foreach ($get_my_products as $products){ ?>
-             <li class="span2" style="float: left;margin-left: 0px;margin-right: 10px;">
+             <li class="span2 profile-product-box">
 				<div class="thumbnail">
 					  <a href="<?php echo base_url('shop/product_detail/'.$products['_id']); ?>">
 	                   <span class="text-center"><?php echo img_tag($products['product_img'],'style="height:200px;width: 260px;"'); ?>
@@ -110,13 +109,13 @@ success: function()
 <span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span class="label"><a class="text-white" href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
-<div class="row-fluid">
+<div class="row-fluid top-bottom-margin">
 
 		  <?php if (count($get_my_followings) > 0) { ?>
 		<?php 
 		
 		foreach ($get_my_followings as $following){ ?>
-			<div class="span2" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;">
+			<div class="span2 follower-box-style">
             <?php 
             $memberid=$following['following_id'];
             $get_member=$this->home_model->get_member( $memberid ); ?>
@@ -144,7 +143,7 @@ success: function()
 <span><a href="<?php echo base_url('member/profile/'.$this->uri->segment(3)); ?>">Store</a></span>&nbsp;
 <span><a href="<?php echo base_url('member/following/'.$this->uri->segment(3)); ?>">Following</a></span>
 <span class="label"><a class="text-white" href="<?php echo base_url('member/news_feed/'.$this->uri->segment(3)); ?>">News Feed</a></span>
-<div class="row-fluid">
+<div class="row-fluid top-bottom-margin">
 
 		  <?php if (count($get_my_followings) > 0) { ?>
 		

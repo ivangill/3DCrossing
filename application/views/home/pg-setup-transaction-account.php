@@ -2,7 +2,7 @@
    
 <div class="row-fluid">
 <?php $this->load->view('home/shared/account-left-panel'); ?>
- <div class="span10">  
+ <div class="span9">  
 <div class="nav-collapse collapse">
 <?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="paypal") { ?>
 <?php echo 	$this->session->flashdata('response'); ?>

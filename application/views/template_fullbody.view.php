@@ -23,35 +23,17 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div><!-- /.carousel -->
 
-    
-    <div class="span12">
-            <div class="span3">
-               
-            <?php echo img_tag('icons/robo.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-            <?php echo img_tag('icons/guitar.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-             <?php echo img_tag('icons/klvn.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-             <?php echo img_tag('icons/gear.png') ?>
-            </div><!--/span-->
-          
-            <div class="span3">
-             <?php echo img_tag('icons/skull.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-             <?php echo img_tag('icons/spike.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-             <?php echo img_tag('icons/thingy.png') ?>
-            </div><!--/span-->
-            <div class="span3">
-             <?php echo img_tag('icons/face.png') ?>
-            </div><!--/span-->
-   </div><!--/span12-->
+     <ul class="thumbnails">
+     <li class="span3 my-img-style"><?php echo img_tag('icons/robo.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/guitar.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/klvn.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/gear.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/skull.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/spike.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/thingy.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/face.png') ?></li>
+     </ul>
+   
       
 	<?php $this->load->view( 'home/footer.php' ); ?>
  

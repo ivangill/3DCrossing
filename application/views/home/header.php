@@ -9,7 +9,7 @@
         <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
         <!-- Le styles -->
-        <?php echo add_style('bootstrap.css'); ?>
+        <?php echo add_style('master-style.css'); ?>
         <?php echo add_style('bootstrap-responsive.css'); ?>
         <?php echo add_style('jquery.flipster.css'); ?>
         <?php //echo add_style('bootstrap-combined.min.css'); ?>
@@ -22,43 +22,68 @@
        <body class="fullscreen">
 
     <div class="navbar navbar-inverse">
-      <div class="navbar-inner">
+      <div class="navbar-inner my-nav-style">
+      
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="<?php echo base_url(); ?>"><?php echo img_tag('icons/logo.png') ?></a>
+          <a class="brand" href="<?php echo base_url(); ?>"><span class="logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
+            <ul class="nav my-font-style">
               <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP</a>
-              	<ul class="dropdown-menu">
+              
+              <ul class="dropdown-menu mystyle">
                 	 <?php foreach ($get_store_categories as $store_category){ ?>
                 	 <li class="my-menu"><a href="<?php echo base_url('shop/shop_category/'.$store_category['slug']); ?>"><?php echo ucfirst($store_category['name']); ?></a></li>
                 	 <?php } ?>
-                     </ul>
+                </ul>
+              </li>
+            
+             <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">SELL</a>
+              	<ul class="dropdown-menu mystyle">
+                	  <li class="my-menu"><a href="">Design & Objects</a></li>
+                	 <li class="my-menu"><a href="">Design Services</a></li>
+                </ul>
               
               </li>
-              <style>
-
-
-</style>
-              <li><a href="#about">SELL</a></li>
-              <li><a href="#contact">LEARN</a></li>
-              <li><a href="#contact">TALK</a></li>
+              <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">Learn</a>
+              	<ul class="dropdown-menu mystyle">
+                	 <li class="my-menu"><a href="">News</a></li>
+                	 <li class="my-menu"><a href="">Reviews</a></li>
+                	 <li class="my-menu"><a href="">3D Printing</a></li>
+                </ul>
+              
+              </li>
+              <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">Talk</a>
+              	<ul class="dropdown-menu mystyle">
+                	 <li class="my-menu"><a href="">Forum</a></li>
+                	 <li class="my-menu"><a href="">Our Blog</a></li>
+                	 <li class="my-menu"><a href="">Talk to Us</a></li>
+                </ul>
+              
+              </li>
 
             </ul>
-           
-            <form class="pull-right navbar-search" action="/artists/search">
-              <input class="search-query" placeholder="Search" name="q" type="text">
-              
+  <style>
+fornav {
+    position:relative;
+    margin-left:-22px;
+    top:-3px;
+    z-index:2;
+}
+</style>         
+            <form class="pull-right navbar-search" action="">
+            	
+              <input  id="mysearch-style" placeholder="Search..." name="search" type="text">
               <?php if ($this->session->userdata('memberid')!='') { ?>
                 
               
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle login-style" data-toggle="dropdown" href="#">
                  <span class="my-logedin-profile"><?php echo strtoupper($get_member['first_name']." ".$get_member['last_name']); ?></span></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu login-dropdown">
                             <li><a href="<?php echo base_url('upgrade/'); ?>">Upgrade Membership</a></li>
                             <li><a href="<?php echo base_url('member/profile/'.$this->session->userdata("memberid")); ?>">My Profile</a></li>
                             <li><a href="<?php echo base_url('member/my_account'); ?>">Account Settings</a></li>
@@ -69,15 +94,27 @@
                         </ul>
                   
              <?php  } else { ?>
-              <a class="login-style" href="<?php echo base_url('home/login'); ?>">LOGIN</a>
+             <a class="login-style" href="<?php echo base_url('home/login'); ?>">LOGIN</a>
               <a class="login-style" href="<?php echo base_url('home/signup'); ?>">JOIN US!</a>
               <?php } ?>
               
             </form>
           </div>
+         
         </div>
       </div>
+      <div id="menu-bg"></div>
     </div>
   <!-- Carousel
     ================================================== -->
+  
     <div class="container">
+    <?php 
+    
+    if ($this->session->userdata('memberstatus') && $this->session->userdata('memberstatus')=='inactive') {
+	
+	echo '<div class="alert alert-success">Your Account is Inactive. To activate your account, Check your mail and activate your account.</div>';		
+	}
+    
+  
+  ?>

@@ -208,7 +208,7 @@ class Member extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$update_password = $this->home_model->update_member_status( $id );
 			//var_dump($update_password);exit;
-			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.</div>');
+			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.Refresh page to get access to your account.</div>');
 
 		}
 		

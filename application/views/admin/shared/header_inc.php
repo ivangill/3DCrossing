@@ -10,7 +10,7 @@
          	
   
         <!-- Le styles -->
-       <?php echo add_style('bootstrap.css'); ?>
+       <?php echo add_style('master-style.css'); ?>
        <?php echo add_style('style.css'); ?>
        <?php echo add_style('bootstrap-datetimepicker.min.css'); ?>
       

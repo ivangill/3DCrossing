@@ -35,7 +35,7 @@
 if (isset($product['size'])) { 
 	
 } }	?>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="mytable">
         <thead>
           <tr>   
             <th>Product Name</th>  
@@ -75,7 +75,15 @@ if (isset($product['size'])) {
          
          
          
-          } }  ?>
+          } else {  ?>
+<script language="javascript">
+$(document).ready(function() {
+ $('#mytable').hide();
+});
+</script> 
+       <?php echo '<span class="label label-warning">No Product Size Found.</span>';  }
+         
+          }  ?>
     
          </tbody>
 	</table>

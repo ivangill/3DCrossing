@@ -29,6 +29,7 @@
  </form>
  <?php } ?>
  </div>
+ <div class="clearfix"></div>
  <?php if($this->uri->segment(3)=='grid' ) {  ?>
  
   <div class="row-fluid">
