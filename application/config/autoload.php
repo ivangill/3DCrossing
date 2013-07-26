@@ -55,7 +55,7 @@ $autoload['packages'] = array();
   | $autoload['libraries'] = array('database', 'session', 'appinit');
  */
 
-$common_libraries = array( 'engineinit', 'session' );
+$common_libraries = array( 'engineinit', 'session','simpleimage' );
 
 switch ( DBTYPE ) {
 case 'mongo_db':
@@ -121,7 +121,7 @@ $autoload['language'] = array();
   |
  */
 
-$autoload['model'] = array('global_settings','products','home_model','news_feed');
+$autoload['model'] = array('global_settings','products','home_model','news_feed','product_stats');
 
 
 /* End of file autoload.php */

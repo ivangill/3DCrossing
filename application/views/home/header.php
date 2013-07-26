@@ -33,7 +33,7 @@
           <a class="brand" href="<?php echo base_url(); ?>"><span class="logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
           <div class="nav-collapse collapse">
             <ul class="nav my-font-style">
-              <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP</a>
+              <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP</a>
               
               <ul class="dropdown-menu mystyle">
                 	 <?php foreach ($get_store_categories as $store_category){ ?>
@@ -42,14 +42,14 @@
                 </ul>
               </li>
             
-             <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">SELL</a>
+             <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">SELL</a>
               	<ul class="dropdown-menu mystyle">
                 	  <li class="my-menu"><a href="">Design & Objects</a></li>
                 	 <li class="my-menu"><a href="">Design Services</a></li>
                 </ul>
               
               </li>
-              <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">Learn</a>
+              <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">Learn</a>
               	<ul class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="">News</a></li>
                 	 <li class="my-menu"><a href="">Reviews</a></li>
@@ -57,7 +57,7 @@
                 </ul>
               
               </li>
-              <li class="dropdown" id="accountmenu"><a class="dropdown-toggle" href="#">Talk</a>
+              <li class="dropdown" id="accountmenu"style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">Talk</a>
               	<ul class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="">Forum</a></li>
                 	 <li class="my-menu"><a href="">Our Blog</a></li>
@@ -113,7 +113,7 @@ fornav {
     
     if ($this->session->userdata('memberstatus') && $this->session->userdata('memberstatus')=='inactive') {
 	
-	echo '<div class="alert alert-success">Your Account is Inactive. To activate your account, Check your mail and activate your account.</div>';		
+	echo '<div class="alert alert-info">Your Account is Inactive. To activate your account, Check your mail and activate your account.</div>';		
 	}
     
   

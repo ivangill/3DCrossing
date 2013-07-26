@@ -45,11 +45,19 @@ success: function()
 	<?php 
 	$path='http://localhost/3DCrossing/assets/images/'.$get_member_profile['avatar'];
 	
+	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member_profile['avatar'];
+	                   if (isset($get_member_profile['avatar']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                    echo img_tag($get_member_profile['avatar'], 'style="height:110px;width:100px;"');  	
+	                    } else {
+	                    echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:100px;"');
+	                    }
+	/*
 	if (isset($get_member_profile['avatar'])) {
 	echo img_tag($get_member_profile['avatar'], 'style="height:110px;width:100px;"');  
 	}else {
 	echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:100px;"'); 
-	}
+	}*/
 	
 	?>
 	<div class="span6 pull-right"><h4><?php echo ucfirst($get_member_profile['first_name'])." ".ucfirst($get_member_profile['last_name']); ?></h4>
@@ -95,7 +103,16 @@ success: function()
              <li class="span2 profile-product-box">
 				<div class="thumbnail">
 					  <a href="<?php echo base_url('shop/product_detail/'.$products['_id']); ?>">
-	                   <span class="text-center"><?php echo img_tag($products['product_img'],'style="height:200px;width: 260px;"'); ?>
+	                   <span class="text-center"><?php 
+	                   $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$products['product_img'];
+	                   if (isset($products['product_img']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                   echo img_tag($products['product_img'],'style="height:200px;width: 260px;"');	
+	                    } else {
+	                    	echo img_tag('icons/no-image-found.jpg','style="height:200px;width: 260px;"');
+	                    }
+	                   
+	                  // echo img_tag($products['product_img'],'style="height:200px;width: 260px;"'); ?>
 	                  <h4><?php echo $products['product_name'];  ?></h4></span>
 	                    
 	                  </a>
@@ -122,12 +139,16 @@ success: function()
             
             
         <?php   
-        	if (isset($get_member['avatar'])) {
-        	//if (isset($get_member['avatar']) && file_exists($get_member['avatar'])) {
-			echo img_tag($get_member['avatar'], 'style="height:110px;width:90px;"');  
-			} else {
-			echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:90px;"'); 
-			}
+        $path='http://localhost/3DCrossing/assets/images/'.$get_member['avatar'];
+	
+	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
+	                   if (isset($get_member['avatar']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                   	echo img_tag($get_member['avatar'], 'style="height:110px;width:90px;"'); 
+	                    } else {
+	                    echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:90px;"'); 
+	                    }
+        
 			?>
 			
 			<div class="span6 pull-right"><h4><a href="<?php echo base_url('member/profile/'.$get_member['_id']); ?>">

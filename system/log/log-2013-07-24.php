@@ -1,0 +1,77 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2013-07-24 11:53:10 --> Severity: Notice  --> Undefined variable: logo C:\wamp\www\3DCrossing\application\controllers\store.php 187
+ERROR - 2013-07-24 12:01:22 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 12:02:56 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 12:09:29 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 12:14:03 --> Severity: Warning  --> getimagesize(C:/wamp/www/3DCrossing/assets/images) [<a href='function.getimagesize'>function.getimagesize</a>]: failed to open stream: Permission denied C:\wamp\www\3DCrossing\system\ci\libraries\Image_lib.php 1337
+ERROR - 2013-07-24 12:14:03 --> Your server does not support the GD function required to process this type of image.
+ERROR - 2013-07-24 12:14:03 --> Severity: Notice  --> Undefined index: product_price C:\wamp\www\3DCrossing\application\models\products.php 25
+ERROR - 2013-07-24 12:24:43 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 12:42:06 --> Severity: Notice  --> Use of undefined constant avgrating - assumed 'avgrating' C:\wamp\www\3DCrossing\application\controllers\shop.php 370
+ERROR - 2013-07-24 15:47:36 --> Severity: Notice  --> Undefined index: total C:\wamp\www\3DCrossing\application\controllers\shop.php 389
+ERROR - 2013-07-24 15:47:48 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 389
+ERROR - 2013-07-24 15:48:05 --> Severity: Notice  --> Undefined index: total C:\wamp\www\3DCrossing\application\controllers\shop.php 389
+ERROR - 2013-07-24 18:15:17 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 18:17:02 --> Severity: Notice  --> Undefined variable: productid C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 9
+ERROR - 2013-07-24 18:18:00 --> Severity: Notice  --> Use of undefined constant created_date - assumed 'created_date' C:\wamp\www\3DCrossing\application\models\products.php 208
+ERROR - 2013-07-24 18:26:25 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 19
+ERROR - 2013-07-24 18:27:06 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 19
+ERROR - 2013-07-24 18:32:00 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 21
+ERROR - 2013-07-24 18:32:24 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 21
+ERROR - 2013-07-24 18:32:47 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 21
+ERROR - 2013-07-24 18:33:14 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 3
+ERROR - 2013-07-24 18:33:14 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 21
+ERROR - 2013-07-24 18:33:50 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 3
+ERROR - 2013-07-24 18:33:50 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\widgets\new_arrivals.php 21
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_id C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 29
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 31
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_id C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 29
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 31
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_id C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 29
+ERROR - 2013-07-24 18:49:22 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 31
+ERROR - 2013-07-24 19:58:23 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:58:23 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:58:23 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:58:38 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:58:38 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:58:38 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 19:59:56 --> Severity: Notice  --> Undefined index: product_name C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:00:35 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:00:35 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:00:35 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:01:16 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:01:16 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:01:16 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\views\home\pg-track-sales.php 22
+ERROR - 2013-07-24 20:03:15 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 410
+ERROR - 2013-07-24 20:03:15 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 411
+ERROR - 2013-07-24 20:03:15 --> Severity: Warning  --> Division by zero C:\wamp\www\3DCrossing\application\controllers\shop.php 412
+ERROR - 2013-07-24 20:10:28 --> Severity: Notice  --> Undefined index: get_top_three_saless C:\wamp\www\3DCrossing\application\controllers\store.php 336
+ERROR - 2013-07-24 20:31:50 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 410
+ERROR - 2013-07-24 20:31:50 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 411
+ERROR - 2013-07-24 20:31:50 --> Severity: Warning  --> Division by zero C:\wamp\www\3DCrossing\application\controllers\shop.php 412
+ERROR - 2013-07-24 20:35:29 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 410
+ERROR - 2013-07-24 20:35:29 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 411
+ERROR - 2013-07-24 20:35:29 --> Severity: Warning  --> Division by zero C:\wamp\www\3DCrossing\application\controllers\shop.php 412
+ERROR - 2013-07-24 20:38:01 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 410
+ERROR - 2013-07-24 20:38:01 --> Severity: Notice  --> Undefined offset: 0 C:\wamp\www\3DCrossing\application\controllers\shop.php 411
+ERROR - 2013-07-24 20:38:02 --> Severity: Warning  --> Division by zero C:\wamp\www\3DCrossing\application\controllers\shop.php 412
+ERROR - 2013-07-24 20:40:04 --> Severity: Notice  --> Undefined variable: avg_rating C:\wamp\www\3DCrossing\application\views\home\pg-product-details.php 138
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:06:39 --> Severity: Notice  --> Undefined variable: filename C:\wamp\www\3DCrossing\application\views\home\pg-all-products.php 51
+ERROR - 2013-07-24 21:25:17 --> Severity: Notice  --> Undefined variable: logo C:\wamp\www\3DCrossing\application\controllers\store.php 187
+ERROR - 2013-07-24 21:25:17 --> Severity: Notice  --> Undefined index: product_price C:\wamp\www\3DCrossing\application\models\products.php 25
+ERROR - 2013-07-24 21:47:28 --> Severity: Notice  --> Undefined index: product_img C:\wamp\www\3DCrossing\application\views\home\pg-product-details.php 170

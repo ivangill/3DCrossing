@@ -46,70 +46,73 @@ function calculateAmount(){
 	
  </div>
 <legend><h2 class="form-signin-heading">Product Material</h2></legend>
-
+<?php
+ //var_dump($get_products_by_memberid);
+         if ($get_products_by_memberid==null) {
+         	echo '<span class="label label-warning">You have no products yet.</span>'; 
+         } else {
+?>
 <table class="table table-bordered table-striped" id="mytable">
         <thead>
           <tr>   
             <th>Product Name</th>  
             <th>Product Material Name</th> 
             <th>Product Price</th> 
-            
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
         
          <?php 
-         
-         foreach($get_products_by_memberid  as  $product) { 
-         	if (isset($product['product_material'])) {
-         	
+        if (isset($product['product_material'])) {
+         foreach($get_products_by_memberid as $product) { 
+         	 
          	 //foreach($get_user_credit_cards_info[0]['cards'] as $card) { 
          	?> 
           <tr id="row_1">  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php
-            
+           
             
            echo "<ul>";
               foreach ($product['product_material'] as $material){
-          		if ($material['deleted_status']!=1){
-              	echo "<li>".$material['product_material_name']."</li><br />";
-			} }
+          
+              	echo "<li>".$material['product_material_name']."</li>";
+			}
              echo "</ul>";
              ?></td> 
              <td><?php 
-              if (isset($product['product_material'])) {
+             
              echo "<ul>";
-              foreach ($product['product_material'] as $key => $material){
-          			if ($material['deleted_status']!=1){
-              	echo "<li>"."$".$material['product_material_price']; ?>
-              	<a style="border:1px solid grey;padding:1px;" title="Delete" href="<?php echo base_url(); ?>store/delete_my_product_material/<?php echo $product['_id'].'/'.$key; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash"></i></a>
-              	<!--<a style="border:1px solid grey;padding:1px;" title="Edit" href="<?php //echo base_url(); ?>store/my_products/edit/<?php //echo $key; ?>"><i class="icon-edit"></i></a>-->
-             <?php 	
-		echo "</li><br />";	} }
+              foreach ($product['product_material'] as $material){
+          
+              	echo "<li>"."$".$material['product_material_price']."</li>";
+			}
              echo "</ul>";
 
-              }   ?></td>
-           
+             ?></td>
+            
+            <td>
+           <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>">Edit</a>
+            <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
+            </td>
           </tr>
-         <?php 
+         <?php }  ?>
          
-         
-         
-          } else { ?>
-<script language="javascript">
+          
+        <?php   } else {   ?>
+         <script language="javascript">
 $(document).ready(function() {
  $('#mytable').hide();
 });
 
-</script> 
-       <?php echo '<span class="label label-warning">No Product Material Found.</span>';  }
-         
-          }  ?>
+</script>
+         <span class="label label-warning">No Product Material Added for any of the product.</span><br />
+         <?php } ?>
     
          </tbody>
 	</table>
-
+	<?php } ?>
 
 </div>
  <?php } ?>

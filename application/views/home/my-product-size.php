@@ -30,11 +30,12 @@
 	
  </div>
 <legend><h2 class="form-signin-heading">Product Size</h2></legend>
-<?php 
- foreach($get_products_by_memberid as $product) { 
-if (isset($product['size'])) { 
-	
-} }	?>
+<?php
+ //var_dump($get_products_by_memberid);
+         if ($get_products_by_memberid==null) {
+         	echo '<span class="label label-warning">You have no products yet.</span>'; 
+         } else {
+?>
 <table class="table table-bordered table-striped" id="mytable">
         <thead>
           <tr>   
@@ -46,9 +47,9 @@ if (isset($product['size'])) {
         <tbody>
         
          <?php 
-          
+         if (isset($product['size'])) { 
          foreach($get_products_by_memberid as $product) { 
-         	if (isset($product['size'])) {
+         	
          	 //foreach($get_user_credit_cards_info[0]['cards'] as $card) {
        
          	
@@ -71,27 +72,25 @@ if (isset($product['size'])) {
             <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $key; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
             </td>
           </tr>
-         <?php 
+         <?php }  ?>
          
-         
-         
-          } else {  ?>
-<script language="javascript">
+          
+        <?php   } else {   ?>
+         <script language="javascript">
 $(document).ready(function() {
  $('#mytable').hide();
 });
-</script> 
-       <?php echo '<span class="label label-warning">No Product Size Found.</span>';  }
-         
-          }  ?>
+
+</script>
+         <span class="label label-warning">No Product Size Added for any of the product.</span><br />
+         <?php } ?>
     
          </tbody>
 	</table>
-
+	<?php } ?>
 
 </div>
  <?php } ?>
  
 </div>
-    
     <?php $this->load->view( 'home/footer' ); ?>

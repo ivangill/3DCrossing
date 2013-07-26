@@ -74,12 +74,15 @@ class="twitter-share-button"></a>
 			
                 <div class="span8" style="height: 490px;border:1px solid grey;">
                 <?php 
-                if (isset($get_product_by_id['product_img'])) {
-             //   if (isset($get_product_by_id['product_img']) && file_exists($product['product_img'])) {
-                	 echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"');
-                } else {
-                	echo img_tag('icons/no-image-found.jpg', 'style="height:490px;"');
-                }
+                
+                  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
+	                   if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
+	                    } else {
+	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
+	                    }
+                
                 ?>
                 </div>
                
@@ -119,10 +122,27 @@ class="twitter-share-button"></a>
 
 <?php if ($this->session->userdata("memberid")!='') { ?>
 <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;">
-Rate This: <div class="star-rating"><s <?php //if ($get_rating_for_specific_member['rating']==1) { ?><?php //} ?> ><s><s><s><s></s></s></s></s></s></div>
-<div><?php
-echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
-?></div>
+<!--Rate This: <div class="star-rating"><s <?php //if ($avg_rating=='1') { ?>class="rated"<?php //} ?> ><s <?php //if ($avg_rating=='2') { ?>class="rated"<?php //} ?>><s <?php //if ($avg_rating=='3') { ?>class="rated"<?php //} ?>><s <?php //if ($avg_rating=='4') { ?>class="rated"<?php //} ?>><s <?php //if ($avg_rating=='5') { ?>class="rated"<?php //} ?>></s></s></s></s></s></div>-->
+<div>Rate This: </div>
+<form id="myform">
+<input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==0.5) { ?> checked=checked <?php } ?> value="0.5"/>
+    <input class="star {split:2}" type="radio" <?php if (isset($avg_rating) && ($avg_rating > 0.5 && $avg_rating <= 1) ) { ?> checked=checked <?php } ?> name="rating" value="1.0"/>
+    <input class="star {split:2}" type="radio" <?php if (isset($avg_rating) && $avg_rating==1.5) { ?> checked=checked <?php } ?> name="rating" value="1.5"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==2) { ?> checked=checked <?php } ?> value="2.0"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==2.5) { ?> checked=checked <?php } ?> value="2.5"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==3) { ?> checked=checked <?php } ?> value="3.0"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==3.5) { ?> checked=checked <?php } ?> value="3.5" />
+     <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==4) { ?> checked=checked <?php } ?> value="4.0"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==4.5) { ?> checked=checked <?php } ?> value="4.5"/>
+    <input class="star {split:2}" type="radio" name="rating" <?php if (isset($avg_rating) && $avg_rating==5) { ?> checked=checked <?php } ?> value="5.0"/>
+</form> 
+<?php
+if (isset($avg_rating)) {
+
+//echo "Average rating: ".$avg_rating;
+}
+/*echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";*/
+?>
 </div>
 <?php } else { ?>
 <div class="span4" style="padding:5px;margin-bottom:5px;">
@@ -146,11 +166,15 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
 	                	<a href="" style="color:white;">Commosion Designer</a>
 	                </button></div>
 	                <?php 
-	                if (isset($get_product_creator['avatar']) && file_exists($get_product_creator['avatar'])) {
-	                echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 
-	                } else {
-	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
-	                }
+	                
+	                  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_creator['avatar'];
+	                   if (isset($get_product_creator['avatar']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                   echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 	
+	                    } else {
+	                    	 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
+	                    }
+	                
 	                ?>
                 </div>
                 
@@ -187,12 +211,18 @@ echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";
                  	</div>
 		                 <div id="contact_div_1">
 		                 	<span style="float: left;padding: 15px;text-align: justify;">
-							<?php echo $get_product_by_id['product_details']; ?>
+		                 	 <?php 
+							if (isset($get_product_by_id['product_details'])) {
+								echo $get_product_by_id['product_details'];
+							} else { echo "No product Detail Added by the Creator"; } ?>
 							</span>
 		                 </div>
 						 <div id="contact_div_2" style="display:none;">
 						  <span style="float: left;padding: 15px;text-align: justify;">
-							It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+							 <?php 
+							if (isset($get_product_by_id['product_fabrication_advice_text'])) {
+								echo $get_product_by_id['product_fabrication_advice_text'];
+						} else { echo "<span class='label label-info'>No Product Fabrication Advice Added by the Creator</span>"; } ?>
 						  </span>
 						</div>
 						 <div id="contact_div_3" style="display:none;">
@@ -282,12 +312,20 @@ success: function()
 		<li class="dropdown">
 		<?php $memberid=$comment['memberid'];
 			$members= $this->home_model->get_member( $memberid );
-			if (isset($members['avatar'])) {
+			
+			 	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$members['avatar'];
+	                   if (isset($members['avatar']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');	
+	                    } else {
+	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	
+	              }			
+			/*if (isset($members['avatar'])) {
 			//if (isset($members['avatar'])  && file_exists($members['avatar'])) {
 			echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');
 			} else {
 			echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	
-			}
+			}*/
 			echo ' '."<u>".ucfirst($members['first_name'])." ".ucfirst($members['last_name']).":</u>";
 		?>
 		<?php $time=time()-$comment['time'];

@@ -1,10 +1,13 @@
  <?php echo add_jscript('libs/jquery.js'); ?> 
+ <?php echo add_jscript('libs/jquery.MetaData.js'); ?> 
+ <?php echo add_jscript('libs/jquery.rating.js'); ?> 
+ 
  <?php echo add_jscript('nod.js'); ?>
  
 
   <?php if(isset($rating) && $rating == 1){ ?>
 	<script type="text/javascript">
-$(document).ready(function()
+/*$(document).ready(function()
 {
 $(function() {
     $("div.star-rating > s").on("click", function(e) {
@@ -59,7 +62,28 @@ $(function() {
 
 
 
-});
+});*/
+</script>
+<script type="text/javascript">	
+$(function() {
+        $(".star").click(
+        function() {
+        	var myvalue=$("#myform input[type='radio']:checked").val();
+        	var myData = 'ratings='+myvalue;
+        // alert(myData);
+  		$.ajax({
+	     type: 'POST',
+	     url: "<?php echo base_url('shop/product_detail/'.$get_product_by_id['_id']); ?>", 
+	     data: myData,
+	     cache: false,
+		 async:false,
+	     success: function(ratings){
+	     	
+	    	}
+	   });
+            
+        });
+    });
 </script>
 	
 <?php }?>

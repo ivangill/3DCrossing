@@ -58,6 +58,7 @@
         
         <?php echo add_jscript('jquery.flipster.js'); ?>
          <?php echo add_style('style.css'); ?>
+         <?php echo add_style('jquery.rating.css'); ?>
        
         <?php //echo add_jscript('script.js'); ?>
         <?php //echo add_jscript('jquery.raty.min.js'); ?>

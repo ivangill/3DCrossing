@@ -53,6 +53,22 @@ class Store extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			if ($_FILES["store_logo"]["name"]!=""){
 					$image=upload_image('./assets/images/','store_logo');
+					
+					if(!empty($image['file_name'])){
+						$vals['store_logo'] = $image['file_name'];
+						
+						$this->load->library('simpleimage');
+						$this->simpleimage->load('./uploads/canvases/'.$vals['store_logo']);
+						$this->simpleimage->resizeToWidth(300);
+						$this->simpleimage->save('./assets/images/thumbnails/'.$vals['store_logo']);
+					}else{
+						$this->session->set_flashdata('errorMsg', 'Please upload a valid image file.');
+					}
+					
+					
+					
+					
+					
 					//var_dump($image);exit;
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
@@ -162,10 +178,12 @@ class Store extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			if ($_FILES["product_img"]["name"]!=""){
 					$image=upload_image('./assets/images/','product_img');
-					$thumbnail=create_thumbnail('./assets/images/','product_img');
-				//phpinfo();
-					//var_dump($image);
-					//var_dump($thumbnail);exit;
+					
+					$vals['product_img'] = $image['file_name'];
+					
+					$this->simpleimage->load('./assets/images/'.$vals['product_img']);
+					$this->simpleimage->resize(280,280);
+					$this->simpleimage->save('./assets/images/thumbnails/products/homepage/'.$vals['product_img']);
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div id="error">'.$insert['error_msg'].'</div>');
@@ -193,6 +211,7 @@ class Store extends CI_Controller
     			'product_sku'=>$this->input->post('product_sku'),
     			'offer_download'=>$this->input->post('offer_download'),
     			'offer_size'=>$this->input->post('offer_size'),
+    			'product_fabrication_advice_text'=>$this->input->post('product_fabrication_advice_text'),
     			'store_id'=>$store_id,
     			'deleted_status'=>0,
     			'store_category'=>$store_category
@@ -327,7 +346,14 @@ class Store extends CI_Controller
 		
 		
 		$data['count_my_total_sales']= $this->products->count_my_total_sales( $id,$store_id );
-		$data['get_top_three_sales']= $this->products->get_top_three_sales( $id );
+		//$data['get_top_three_sales']= $this->products->get_top_three_sales( $id );
+		$data['get_top_three_sales']= $this->mongo->db->selectCollection("product_buy")->
+		aggregate(array('$match'=>array('product_owner_id'=>$id)),
+		array('$group' => array('_id'=>array('product_id'=>'$product_id','product_name'=>'$product_name'),'count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)),array('$limit'=>3));
+		//echo "<pre>";
+		//print_r($data['get_top_three_sales']);
+		
+		
 		//var_dump($this->mongo_db->last_query());
 		//echo "<pre>";
 		//var_dump($data['get_top_three_sales']);

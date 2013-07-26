@@ -112,13 +112,20 @@ class Home_model extends CI_Model
     {
         if (DBTYPE == 'mongo_db')
         {
+        	//var_dump($id);
+        	if (!isset($id) || $id=='' || $id==null) {
+        		return false;
+        		
+        	} else {
         	$id=new MongoID($id);
+        	
             return $this->mongo_db
                             ->where(array(
                                 "_id" => $id,
                             ))
                             ->get_one('members');
         }
+    }
     }
     
     function update_membership_type ($type,$id)
@@ -256,7 +263,7 @@ class Home_model extends CI_Model
    {
    	 if (DBTYPE == 'mongo_db')
         {
-    	    $id=new MongoID($id);
+        	$id=new MongoID($id);
         	$this->mongo_db->where(array('_id'=>$id));
         	$this->mongo_db->set(array('have_products'=> 1));
             return $this->mongo_db->update('members');

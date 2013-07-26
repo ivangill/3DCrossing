@@ -17,18 +17,23 @@
  					
 // 					$my=arsort($get_top_three_sales['retval']);
 // 					print_r($my);
- 					
+ 					/*foreach ($get_top_three_saless as $product){
+ 						for ($i=0; $i<= 2; $i++){ 
+ 						echo $product[$i]['_id']['product_name'];
+ 						}
+ 					}
+ 					exit;*/
  					foreach($get_top_three_sales as  $top_product){ 
  						for ($i=0; $i<= 2; $i++){ 
- 						if (isset($top_product[$i])) {
+ 						if (isset($top_product[$i]['_id']['product_name'])) {
  							
  						
  							?>
 	                <div style="margin-bottom:5px;">
 	                
-	                	 <a href="<?php echo base_url('shop/product_detail/'.$top_product[$i]['product_id']); ?>" target="_blank" ><?php
+	                	 <a href="<?php echo base_url('shop/product_detail/'.$top_product[$i]['_id']['product_id']); ?>" target="_blank" ><?php
 	                	 
-	                	 echo $top_product[$i]['product_name']; 
+	                	 echo $top_product[$i]['_id']['product_name']; 
 	                	//echo  $i++;
 	                	 ?></a>
 					</div>

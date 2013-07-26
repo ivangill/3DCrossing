@@ -48,15 +48,26 @@ class Cron_Jobs extends CI_Controller
     		//var_dump($mail_subject);exit;
     		$from='newsletter@3DCrossing';
     		
-    		$mail_body="Hello $name,<br/><br/>";
-			$mail_body.=$newsletter_body;
-			echo $mail_body;
-			//var_dump($mail_body);exit;
-    		$this->email->from($from);
-			$this->email->to($email);
-			$this->email->subject($mail_subject);
-			$this->email->message($mail_body);
-			$this->email->send();
+    		//$mail_body="Hello $name,<br/><br/>";
+			$mail_body=$newsletter_body;
+						
+			$this->email->from($from);
+            $this->email->to($email);
+            $this->email->subject($newsletter_subject);
+            $data['site_name']='3D Crossing';
+            $data['email_title'] = 'Welcome - 3D Crossing Newsletter';
+            $data['email_body'] = 'Hello - '.$name.'<br /><br />'.$mail_body;
+
+            $template = $this->load->view( 'template_email.view.php', $data, TRUE );
+            
+           // print_r($template);exit;
+            $this->email->message( $template );
+            $this->email->send();
+			
+			
+			
+			
+			
 			sleep(1);
     	}
     	//var_dump($send_newsletter);exit;

@@ -6,7 +6,17 @@
 <div class="nav-collapse collapse">
 			
                 <div class="span7" style="height: 490px;border:1px solid grey;">
-                <?php echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"'); ?>
+                <?php 
+                
+               $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
+	                   if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
+	                    } else {
+	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
+	                    }
+                
+               // echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"'); ?>
                 </div>
                
                 
@@ -99,12 +109,19 @@
                  	</div>
 		                 <div id="contact_div_1">
 		                 	<span style="float: left;padding: 15px;text-align: justify;">
-							<?php echo $get_product_by_id['product_details']; ?>
+							<?php 
+							if (isset($get_product_by_id['product_details'])) {
+								echo $get_product_by_id['product_details'];
+							} else { echo "<span class='label label-info'>No product Detail Added by the Creator</span>"; }  ?>
 							</span>
 		                 </div>
 						 <div id="contact_div_2" style="display:none;">
 						  <span style="float: left;padding: 15px;text-align: justify;">
-							It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+						  <?php 
+							if (isset($get_product_by_id['product_fabrication_advice_text'])) {
+								echo $get_product_by_id['product_fabrication_advice_text'];
+							} else { echo "<span class='label label-info'>No Product Fabrication Advice Added by the Creator</span>"; } ?>
+							
 						  </span>
 						</div>
 						 <div id="contact_div_3" style="display:none;">

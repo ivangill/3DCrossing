@@ -1,5 +1,5 @@
 <?php $this->load->view( 'home/header.php' ); ?>
 
-<span>Thank You For Subscribing.</span>
+<span style="margin-bottom: 15px;float: left;">Thank You For Subscribing to 3D Crossing's Newsletter.</span>
 
 <?php $this->load->view( 'home/footer' ); ?>

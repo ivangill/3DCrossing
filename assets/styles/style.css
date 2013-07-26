@@ -79,7 +79,7 @@ Layouts
  url('NeoSans/NeoSans-Medium.otf');
 }
 */
- 
+ /*
 .star-rating s:hover {
     color: yellow;
     font-size: 30px;
@@ -102,7 +102,7 @@ Layouts
 }
 .star-rating s:before {
     content: "\2605";
-}
+} */
 .text-white {
 color:white;
 }
@@ -258,6 +258,7 @@ color:white;
   text-color:white;
    border: 0px solid #ccc;
   border: 0px solid rgba(0, 0, 0, 0.2);
+  transition-delay: 85s !important; 
  
   
  }

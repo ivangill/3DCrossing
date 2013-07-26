@@ -17,11 +17,16 @@
 	<div class="span5"><b>First Name:</b> <?php echo strtoupper($get_member['first_name']); ?> </div>
 	
 	<div class="span2 pull-right">
-				<?php  if ($get_member['avatar']!="") { 
-				echo img_tag($get_member['avatar'],'style="height:120px;width:150px;"');
-				} else {
-				echo img_tag('icons/profile-no-image.jpg','style="height:120px;width:150px;"');	
-				}
+				<?php  
+				
+				$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
+	                   if (isset($get_member['avatar']) && file_exists($myimg)) {
+	                    //if (isset($get_product['product_img'])) {
+	                   echo img_tag($get_member['avatar'],'style="height:120px;width:150px;"');	
+	                    } else {
+	                    		echo img_tag('icons/profile-no-image.jpg','style="height:120px;width:150px;"');	 
+	                    }
+				
 				?>
 	</div>
 	<div class="span4"><b>Last Name:</b> <?php echo strtoupper($get_member['last_name']); ?> </div>

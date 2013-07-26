@@ -36,6 +36,7 @@ class Shop extends CI_Controller
         $this->load->model( 'newsletter' );
         $this->load->model( 'news_feed' );
         $this->load->library('stripe');
+        $this->load->library('mongo');
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -52,7 +53,8 @@ class Shop extends CI_Controller
 		   else
 		   {
 		    $data['get_member'] = NULL;
-		   }			
+		   }
+		   			
 			$data['get_store_categories']=$this->store_details->get_all_store_categories();
 			
 			$data['get_widget_one']=$this->global_settings->get_widget_one();
@@ -91,10 +93,9 @@ class Shop extends CI_Controller
 			$this->load->view('home/pg-all-products',$data);
 		
     }
-    
-    function just_sold() {
+    function featured() {
 			//$store_category=$this->uri->segment(3);
-			$data['get_products'] = $this->products->get_all_just_sold_product();
+			$data['get_products'] = $this->products->get_all_featured_products();
 			//var_dump($data['get_products']);exit;
 			
 			if ($this->session->userdata("memberid")!="") {
@@ -106,11 +107,66 @@ class Shop extends CI_Controller
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
 			$data['get_five_designers']=$this->home_model->get_five_designers();
-			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			//$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']=' / Shop / Recent';
+			$this->load->view('home/pg-all-products',$data);
+		
+    }
+    
+    function just_sold() {
+			$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_id')),array('$sort'=>array('_id'=>-1)));
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			//$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['site_title']='/ Shop / Just Sold';
-			$this->load->view('home/pg-all-products',$data);
+			$this->load->view('home/just-sold-products',$data);
+		
+    }
+    function top_products() {
+			$data['get_products'] = $this->mongo->db->selectCollection("product_stats")->aggregate(array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			//$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/ Shop / Just Sold';
+			$this->load->view('home/pg-top-products',$data);
+		
+    }
+    function best_sellers() {
+			$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_owner_id','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
+			if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			//$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+			
+			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+			$data['site_title']='/ Shop / Just Sold';
+			$this->load->view('home/best-sellers-products',$data);
 		
     }
    /* 
@@ -146,7 +202,6 @@ class Shop extends CI_Controller
 			
 			$data['get_five_designers']=$this->home_model->get_five_designers();
 			//var_dump($data['get_five_designers']);exit;
-			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			$data['site_title']=' / Shop / '.ucfirst($category_name);
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
@@ -168,7 +223,6 @@ class Shop extends CI_Controller
 			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
 			
 			$data['get_five_designers']=$this->home_model->get_five_designers();
-			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
 			
 			//var_dump($data['get_five_designers']);exit;
 			
@@ -187,6 +241,7 @@ class Shop extends CI_Controller
 	   			$member_name=$get_member['first_name'].' '.$get_member['last_name'];
 	   			
 	   			$data['get_product_by_id'] = $this->products->get_product_by_id( $product_id );
+	   			
 	   			$product_creator=new MongoID($data['get_product_by_id']['member_id']);
 	   			$product_name=$data['get_product_by_id']['product_name'];
 	   			$check_if_already_liked=$this->product_stats->check_if_already_liked($memberid,$product_id);
@@ -332,7 +387,34 @@ class Shop extends CI_Controller
 			//$count_ratings
 			
 			$data['get_rating_for_specific_member']=$this->product_stats->get_rating_for_specific_member($this->session->userdata("memberid"),$product_id);
-			//var_dump($data['get_star_ratings']);
+			
+/*$data['get_product_avg_rating']=$this->mongo->db->selectCollection("product_ratings")->
+aggregate(array('$group' => array('_id'=>array('rating'=>'$rating','productid'=>'$productid'),
+'rating'=>array('$sum'=>'$rating'))), array('$group'=> array('_id'=>'$_id.rating', 'avgrating' => array('$avg'=>'$rating'))));*/
+
+$count_product_rating=$this->mongo->db->selectCollection("product_ratings")->
+aggregate(array('$match'=>array('productid'=>$product_id)),array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))));
+
+
+$data['product_rating']=$this->mongo->db->selectCollection("product_ratings")->
+aggregate(array('$group' => array('_id' => array('productid'=>'$productid','rating'=>'$rating'),'rating'=>array('$sum'=>'$rating'))));
+
+
+$sum_product_rating=$this->mongo->db->selectCollection("product_ratings")->
+aggregate(array('$match'=>array('productid'=>$product_id)),array('$group' => array('_id'=>'$productid', 'total' => array('$sum'=>'$rating'))));
+
+/*$data['avg_product_rating']=$this->mongo->db->selectCollection("product_ratings")->
+aggregate(array('$group' => array('_id' => array('productid'=>'$productid','rating'=>'$rating'),'rating'=>array('$sum'=>'$rating'))),
+array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'))));*/
+
+	if (isset($sum_product_rating['result'][0]['total']) && isset($count_product_rating['result'][0]['count'])) {
+				
+			
+	$total_rating=$sum_product_rating['result'][0]['total'];
+			$number_of_ratings=$count_product_rating['result'][0]['count'];
+			$data['avg_rating']=$total_rating/$number_of_ratings;
+	}
+			//var_dump($this->mongo_db->last_query());
 			
 			$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3));	
 			//var_dump($data['get_comments_for_specific_product']);exit;
@@ -684,28 +766,30 @@ class Shop extends CI_Controller
     		$newsletter=$this->newsletter->add_subscriber( $insert );
     		$this->session->set_flashdata('response', '<div class="alert alert-success">Thank you for subscribing.Email has benn sent to you for activation.</div>');
     		
-    		$mail_subject='3DCrossing Newsletter Activation';
-    		//var_dump($mail_subject);exit;
-    		$from='newsletter@3DCrossing';
-    		$to=$email;
-    		
-    		$mail_body="3DCrossing Newsletter Activation,<br/><br/>";
-			$mail_body.="You have subscribed for 3DCrossing Newsletter, To activate subscription click this link  :
-			<a target='_blank' href='http://localhost/3dcrossing/shop/newsletter/$newsletter'>Click Here</a><br/><br/>";
-			echo $mail_body;
-			var_dump($mail_body);
     		$this->email->from('newsletter@3DCrossing');
-			$this->email->to($to);
-			$this->email->subject($mail_subject);
-			$this->email->message($mail_body);
-			$this->email->send();
-			echo $this->email->print_debugger();
-			//redirect('shop/');
+            $this->email->to($email);
+            $this->email->subject('3D Crossing Newsletter Activation');
+            $data['site_name']='3D Crossing';
+            $data['email_title'] = 'Welcome - 3D Crossing Newsletter Activation';
+            $data['email_body'] = 'Hello - '.ucwords($name).'<br /><br />You have subscribed for 3DCrossing Newsletter, To activate subscription click this link  :<br /><br />
+            <a target="_blank" href=http://3dcrossing.aws.af.cm/shop/newsletter/'.$newsletter.'>
+            Activate Account</a><br /><br />If the link is not clickable, you can copy and paste the URL below into your browser address 
+            box.<br />http://3dcrossing.aws.af.cm/shop/newsletter/'.$newsletter.'<br /><br />Do not reply to this message, 
+            as no recipient has been designated. Replying to this message will not activate your account.<br />
+            <br /><br />Thank you for using 3D Crossing<br /><br />3D Crossing Team.';
+
+            $template = $this->load->view( 'template_email.view.php', $data, TRUE );
+            
+            //print_r($template);
+            $this->email->message( $template );
+            $this->email->send();
+			//echo $this->email->print_debugger();
+			redirect('shop/');
 			
 		}
 		if ($this->uri->segment(3)!="") {
 			$id=$this->uri->segment(3);
-			echo $id;exit;
+			//echo $id;exit;
 			$update_newsletter_subscriber = $this->newsletter->update_newsletter_subscriber_activation( $id );
 		
 			//var_dump($update_newsletter_subscriber);exit;

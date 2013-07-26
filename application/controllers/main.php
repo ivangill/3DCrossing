@@ -10,7 +10,7 @@ class Main extends CI_Controller {
         $CI->config->load("facebook",TRUE);
         $config = $CI->config->item('facebook');
         $this->load->library('Facebook', $config);
-        $this->load->model('products');
+      
 	}
 
 	function index(){
@@ -47,15 +47,6 @@ class Main extends CI_Controller {
 			print_r($user);
 			exit;
 		}
-	}
-	
-	function add_price ()
-	{
-		$insert=array(
-		'product_total_price' => '100',
-  		'price_paid_to_owner' => '88.3',
-		);
-		
 	}
 
 }

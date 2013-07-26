@@ -43,12 +43,16 @@
 		<?php 
 		
 		foreach ($get_products as $products){ ?>
-             <li class="span3" style="float:left;margin-left:0px;margin-right:15px;">
+		<?php //if (file_exists($products['product_img'])) {
+					$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$products['product_img'];
+				//} ?>
+             <li class="span3" style="float:left;margin-left:0px;margin-right:8px;">
 				<div class="thumbnail">
+				
 					  <a href="<?php echo base_url('shop/product_detail/'.$products['_id']); ?>" style="width: 300px; height: 200px;">
-	                   <span class="text-center"> <?php 
-	                   // if (isset($products['product_img']) && file_exists($products['product_img'])) {
-	                    if (isset($products['product_img'])) {
+	                    <span class="text-center"><?php 
+	                   if (isset($products['product_img']) && file_exists($myimg)) {
+	                   // if (isset($products['product_img'])) {
 	                    echo img_tag($products['product_img'],'style="height:200px;width: 300px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");

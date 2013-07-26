@@ -25,6 +25,7 @@ class Products extends CI_Model
         							   'product_price'=> $data['product_price'],
         							   'product_sku'=> $data['product_sku'],
         							   'offer_download'=> $data['offer_download'],
+        							   'product_fabrication_advice_text'=> $data['product_fabrication_advice_text'],
         							   'offer_size'=> $data['offer_size'],
         							   'product_fabrication'=> $data['product_fabrication'],
         							   'product_category'=> $data['product_category'],
@@ -52,6 +53,32 @@ class Products extends CI_Model
     	 if (DBTYPE == 'mongo_db')
         {
         	$this->mongo_db->where(array('featured'=>'yes'));
+        	$this->mongo_db->where(array('deleted_status'=>0));
+            return $this->mongo_db->get('products');
+        }
+    	
+    }
+    function get_one_featured_product ()
+    {
+    	
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('featured'=>'yes'));
+        	$this->mongo_db->where(array('deleted_status'=>0));
+        	$this->mongo_db->order_by(array('created_date'=>'DESC'));
+        	$this->mongo_db->limit(1);
+            return $this->mongo_db->get('products');
+        }
+    	
+    }
+    
+    function get_all_featured_products ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('featured'=>'yes'));
+        	$this->mongo_db->where(array('deleted_status'=>0));
+        	$this->mongo_db->order_by(array('created_date'=>'DESC'));
             return $this->mongo_db->get('products');
         }
     	
@@ -199,6 +226,17 @@ class Products extends CI_Model
         	
         }
     }
+    function get_new_arrival_product ()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array("deleted_status" => 0));
+        	$this->mongo_db->where(array("created_date" => 'created_date'-200));
+        	$this->mongo_db->limit(1);
+        	return $this->mongo_db->get('products');
+        	
+        }
+    }
     function get_recent_products()
     {
     	if (DBTYPE == 'mongo_db')
@@ -267,8 +305,28 @@ class Products extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+        	if (!isset($product_id) || $product_id=='' || $product_id==null) {
+        		return false;
+        		
+        	}
         	$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array('_id'=>$product_id));
+            return $this->mongo_db->get_one('products');
+        }
+    }
+    
+    function get_product_by_member_id($member_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	if (!isset($member_id) || $member_id=='' || $member_id==null) {
+        		return false;
+        		
+        	}
+        	$member_id=new MongoID($member_id);
+        	$this->mongo_db->where(array("deleted_status" => 0));
+        	$this->mongo_db->where(array('member_id'=>$member_id));
+        	$this->mongo_db->order_by(array('created_date' =>'desc'));
             return $this->mongo_db->get_one('products');
         }
     }

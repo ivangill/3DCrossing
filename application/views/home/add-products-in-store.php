@@ -45,7 +45,15 @@
 					<a href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>" title="Edit"><i class="icon-edit"></i></a>
                        			<br/>
 					  <a href="<?php echo base_url('shop/product_detail/'.$product['_id']); ?>" style="width: 300px; height: 200px;">
-	                    <?php echo img_tag($product['product_img'],'style="height:200px;width: 300px;"'); ?>
+	                    <?php 
+	              $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];       
+	             if (isset($product['product_img']) && file_exists($myimg)) {
+            	 echo img_tag($product['product_img'],'style="height:200px;width: 300px;"');
+            		} else {
+            	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
+            		}
+	                    
+	                    ?>
 	                  </a>
 				</div>
 			  </li>
@@ -78,8 +86,9 @@
             <td><?php echo substr($product['product_details'],0,120)."...."; ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
             <td><?php 
-            if (isset($product['product_img'])) {
-           // if (isset($product['product_img']) && file_exists($product['product_img'])) {
+            $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];
+           // if (isset($product['product_img'])) {
+           if (isset($product['product_img']) && file_exists($myimg)) {
             	echo img_tag($product['product_img'],"style='height:50px;width: 70px;'");
             } else {
             	echo img_tag('icons/no-image-found.jpg',"style='height:50px;width: 70px;'");
@@ -118,6 +127,16 @@ function calculateAmount(){
 	//alert(remainAmount);
 	
 }
+
+function fabricationAdvice(){
+	if(document.getElementById('product_fabrication').checked == true){
+		document.getElementById('fabrication-text').style.display = 'block';
+	}
+	if(document.getElementById('product_fabrication').checked == false){
+	document.getElementById('fabrication-text').style.display = 'none';
+	}
+}
+
 </script>
 
 
@@ -125,16 +144,30 @@ function calculateAmount(){
         <h2 class="form-signin-heading">Add Product.</h2>
        
        <input type="hidden" name="_id" value="<?php echo $this->uri->segment(4); ?>" >
-       <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['product_fabrication']) && $get_single_product['product_fabrication']=='on' ){ echo "checked"; } ?>  name="product_fabrication"> Fabrication </label>
+       <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['product_fabrication']) && $get_single_product['product_fabrication']=='on' ){ echo "checked"; } ?> id="product_fabrication" onclick="fabricationAdvice();"  name="product_fabrication"> Fabrication </label>
+       
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_size']) && $get_single_product['offer_size']=='on' ){ echo "checked"; } ?> name="offer_size"> Offer DIfferent Sizes </label>
+       
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
+       
        <label>Product Name:</label><input type="text" required="required" name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
+       
        <label>Product Price: </label>
        <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
+       
        <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & <?php echo $get_review_cut_amount['amount']; ?>% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
+       
         <label>Product Description:</label>
         <textarea name="product_details" placeholder="Product Details"><?php if(isset($get_single_product['product_details'])) echo $get_single_product['product_details'] ?></textarea>
+        
+        <div id="fabrication-text"
+ <?php if(isset($get_single_product['product_fabrication_advice_text']) && $get_single_product['product_fabrication']=='on' ){ ?> style="display:block" <?php } else { ?> style="display:none;" <?php } ?> >
+        <label>Product Fabrication Advice:</label>
+        <textarea name="product_fabrication_advice_text" placeholder="Product Fabrication Advice"><?php if(isset($get_single_product['product_fabrication_advice_text'])) echo $get_single_product['product_fabrication_advice_text']; ?></textarea>
+        </div>
+        
         <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required="required" class="input-block-level" placeholder="Product Details">
+        
         <label>Product Category:</label>
         <select name="product_category" required="required">
          	<option value="">Select Category</option>

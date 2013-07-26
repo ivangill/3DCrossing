@@ -232,6 +232,7 @@ class Home extends CI_Controller
 
             $this->email->from('noreply@3dcrossing.com');
             $this->email->to($email);
+            $data['site_name']='3D Crossing';
             $this->email->subject('3D Crossing Account Activation');
             $data['email_title'] = 'Welcome - Account Activation';
             $data['email_body'] = 'Hello '.ucwords($username). ',<br /><br />
@@ -317,6 +318,8 @@ class Home extends CI_Controller
 			'appId' => config_item('appId'),
 			'secret' => config_item('secret')
 		);
+		
+		//var_dump($fbinit_array);exit;
 		
 		if ($this->input->get('error') == 'access_denied')
 		{
@@ -515,18 +518,26 @@ class Home extends CI_Controller
 				$this->session->unset_userdata('entered_email_for_login');
 				redirect('home/forgot_password');
 			} else {
+			
 				
-			$mail_body="Hello $user_name,<br/><br/>";
-			$mail_body.="To change password for 3DCrossing Account, click this link  :
-			<a target='_blank' href='http://3dcrossing.aws.af.cm/home/forgot_password/$user_id'>Click Here</a><br/><br/>";
-			//echo $mail_body;
-			//var_dump($mail_body);exit;
 			$this->email->from('noreply@3dcrossing.com');
 			$this->email->to($user_email);
-			$this->email->subject('3D Crossing Account Password');
-			$this->email->message($mail_body);
-			$this->email->send();
-			echo $this->email->print_debugger();
+            $data['site_name']='3D Crossing';
+            $this->email->subject('3D Crossing Account Activation');
+            $data['email_title'] = 'Welcome - Account Activation';
+            $data['email_body'] = 'Hello '.ucwords($user_name). ',<br /><br />
+            To change password for 3DCrossing Account, click this link  :<br /><br /><a target="_blank" 
+            href=http://3dcrossing.aws.af.cm/home/forgot_password/'.$user_id.'>Click Here</a><br /><br />If the link is not clickable, you can copy and paste the URL below into your browser address 
+            box.<br />http://3dcrossing.aws.af.cm/home/forgot_password/'.$user_id.'<br /><br />Do not reply to this message, 
+            as no recipient has been designated. Replying to this message will not activate your account.<br />
+            <br /><br />Thank you for using 3D Crossing<br /><br />3D Crossing Team.';
+
+            $template = $this->load->view( 'template_email.view.php', $data, TRUE );
+            
+            //var_dump($template);exit;
+            $this->email->message( $template );
+            $this->email->send();
+			//echo $this->email->print_debugger();
 	
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Link has been sent to your email address.</div>');
 			redirect('home/forgot_password');
@@ -554,7 +565,7 @@ class Home extends CI_Controller
             $db_insert['first_name'] = 'First Name';
     		$db_insert['last_name'] = 'Last Name';
     		$insert = $this->home_model->add_member( $db_insert );
-    		var_dump($insert);
+    		//var_dump($insert);
     		$this->session->set_userdata("memberid",$insert);
     		//echo $this->session->userdata("memberid");exit;
     		if ($this->input->post('first_name')) {

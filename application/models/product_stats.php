@@ -85,6 +85,10 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+        	if (!isset($member_id) || $member_id=='' || $member_id==null) {
+        		return false;
+        		
+        	}
         	$member_id=new MongoID($member_id);
         	//$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array("memberid" => $member_id));
@@ -99,6 +103,10 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+        	if (!isset($member_id) || $member_id=='' || $member_id==null) {
+        		return false;
+        		
+        	}
         	$member_id=new MongoID($member_id);
         	//$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array("memberid" => $member_id));
@@ -122,6 +130,15 @@ class Product_Stats extends CI_Model
     	
     }
     
+    function count_rated_products()
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+	    	return $this->mongo_db->count('product_ratings');
+	        //return $this->mongo_db->get('product_ratings');
+        }
+    }
+    
     function get_star_ratings($product_id)
     {
     	if (DBTYPE == 'mongo_db')
@@ -135,6 +152,10 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+        	if (!isset($memberid) || $memberid=='' || $memberid==null) {
+        		return false;
+        		
+        	}
         	$memberid=new MongoID($memberid);
 	    	$this->mongo_db->where(array("memberid" => $memberid));
 	    	$this->mongo_db->where(array("productid" => $product_id));
