@@ -1,7 +1,5 @@
 <?php $this->load->view( 'home/header.php' ); ?>
 
-
-
 <?php $this->load->view( 'widgets/slider_view' ); ?>
 
 <div class="row-fluid">

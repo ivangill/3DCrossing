@@ -12,11 +12,11 @@ $get_product=$this->products->get_product_by_id($productid);
 
 
 <div class="thumbnail">
-				  <a href="<?php echo base_url('shop/just_sold'); ?>" style="width: 300px; height: 200px;">
+				  <a href="<?php //echo base_url('shop/just_sold'); ?>" style="width: 300px; height: 200px;">
                     <?php 
-                    $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];
-	                   if (isset($get_product['product_img']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
+                   // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];
+	                 //  if (isset($get_product['product_img']) && file_exists($myimg)) {
+	                   if (isset($get_product['product_img'])) {
 	                    echo img_tag($get_product['product_img'],'style="height:200px;width: 300px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");

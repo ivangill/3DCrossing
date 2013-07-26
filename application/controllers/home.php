@@ -35,6 +35,7 @@ class Home extends CI_Controller
         $this->load->model( 'memberships' );
         $this->load->driver('cache');
         $this->load->library('stripe');
+       // $this->load->library('mongo');
        // $this->output->enable_profiler(TRUE);
     }
 
@@ -44,7 +45,7 @@ class Home extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
 		}
-		
+		   /* $data['avg_rating']= $this->mongo->db->selectCollection("product_ratings")->aggregate(array('$group'=>array('_id'=>array('productid'=>'$productid','rating'=>'$rating'), 'rating'=>array('$sum'=>'$rating'))), array('$group'=>array('_id'=>'$_id.productid', 'avgrate'=>array('$avg'=>'$rating'))),array('$sort'=>array('avgrate'=>-1)));*/
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
         $data['site_title']='';

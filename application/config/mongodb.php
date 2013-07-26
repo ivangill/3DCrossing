@@ -22,12 +22,11 @@ if (!defined('BASEPATH'))
 
 if (ENVIRONMENT == 'testing')
 {
-   // echo '<pre>';
+  // echo '<pre>';
     $services_json = json_decode(getenv("VCAP_SERVICES"), true);
     $mongo_config = $services_json["mongodb-1.8"][0]["credentials"];
-   // print_r($mongo_config);
+  //  var_dump($mongo_config);
   // echo '</pre>';
-
     $config['testing']['mongo_hostbase'] = $mongo_config["hostname"] . ':' . $mongo_config["port"];
     $config['testing']['mongo_database'] = $mongo_config['db'];
     $config['testing']['mongo_username'] = $mongo_config["username"];
@@ -41,6 +40,7 @@ if (ENVIRONMENT == 'testing')
 }
 else
 {
+	
     $config['development']['mongo_hostbase'] = 'localhost:27017';
     $config['development']['mongo_database'] = '500px';
     $config['development']['mongo_username'] = 'admin';

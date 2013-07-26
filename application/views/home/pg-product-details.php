@@ -16,11 +16,13 @@
   <?php echo img_tag('facebook-share-btn.jpg'); ?>
 </a> 
 <a data-via="3DCrossing" data-count="none"
-data-text="<?php echo $get_product_by_id['product_name']." by ".ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>" 
-href="https://twitter.com/share?url=<?php echo base_url('shop/product_detail').'/'.$get_product_by_id['_id']; ?>" 
+data-text="<?php echo $get_product_by_id['product_name']." by ".ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>" href="https://twitter.com/share?url=<?php echo base_url('shop/product_detail').'/'.$get_product_by_id['_id']; ?>" 
 class="twitter-share-button"></a>
+
 <script> !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
   <script src="https://apis.google.com/js/plusone.js"></script>
+  
 
  <?php $url= base_url('shop/product_detail').'/'.$get_product_by_id['_id'];
  $desc=$get_product_by_id['product_name']; 
@@ -75,13 +77,13 @@ class="twitter-share-button"></a>
                 <div class="span8" style="height: 490px;border:1px solid grey;">
                 <?php 
                 
-                  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
-	                   if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
+                 // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
+	                  // if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
+	                   // if (isset($get_product['product_img'])) {
 	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
-	                    } else {
-	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
-	                    }
+	                   // } else {
+	                  //  	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
+	                  //  }
                 
                 ?>
                 </div>
@@ -139,7 +141,7 @@ class="twitter-share-button"></a>
 <?php
 if (isset($avg_rating)) {
 
-//echo "Average rating: ".$avg_rating;
+echo "Average rating: ".$avg_rating;
 }
 /*echo "You have rated ".$get_rating_for_specific_member['rating']. " stars";*/
 ?>
@@ -167,13 +169,13 @@ if (isset($avg_rating)) {
 	                </button></div>
 	                <?php 
 	                
-	                  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_creator['avatar'];
-	                   if (isset($get_product_creator['avatar']) && file_exists($myimg)) {
+	                 // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_creator['avatar'];
+	               //    if (isset($get_product_creator['avatar']) && file_exists($myimg)) {
 	                    //if (isset($get_product['product_img'])) {
 	                   echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 	
-	                    } else {
-	                    	 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
-	                    }
+	                 //   } else {
+	                 //   	 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
+	                 //   }
 	                
 	                ?>
                 </div>
@@ -313,9 +315,9 @@ success: function()
 		<?php $memberid=$comment['memberid'];
 			$members= $this->home_model->get_member( $memberid );
 			
-			 	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$members['avatar'];
-	                   if (isset($members['avatar']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
+			 //	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$members['avatar'];
+	                  // if (isset($members['avatar']) && file_exists($myimg)) {
+	                    if (isset($get_product['product_img'])) {
 	                echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');	
 	                    } else {
 	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	

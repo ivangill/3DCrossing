@@ -46,12 +46,12 @@
                        			<br/>
 					  <a href="<?php echo base_url('shop/product_detail/'.$product['_id']); ?>" style="width: 300px; height: 200px;">
 	                    <?php 
-	              $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];       
-	             if (isset($product['product_img']) && file_exists($myimg)) {
+	             // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];       
+	           //  if (isset($product['product_img']) && file_exists($myimg)) {
             	 echo img_tag($product['product_img'],'style="height:200px;width: 300px;"');
-            		} else {
-            	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
-            		}
+            	//	} else {
+            	//echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
+            	//	}
 	                    
 	                    ?>
 	                  </a>
@@ -86,13 +86,13 @@
             <td><?php echo substr($product['product_details'],0,120)."...."; ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
             <td><?php 
-            $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];
+           // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];
            // if (isset($product['product_img'])) {
-           if (isset($product['product_img']) && file_exists($myimg)) {
+         //  if (isset($product['product_img']) && file_exists($myimg)) {
             	echo img_tag($product['product_img'],"style='height:50px;width: 70px;'");
-            } else {
-            	echo img_tag('icons/no-image-found.jpg',"style='height:50px;width: 70px;'");
-            }
+         //   } else {
+         //   	echo img_tag('icons/no-image-found.jpg',"style='height:50px;width: 70px;'");
+         //   }
             
              ?></td>  
             <td><?php echo ucfirst($product['product_category']); ?></td>

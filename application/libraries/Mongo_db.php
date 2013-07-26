@@ -63,7 +63,7 @@ if ( !defined( 'BASEPATH' ) )
   drop_collection Drops a collection
  */
 
-class Mongo_db {
+class Mongo_db extends Mongo {
 
     /**
      * CI instance.

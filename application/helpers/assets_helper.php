@@ -255,7 +255,7 @@ function add_review($member_id,$product_id,$product_creator){
 						  'productid'=>$product_id,
 						  'product_creator'=>$product_creator,
 						  'time'=>time(),
-						  'rating'=>new Mongoint32($rating),
+						  'rating'=>(float)$rating,
 			);
 			//var_dump($insert);exit;
         	return $CI->mongo_db->insert('product_ratings',$insert);
@@ -267,10 +267,10 @@ function update_rating($member_id,$product_id,$rating){
  	 if (DBTYPE == 'mongo_db')
         {
         	$member_id=new MongoID($member_id);
-        	$rating=new MongoInt32($rating);
+        	//$rating=new MongoInt32($rating);
         	$CI->mongo_db->where(array('memberid'=>$member_id));
         	$CI->mongo_db->where(array('productid'=>$product_id));
-        	$CI->mongo_db->set(array("rating"=>new Mongoint32($rating)))->update('product_ratings');;
+        	$CI->mongo_db->set(array("rating"=>(float)$rating))->update('product_ratings');;
         	
         }
  }

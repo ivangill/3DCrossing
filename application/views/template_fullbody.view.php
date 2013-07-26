@@ -66,10 +66,11 @@ $productid=$top_product['result'][0]['_id'];
 
 
 $get_product=$this->products->get_product_by_id($productid);*/
+ //$this->load->library('mongo');
+ //$this->mongo->aggregate();
 
-     $avg_rating= $this->mongo->db->selectCollection("product_ratings")->aggregate(array('$group'=>array('_id'=>array('productid'=>'$productid','rating'=>'$rating'), 'rating'=>array('$sum'=>'$rating'))), array('$group'=>array('_id'=>'$_id.productid', 'avgrate'=>array('$avg'=>'$rating'))),array('$sort'=>array('avgrate'=>-1)));
 /*echo "<pre>"; 
-print_r($avg_rating);*/ 
+print_r($avg_rating);*/
 ?>
 <script language="javascript">
 	
@@ -84,9 +85,9 @@ print_r($avg_rating);*/
 	}
 	
 </script>  
-<ul class="thumbnails">
+<!--<ul class="thumbnails">-->
 <?php
-foreach ($avg_rating['result'] as $rating){
+/*foreach ($avg_rating['result'] as $rating){
 	
 	$productid=$rating['_id'];
 	$avg_rating=$rating['avgrate'];
@@ -98,8 +99,9 @@ foreach ($avg_rating['result'] as $rating){
 	if ($avg_rating >= 3) {
 		echo '<li class="span3 my-img-style">';
 		
-		$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/thumbnails/products/homepage/'.$get_product['product_img'];
-	     if (isset($get_product['product_img']) && file_exists($myimg)) { ?>
+		//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/thumbnails/products/homepage/'.$get_product['product_img'];
+	    // if (isset($get_product['product_img']) && file_exists($myimg)) {
+	     if (isset($get_product['product_img'])) { ?>
 	                   
 	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo img_tag('thumbnails/products/homepage/'.$get_product['product_img'],'style="height:280px;"'); ?></a>
 	     
@@ -141,23 +143,20 @@ foreach ($avg_rating['result'] as $rating){
 	}
 	
 	
-} ?>
-<!-- </ul>
+}*/ ?>
+
  
      <ul class="thumbnails">
      <li class="span3 my-img-style">
-     <?php //echo img_tag('icons/robo.png') ?>
-     <!--<span style="z-index: 999;float: left;height: 45px;border: 1px solid red;width: 268px;">
-     Robo <br /> Clark Kent</span>-->
-    <!-- </li>
-	  <li class="span3 my-img-style"><?php //echo img_tag('icons/guitar.png') ?></li>
-	  <li class="span3 my-img-style"><?php //echo img_tag('icons/klvn.png') ?></li>
-	  <li class="span3 my-img-style"><?php //echo img_tag('icons/gear.png') ?></li>
-	 <li class="span3 my-img-style"><?php //echo img_tag('icons/skull.png') ?></li>
-	 <li class="span3 my-img-style"><?php //echo img_tag('icons/spike.png') ?></li>
-	 <li class="span3 my-img-style"><?php //echo img_tag('icons/thingy.png') ?></li>
-	 <li class="span3 my-img-style"><?php //echo img_tag('icons/face.png') ?></li>
-     </ul>-->
+     <?php echo img_tag('icons/robo.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/guitar.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/klvn.png') ?></li>
+	  <li class="span3 my-img-style"><?php echo img_tag('icons/gear.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/skull.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/spike.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/thingy.png') ?></li>
+	 <li class="span3 my-img-style"><?php echo img_tag('icons/face.png') ?></li>
+     </ul>
    
       
 	<?php $this->load->view( 'home/footer.php' ); ?>

@@ -36,7 +36,7 @@ class Shop extends CI_Controller
         $this->load->model( 'newsletter' );
         $this->load->model( 'news_feed' );
         $this->load->library('stripe');
-        $this->load->library('mongo');
+        //$this->load->library('mongo');
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -116,7 +116,7 @@ class Shop extends CI_Controller
     }
     
     function just_sold() {
-			$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_id')),array('$sort'=>array('_id'=>-1)));
+			/*$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_id')),array('$sort'=>array('_id'=>-1)));*/
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$data['get_member'] = $this->home_model->get_member( $id );
@@ -134,7 +134,7 @@ class Shop extends CI_Controller
 		
     }
     function top_products() {
-			$data['get_products'] = $this->mongo->db->selectCollection("product_stats")->aggregate(array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
+			/*$data['get_products'] = $this->mongo->db->selectCollection("product_stats")->aggregate(array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));*/
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$data['get_member'] = $this->home_model->get_member( $id );
@@ -152,7 +152,8 @@ class Shop extends CI_Controller
 		
     }
     function best_sellers() {
-			$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_owner_id','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
+		/*	$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_owner_id','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));*/
+		
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$data['get_member'] = $this->home_model->get_member( $id );
@@ -392,7 +393,7 @@ class Shop extends CI_Controller
 aggregate(array('$group' => array('_id'=>array('rating'=>'$rating','productid'=>'$productid'),
 'rating'=>array('$sum'=>'$rating'))), array('$group'=> array('_id'=>'$_id.rating', 'avgrating' => array('$avg'=>'$rating'))));*/
 
-$count_product_rating=$this->mongo->db->selectCollection("product_ratings")->
+/*$count_product_rating=$this->mongo->db->selectCollection("product_ratings")->
 aggregate(array('$match'=>array('productid'=>$product_id)),array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))));
 
 
@@ -401,19 +402,21 @@ aggregate(array('$group' => array('_id' => array('productid'=>'$productid','rati
 
 
 $sum_product_rating=$this->mongo->db->selectCollection("product_ratings")->
-aggregate(array('$match'=>array('productid'=>$product_id)),array('$group' => array('_id'=>'$productid', 'total' => array('$sum'=>'$rating'))));
+aggregate(array('$match'=>array('productid'=>$product_id)),array('$group' => array('_id'=>'$productid', 'total' => array('$sum'=>'$rating'))));*/
+
+
 
 /*$data['avg_product_rating']=$this->mongo->db->selectCollection("product_ratings")->
 aggregate(array('$group' => array('_id' => array('productid'=>'$productid','rating'=>'$rating'),'rating'=>array('$sum'=>'$rating'))),
 array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'))));*/
 
-	if (isset($sum_product_rating['result'][0]['total']) && isset($count_product_rating['result'][0]['count'])) {
+	/*if (isset($sum_product_rating['result'][0]['total']) && isset($count_product_rating['result'][0]['count'])) {
 				
 			
 	$total_rating=$sum_product_rating['result'][0]['total'];
 			$number_of_ratings=$count_product_rating['result'][0]['count'];
 			$data['avg_rating']=$total_rating/$number_of_ratings;
-	}
+	}*/
 			//var_dump($this->mongo_db->last_query());
 			
 			$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3));	
