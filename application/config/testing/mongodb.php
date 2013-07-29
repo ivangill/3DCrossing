@@ -13,18 +13,37 @@ if ( !defined( 'BASEPATH' ) )
  * ['mongo_password'] The password used to connect to the database (if auth mode is enabled)
 */
 
- // echo '<pre>';
-    $services_json = json_decode(getenv("VCAP_SERVICES"), true);
-    $mongo_config = $services_json["mongodb-1.8"][0]["credentials"];
-  //  var_dump($mongo_config);
-  // echo '</pre>';
-    $config['testing']['mongo_hostbase'] = $mongo_config["hostname"] . ':' . $mongo_config["port"];
-    $config['testing']['mongo_database'] = $mongo_config['db'];
-    $config['testing']['mongo_username'] = $mongo_config["username"];
-    $config['testing']['mongo_password'] = $mongo_config["password"];
-    $config['testing']['mongo_persist'] = FALSE;
-    $config['testing']['mongo_persist_key'] = 'ci_persist';
-    $config['testing']['mongo_replica_set'] = FALSE;
-    $config['testing']['mongo_query_safety'] = 'safe';
-    $config['testing']['mongo_suppress_connect_error'] = FALSE;
-    $config['testing']['mongo_host_db_flag'] = TRUE;
+// ----------------------------------------
+// USED FOR APPFOG MONGO1.8 Service
+// ----------------------------------------
+
+// echo '<pre>';
+//   $services_json = json_decode(getenv("VCAP_SERVICES"), true);
+//   $mongo_config = $services_json["mongodb-1.8"][0]["credentials"];
+// //  var_dump($mongo_config);
+// // echo '</pre>';
+//   $config['testing']['mongo_hostbase'] = $mongo_config["hostname"] . ':' . $mongo_config["port"];
+//   $config['testing']['mongo_database'] = $mongo_config['db'];
+//   $config['testing']['mongo_username'] = $mongo_config["username"];
+//   $config['testing']['mongo_password'] = $mongo_config["password"];
+//   $config['testing']['mongo_persist'] = FALSE;
+//   $config['testing']['mongo_persist_key'] = 'ci_persist';
+//   $config['testing']['mongo_replica_set'] = FALSE;
+//   $config['testing']['mongo_query_safety'] = 'safe';
+//   $config['testing']['mongo_suppress_connect_error'] = FALSE;
+//   $config['testing']['mongo_host_db_flag'] = TRUE;
+
+// ----------------------------------------
+// USED FOR APPFOG - ADDON MongoHQ
+// ----------------------------------------
+//
+$config['testing']['mongo_hostbase'] = 'dharma.mongohq.com:10074';
+$config['testing']['mongo_database'] = '3dcrossing_mobeen';
+$config['testing']['mongo_username'] = 'appfog';
+$config['testing']['mongo_password'] = 'b7NvmKT0os74';
+$config['testing']['mongo_persist'] = FALSE;
+$config['testing']['mongo_persist_key'] = 'ci_persist';
+$config['testing']['mongo_replica_set'] = FALSE;
+$config['testing']['mongo_query_safety'] = 'safe';
+$config['testing']['mongo_suppress_connect_error'] = FALSE;
+$config['testing']['mongo_host_db_flag'] = TRUE;
