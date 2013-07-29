@@ -59,7 +59,7 @@ $common_libraries = array( 'engineinit', 'session','simpleimage' );
 
 switch ( DBTYPE ) {
 case 'mongo_db':
-  $db_libraries = array( 'mongo_db' );
+  $db_libraries = array( 'mongo_db','mongodb');
   break;
 
 case 'db':

@@ -122,7 +122,7 @@ class Product_Stats extends CI_Model
     	if (DBTYPE == 'mongo_db')
         {
         	$member_id=new MongoID($member_id);
-        	//$product_id=new MongoID($product_id);
+        	$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array("memberid" => $member_id));
         	$this->mongo_db->where(array("productid" => $product_id));
         	return $this->mongo_db->get_one('product_ratings');
