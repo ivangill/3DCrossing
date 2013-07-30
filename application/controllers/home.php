@@ -382,7 +382,7 @@ class Home extends CI_Controller
 					$memberid=$facebook_member['_id'];
 					$this->session->set_userdata("memberid",$memberid); 
 					}
-			redirect('home/index');
+			redirect('home/');
 		}
 		else
 		{
@@ -433,7 +433,7 @@ class Home extends CI_Controller
 			$this->session->set_userdata("memberid",$memberid); 
 		}
 		
-		redirect('home/index');
+		redirect('home/');
 			
 		}
 		
@@ -464,10 +464,10 @@ class Home extends CI_Controller
 				if ($this->input->post('product_id')!='') {
 				redirect('shop/product_detail/'.$this->input->post('product_id'));
 				}
-				redirect('home/index');
+				redirect('home/');
 			}
 		}
-		$data['enable_validation']=1;
+		//$data['enable_validation']=1;
 		
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
@@ -668,7 +668,7 @@ class Home extends CI_Controller
     }
     public function logout()
 	{
-		//$this->session->sess_destroy();
+		$this->session->sess_destroy();
 		$this->session->unset_userdata("memberid");
 		$this->session->unset_userdata("memberemail");
 		$this->session->unset_userdata("memberstatus");

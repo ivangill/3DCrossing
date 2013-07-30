@@ -317,7 +317,7 @@ success: function()
 			
 			 //	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$members['avatar'];
 	                  // if (isset($members['avatar']) && file_exists($myimg)) {
-	                    if (isset($get_product['product_img'])) {
+	                if (isset($members['avatar'])) {
 	                echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');	
 	                    } else {
 	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	

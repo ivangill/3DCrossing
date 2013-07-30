@@ -70,3 +70,26 @@ ERROR - 2013-07-30 16:44:33 --> Severity: Notice  --> Undefined index: port C:\w
 ERROR - 2013-07-30 17:49:18 --> 404 Page Not Found --> home/assets
 ERROR - 2013-07-30 17:49:39 --> 404 Page Not Found --> home/assets
 ERROR - 2013-07-30 17:49:42 --> 404 Page Not Found --> home/assets
+ERROR - 2013-07-30 18:08:00 --> Severity: Notice  --> Undefined variable: _SESSION C:\wamp\www\3DCrossing\application\views\home\header.php 113
+ERROR - 2013-07-30 18:08:18 --> Severity: Notice  --> Undefined variable: _SESSION C:\wamp\www\3DCrossing\application\views\home\header.php 114
+ERROR - 2013-07-30 18:08:30 --> Severity: Notice  --> Undefined variable: _SESSION C:\wamp\www\3DCrossing\application\views\home\header.php 114
+ERROR - 2013-07-30 18:25:55 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:25:55 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:25:59 --> Severity: Notice  --> Undefined index: oauth_token C:\wamp\www\3DCrossing\application\libraries\Twconnect.php 126
+ERROR - 2013-07-30 18:26:02 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:02 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:08 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:08 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:10 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:10 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:26:16 --> Severity: Notice  --> Undefined index: about_me C:\wamp\www\3DCrossing\application\views\home\my-account.php 39
+ERROR - 2013-07-30 18:32:01 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:01 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:12 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:12 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:45 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:45 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:52 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:52 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:54 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383
+ERROR - 2013-07-30 18:32:54 --> Severity: Notice  --> Undefined index: port C:\wamp\www\3DCrossing\application\libraries\twitteroauth\OAuth.php 383

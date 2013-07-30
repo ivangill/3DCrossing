@@ -442,7 +442,7 @@ array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'
 
 		force_download($product_img, $data);
     }
-    
+   
     function send_to_friend()
     {
     	if ($this->input->post('email_one')) {

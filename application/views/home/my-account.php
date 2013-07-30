@@ -29,17 +29,31 @@
 				
 				?>
 	</div>
-	<div class="span4"><b>Last Name:</b> <?php echo strtoupper($get_member['last_name']); ?> </div>
-	
-	
-	
+	<div class="span4"><b>Last Name:</b> <?php 
+	if (isset($get_member['last_name'])) {
+	echo strtoupper($get_member['last_name']); } ?> </div>
+	<?php if (isset($get_member['email']) && $get_member['email']!='') { ?>
 	<div class="span5"><b>Email:</b> <?php echo $get_member['email']; ?> </div>
+	<?php } ?>
+	<?php if (isset($get_member['membership_type']) && $get_member['membership_type']!='') { ?>
 	<div class="span4"><b>Membership Type:</b> <?php echo strtoupper($get_member['membership_type']); ?> </div>
-	<div class="span5"><b>About Me:</b> <?php 
-	$about_me= ucfirst($get_member['about_me']);
-	echo substr($about_me,0,80).' ...';
+	<?php } ?>
 	
-	//echo ucfirst($get_member['about_me']); ?> </div>
+	<?php if (isset($get_member['twitter_id']) && $get_member['twitter_id']!='') { ?>
+	<div class="span4"><b>Twitter Username:</b> <?php echo $get_member['username']; ?> </div>
+	<?php } ?>
+	
+	<?php if (isset($get_member['facebook_id']) && $get_member['facebook_id']!='') { ?>
+	<div class="span4"><b>Facebook Username:</b> <?php echo $get_member['username']; ?> </div>
+	<?php } ?>
+	
+	<?php if (isset($get_member['about_me'])) { ?>
+	<div class="span5"><b>About Me:</b> 
+	<?php $about_me= ucfirst($get_member['about_me']);
+	echo substr($about_me,0,80).' ...'; ?>
+	
+	<?php //echo ucfirst($get_member['about_me']); ?> </div>
+	<?php } ?>
 	 <?php if ($get_member['status']=="inactive" && $this->uri->segment(3)=="") { ?>
  		<div class="span8"><b>Status:</b> 
                 	<?php echo "Inactive (Check your mail and activate your account)"; ?>

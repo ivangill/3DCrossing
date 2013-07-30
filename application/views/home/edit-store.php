@@ -7,14 +7,14 @@
       <form class="form-signin" method="POST" action="<?php echo base_url('store/edit_store'); ?>" enctype="multipart/form-data">
       <?php echo $this->session->flashdata('response'); ?>  
       
-         <label>Store Name:</label><input type="text" required="required" name="store_name" class="input-block-level" value="<?php echo $get_store['store_name'] ?>">
+         <label>Store Name:</label><input type="text" required="required" name="store_name" class="input-block-level" value="<?php echo $get_store['store_name']; ?>">
          <label>Store Details:</label><input type="text"  name="store_details" required="required" class="input-block-level" value="<?php echo $get_store['store_details'] ?>">
          <label>Zip Code:</label><input type="text"  name="store_zip" required="required" class="input-block-level" value="<?php echo $get_store['store_zip'] ?>">
          <label>Store Category:</label>
         <select name="store_category" required="required">
          	<option value="">Select Category</option>
          	<?php foreach ($get_store_categories as $store_category){ ?>
-         	<option value="<?php echo $store_category['slug']; ?>"><?php echo ucfirst($store_category['name']); ?></option>
+         	<option <?php if ($get_store['store_category']==$store_category['slug']) { echo "selected";  } ?> value="<?php echo $store_category['slug']; ?>"><?php echo ucfirst($store_category['name']); ?></option>
          	<?php } ?>
          </select>
          <input type="hidden"  name="_id" required="required" class="input-block-level" value="<?php echo $get_store['_id'] ?>">
