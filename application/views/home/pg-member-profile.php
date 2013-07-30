@@ -47,11 +47,11 @@ success: function()
 	
 	//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member_profile['avatar'];
 	                  // if (isset($get_member_profile['avatar']) && file_exists($myimg)) {
-	                    if (isset($get_product['product_img'])) {
-	                    echo img_tag($get_member_profile['avatar'], 'style="height:110px;width:100px;"');  	
-	                    } else {
-	                    echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:100px;"');
-	                    }
+	                   if (isset($get_member_profile['avatar'])) {
+	                    echo img_tag('thumbnails/member-profiles/'.$get_member_profile['avatar']);  	
+	                   } else {
+	                    echo img_tag('icons/profile-no-image.jpg', 'style="height:100px;width:100px;"');
+	                   }
 	/*
 	if (isset($get_member_profile['avatar'])) {
 	echo img_tag($get_member_profile['avatar'], 'style="height:110px;width:100px;"');  

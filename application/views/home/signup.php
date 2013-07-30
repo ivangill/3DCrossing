@@ -55,9 +55,9 @@ function changeText2(){
       <form class="form-signin" method="POST" action="<?php echo base_url('home/signup'); ?>" enctype="multipart/form-data">
         
          <label>Email:</label><input type="email" title="Enter a valid Email Address" required="required" name="email" id="email" class="input-block-level" placeholder="Email address">
-        <label>Password: (Minimum of 8+chars, Min 1 Numeric, Min 1 Capital Letter)</label> <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})" title="(At least 8 characters long, containing uppercase, lowercase and numbers)" required="required" name="password" id="password" class="input-block-level" placeholder="Password">
-        <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" name="avatar">
-       <label>Upload Avatar (Max Size: 500 x 500)</label>
+        <label>Password: (At least 8 characters long, containing uppercase, lowercase and numbers)</label> <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})" title="(At least 8 characters long, containing uppercase, lowercase and numbers)" required="required" name="password" id="password" class="input-block-level" placeholder="Password">
+        <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" title="(Max Size: 5MB) (Type: JPG,JPEG,PNG,GIF)" name="avatar">
+       <label>(Max Size: 5MB) (Type: JPG,JPEG,PNG,Gif)</label>
        <!-- <button class="btn btn-large btn-primary" type="Sign up" onclick="changeText2()">Sign up</button>-->
 
     <!--</div>  /container -->
@@ -65,8 +65,8 @@ function changeText2(){
   <!--<div style="display:none;" id="contact_div_2">-->
   
       <!--	<label>Email:</label><input type="email" required="required" name="emaill" id="emaill" class="input-block-level" value="" readonly>-->
-         <label>First Name:</label><input type="text" pattern="[A-Za-z].{1,50}"  name="first_name" required="required" class="input-block-level" placeholder="First Name">
-         <label>Last Name:</label><input type="text"  name="last_name" required="required" class="input-block-level" placeholder="Last Name">
+         <label>First Name:</label><input type="text" pattern="^[a-zA-Z]+$" title="Enter alphabets only"  name="first_name" required="required" class="input-block-level" placeholder="First Name">
+         <label>Last Name:</label><input type="text"  name="last_name" pattern="^[a-zA-Z]+$" title="Enter alphabets only" required="required" class="input-block-level" placeholder="Last Name">
          <label>About Me:</label><input type="text"  name="about_me" required="required" class="input-block-level" placeholder="About Me">
           <button class="btn btn-large btn-primary" type="Finish">Finish</button>
       </form>

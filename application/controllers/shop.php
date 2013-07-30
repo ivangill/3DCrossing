@@ -36,7 +36,7 @@ class Shop extends CI_Controller
         $this->load->model( 'newsletter' );
         $this->load->model( 'news_feed' );
         $this->load->library('stripe');
-        //$this->load->library('mongo');
+        //$this->load->library('mongodb');
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -116,7 +116,7 @@ class Shop extends CI_Controller
     }
     
     function just_sold() {
-			/*$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_id')),array('$sort'=>array('_id'=>-1)));*/
+			$data['get_products'] = $this->mongodb->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_id')),array('$sort'=>array('_id'=>-1)));
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$data['get_member'] = $this->home_model->get_member( $id );
@@ -134,7 +134,7 @@ class Shop extends CI_Controller
 		
     }
     function top_products() {
-			/*$data['get_products'] = $this->mongo->db->selectCollection("product_stats")->aggregate(array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));*/
+			$data['get_products'] = $this->mongodb->db->selectCollection("product_stats")->aggregate(array('$group' => array('_id'=>'$productid','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$data['get_member'] = $this->home_model->get_member( $id );
@@ -152,7 +152,7 @@ class Shop extends CI_Controller
 		
     }
     function best_sellers() {
-		/*	$data['get_products'] = $this->mongo->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_owner_id','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));*/
+		$data['get_products'] = $this->mongodb->db->selectCollection("product_buy")->aggregate(array('$group' => array('_id'=>'$product_owner_id','count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)));
 		
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");

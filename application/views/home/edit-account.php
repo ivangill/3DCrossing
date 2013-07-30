@@ -6,7 +6,7 @@
  <?php echo $this->session->flashdata('response'); ?>  
 <legend><h2 class="form-signin-heading">Edit My Account</h2></legend>
 
-      <form class="form-signin" method="POST" action="<?php echo base_url('home/edit_account'); ?>" enctype="multipart/form-data">
+      <form class="form-signin" method="POST" action="<?php echo base_url('member/edit_account'); ?>" enctype="multipart/form-data">
       
       
         <label>Email:</label><input type="email" required="required" name="email" class="input-block-level" value="<?php echo $get_member['email'] ?>"readonly>

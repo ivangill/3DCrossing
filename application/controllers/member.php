@@ -208,6 +208,7 @@ class Member extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$update_password = $this->home_model->update_member_status( $id );
 			//var_dump($update_password);exit;
+			$this->session->unset_userdata("memberstatus");
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.Refresh page to get access to your account.</div>');
 
 		}
@@ -233,8 +234,12 @@ class Member extends CI_Controller
     			
     			// upload user image
 				if ($_FILES["avatar"]["name"]!=""){
-					$image=upload_image('./assets/images/','avatar');
+					$image=upload_image('./assets/images/member-profiles/','avatar');
 					//var_dump($image);exit;
+					$vals['avatar'] = $image['file_name'];
+					$this->simpleimage->load('./assets/images/member-profiles/'.$vals['avatar']);
+					$this->simpleimage->resize(100,100);
+					$this->simpleimage->save('./assets/images/thumbnails/member-profiles/'.$vals['avatar']);
 					if(isset($image['error'])){
 					echo $filter["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div id="error">'.$filter['error_msg'].'</div>');
@@ -248,7 +253,7 @@ class Member extends CI_Controller
 				$update_user_profile = $this->home_model->update_member( $filter,$id );
 				
 				$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been updated successfully.</div>');
-				redirect('home/my_account');
+				redirect('member/my_account');
 			}
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	

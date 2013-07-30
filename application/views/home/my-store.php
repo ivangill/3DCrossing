@@ -19,9 +19,9 @@
                 <h4>Store Category: <?php echo strtoupper($get_store['store_category']); ?></h4>
                 <h4>Logo: <?php 
                 
-                 $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_store['store_logo'];
-	                   if (isset($get_store['product_img']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
+             //    $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_store['store_logo'];
+	                  // if (isset($get_store['product_img']) && file_exists($myimg)) {
+	                    if (isset($get_store['store_logo'])) {
 	                    echo img_tag($get_store['store_logo'],"style='height:120px;'");	
 	                    } else {
 	                    echo img_tag('icons/no-image-found.jpg',"style='height:120px;'");

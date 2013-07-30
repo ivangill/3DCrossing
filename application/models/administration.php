@@ -7,7 +7,24 @@ class Administration extends CI_Model
     {
         parent::__construct();
     }
-
+	
+    function add_admin ($data)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	//var_dump($data);exit;
+    	return $this->mongo_db->insert('admin',$data);
+        }
+    }
+    
+    function add_global_setting_widget ($data)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	//var_dump($data);exit;
+    	return $this->mongo_db->insert('global_settings',$data);
+        }
+    }
     function login ($username,$password)
     {
         if (DBTYPE == 'mongo_db')

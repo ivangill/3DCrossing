@@ -38,7 +38,7 @@ if (!defined('BASEPATH'))
  * @param	string	the image type, company image or regular assets
  * @return	string
  */
-function upload_image($path, $field_name, $max_width='2000', $max_height='2000'){
+function upload_image($path, $field_name, $max_width='5000', $max_height='5000'){
 	$CI =& get_instance();
 	
 	$config['upload_path'] = $path;
@@ -91,6 +91,25 @@ $CI->image_lib->initialize($config);
 }
 
 function img_tag($image_name, $attributes = '', $type='regular') {
+    if (is_array($attributes)) {
+        $attributes = parse_tag_attributes($attributes);
+    }
+
+    $obj = & get_instance();
+    $base = $obj->config->item('base_url');
+    switch ($type) {
+        case "regular":
+            $img_folder = $obj->config->item('image_path');
+            break;
+
+        default:
+            $img_folder = $obj->config->item('image_path');
+    }
+
+    return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
+}
+
+function show_thumbnail($image_name, $attributes = '', $type='regular') {
     if (is_array($attributes)) {
         $attributes = parse_tag_attributes($attributes);
     }
@@ -252,7 +271,7 @@ function add_review($member_id,$product_id,$product_creator){
         {
         	
         	$insert=array('memberid'=>$member_id,
-						  'productid'=>$product_id,
+						  'productid'=>new MongoId($product_id),
 						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'rating'=>(float)$rating,
@@ -269,7 +288,7 @@ function update_rating($member_id,$product_id,$rating){
         	$member_id=new MongoID($member_id);
         	//$rating=new MongoInt32($rating);
         	$CI->mongo_db->where(array('memberid'=>$member_id));
-        	$CI->mongo_db->where(array('productid'=>$product_id));
+        	$CI->mongo_db->where(array('productid'=>new MongoId($product_id)));
         	$CI->mongo_db->set(array("rating"=>(float)$rating))->update('product_ratings');;
         	
         }

@@ -92,7 +92,7 @@ success: function()
 
 </script>
 
- <div class="span10"> 
+ <div class="span9"> 
 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   

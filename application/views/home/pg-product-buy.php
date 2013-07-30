@@ -10,7 +10,7 @@
                 
             //   $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
 	                 //  if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
-	                    if (isset($get_product['product_img'])) {
+	                    if (isset($get_product_by_id['product_img'])) {
 	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');

@@ -27,6 +27,7 @@ class Cron_Jobs extends CI_Controller
 		$this->load->library('email',$config);
 		
 		$this->load->model( 'newsletter' );
+		$this->load->model( 'administration' );
     }
 
     function index() {
@@ -73,7 +74,57 @@ class Cron_Jobs extends CI_Controller
     	//var_dump($send_newsletter);exit;
        // $this->load->view( 'admin/pg-newsletter',$data);
     }
-  
+    /*function add_admin() {
+    	$insert=array('username'=>'admin',
+    				  'email' => 'mobeen@pwoxisolutions.com',
+    				  'name' => 'admin',
+    				  'password' => md5('admin'),
+    	);
+    	$this->administration->add_admin($insert);
+    }
+     function add_global_setting_widget_one() {
+    	$insert=array('created_date'=>time(),
+    				  'number_to_show' => new MongoInt32(1),
+    				  'shop_bottom_widget' => 'new_arrivals',
+    	);
+    	//var_dump($insert);exit;
+    	$this->administration->add_global_setting_widget($insert);
+    }
+    function add_global_setting_widget_two() {
+    	$insert=array('created_date'=>time(),
+    				  'number_to_show' => new MongoInt32(2),
+    				  'shop_bottom_widget' => 'just_sold',
+    	);
+    	//var_dump($insert);exit;
+    	$this->administration->add_global_setting_widget($insert);
+    }
+     function add_global_setting_widget_three() {
+    	$insert=array('created_date'=>time(),
+    				  'number_to_show' => new MongoInt32(3),
+    				  'shop_bottom_widget' => 'best_sellers',
+    	);
+    	//var_dump($insert);exit;
+    	$this->administration->add_global_setting_widget($insert);
+    }
+    
+      function add_global_setting_widget_four() {
+    	$insert=array('created_date'=>time(),
+    				  'number_to_show' => new MongoInt32(4),
+    				  'shop_bottom_widget' => 'top_products',
+    	);
+    	//var_dump($insert);exit;
+    	$this->administration->add_global_setting_widget($insert);
+    }
+    
+      function add_global_setting_widget_five() {
+    	$insert=array('created_date'=>time(),
+    				  'number_to_show' => new MongoInt32(5),
+    				  'shop_bottom_widget' => 'recent_products',
+    	);
+    	//var_dump($insert);exit;
+    	$this->administration->add_global_setting_widget($insert);
+    }
+  */
     
 
 }

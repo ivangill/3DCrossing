@@ -110,7 +110,7 @@ fornav {
   
     <div class="container">
     <?php 
-    
+    echo $this->session->userdata("memberid");
     if ($this->session->userdata('memberstatus') && $this->session->userdata('memberstatus')=='inactive') {
 	
 	echo '<div class="alert alert-info">Your Account is Inactive. To activate your account, Check your mail and activate your account.</div>';		

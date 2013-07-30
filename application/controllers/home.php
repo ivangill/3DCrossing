@@ -46,7 +46,7 @@ class Home extends CI_Controller
 			$data['get_member'] = $this->home_model->get_member( $id );
 		}
 	$data['avg_rating']= $this->mongodb->db->selectCollection("product_ratings")->aggregate(array('$group'=>array('_id'=>array('productid'=>'$productid','rating'=>'$rating'), 'rating'=>array('$sum'=>'$rating'))), array('$group'=>array('_id'=>'$_id.productid', 'avgrate'=>array('$avg'=>'$rating'))),array('$sort'=>array('avgrate'=>-1)));
-	echo "<pre>";print_r($data['avg_rating']);
+	//echo "<pre>";print_r($data['avg_rating']);
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
         $data['site_title']='';
@@ -194,7 +194,14 @@ class Home extends CI_Controller
     			redirect('home/signup');
     		} else {  
     			if ($_FILES["avatar"]["name"]!=""){
-					$image=upload_image('./assets/images/','avatar');
+					$image=upload_image('./assets/images/member-profiles/','avatar');
+					//var_dump($image);exit;
+					$vals['avatar'] = $image['file_name'];
+					//$this->simpleimage->load('./images/avatar/member-profile/'.$vals['avatar']);
+					$this->simpleimage->load('./assets/images/member-profiles/'.$vals['avatar']);
+					$this->simpleimage->resize(100,100);
+					//$this->simpleimage->save('./images/avatar/thumbnails/member-profile/'.$vals['avatar']);
+					$this->simpleimage->save('./assets/images/thumbnails/member-profiles/'.$vals['avatar']);
 					//var_dump($image);exit;
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
@@ -227,10 +234,8 @@ class Home extends CI_Controller
     		
     		$insert = $this->home_model->add_member( $insert );
     		//var_dump($insert);exit;
-    		$this->session->set_userdata("memberid",$insert);  
-    		
-    		
-    		
+    		$this->session->set_userdata("memberid",$insert); 
+    		$this->session->set_userdata("memberstatus",'inactive'); 
 
             $this->email->from('noreply@3dcrossing.com');
             $this->email->to($email);
@@ -284,7 +289,8 @@ class Home extends CI_Controller
 		$ok = $this->twconnect->twredirect('home/callback');
 
 		if (!$ok) {
-			echo 'Could not connect to Twitter. Refresh the page or try again later.';
+		$this->session->set_flashdata('response', '<div class="alert alert-error">Could not connect to Twitter. Refresh the page or try again later.</div>');
+		redirect('home/login');
 		}
 	}
 	public function callback() {
@@ -297,8 +303,10 @@ class Home extends CI_Controller
 	}
 	public function failure() {
 
-		echo '<p>Twitter connect failed</p>';
-		echo '<p><a href="' . base_url() . 'home/clearsession">Try again!</a></p>';
+		//echo '<p>Twitter connect failed</p>';
+		//echo '<p><a href="' . base_url() . 'home/clearsession">Try again!</a></p>';
+		$this->session->set_flashdata('response', '<div class="alert alert-error">Try again to Login with Twitter!</div>');
+		redirect('home/login');
 	}
 	public function clearsession() {
 
@@ -358,7 +366,7 @@ class Home extends CI_Controller
 								 'deleted_status'=>0,
 								 'avatar'=>'',
 								 'username'=>$username,
-								 'membership_type'=>'',
+								 'membership_type'=>'free',
 								 'status'=>'active',
 								 'email'=>$email,
 								 'password'=>'',
@@ -408,7 +416,7 @@ class Home extends CI_Controller
 					 'deleted_status'=>0,
 					 'avatar'=>'',
 					 'username'=>$username,
-					 'membership_type'=>'',
+					 'membership_type'=>'free',
 					 'status'=>'active',
 					 'email'=>'',
 					 'password'=>'',
@@ -429,15 +437,16 @@ class Home extends CI_Controller
 			
 		}
 		
-		if($this->session->userdata('memberid')!="")
+		if($this->session->userdata('memberid')!=""){
 				redirect('home/');
+		}
 		//$data=array();
 		//$this->session->unset_userdata('entered_email_for_login');
 		if($this->input->post('email')){
 			$email=$this->input->post('email');
 			$password=md5($this->input->post('password'));
 			$user=$this->home_model->login($email,$password);
-			//var_dump($user);exit;
+			//print_r($user);
 			$userid=$user['_id'];
 			$useremail=$user['email'];
 			$user_status=$user['status'];
@@ -659,7 +668,7 @@ class Home extends CI_Controller
     }
     public function logout()
 	{
-		$this->session->sess_destroy();
+		//$this->session->sess_destroy();
 		$this->session->unset_userdata("memberid");
 		$this->session->unset_userdata("memberemail");
 		$this->session->unset_userdata("memberstatus");

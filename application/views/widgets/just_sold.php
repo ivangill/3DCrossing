@@ -1,18 +1,22 @@
 <?php
 $products=$this->products->get_one_just_sold_product();
 //var_dump($products);exit;
+if (isset($products)) {
 foreach($products as $p){
 	$productid=$p['product_id'];
 }
+}
 
+if (isset($productid)) {
 $get_product=$this->products->get_product_by_id($productid);
 //var_dump($get_product);
+}
 ?>
 
 
 
 <div class="thumbnail">
-				  <a href="<?php //echo base_url('shop/just_sold'); ?>" style="width: 300px; height: 200px;">
+				  <a href="<?php echo base_url('shop/just_sold'); ?>" style="width: 300px; height: 200px;">
                     <?php 
                    // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];
 	                 //  if (isset($get_product['product_img']) && file_exists($myimg)) {

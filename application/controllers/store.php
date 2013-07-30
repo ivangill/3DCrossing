@@ -57,8 +57,7 @@ class Store extends CI_Controller
 					if(!empty($image['file_name'])){
 						$vals['store_logo'] = $image['file_name'];
 						
-						$this->load->library('simpleimage');
-						$this->simpleimage->load('./uploads/canvases/'.$vals['store_logo']);
+						$this->simpleimage->load('./assets/images/'.$vals['store_logo']);
 						$this->simpleimage->resizeToWidth(300);
 						$this->simpleimage->save('./assets/images/thumbnails/'.$vals['store_logo']);
 					}else{
@@ -127,7 +126,7 @@ class Store extends CI_Controller
 					//var_dump($image);exit;
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
-					$this->session->set_flashdata('response', '<div id="error">'.$insert['error_msg'].'</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
 					redirect('store/edit_store');
 					} else {
 					$logo=$image['file_name'];
@@ -347,7 +346,7 @@ class Store extends CI_Controller
 		
 		$data['count_my_total_sales']= $this->products->count_my_total_sales( $id,$store_id );
 		//$data['get_top_three_sales']= $this->products->get_top_three_sales( $id );
-		$data['get_top_three_sales']= $this->mongo->db->selectCollection("product_buy")->
+		$data['get_top_three_sales']= $this->mongodb->db->selectCollection("product_buy")->
 		aggregate(array('$match'=>array('product_owner_id'=>$id)),
 		array('$group' => array('_id'=>array('product_id'=>'$product_id','product_name'=>'$product_name'),'count'=>array('$sum'=>1))),array('$sort'=>array('count'=>-1)),array('$limit'=>3));
 		//echo "<pre>";

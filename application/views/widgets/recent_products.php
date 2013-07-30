@@ -1,11 +1,16 @@
 <?php
 $product=$this->products->get_one_recent_product();
+if (count($product) > 0) {
 
 foreach($product as $p){
 	$productid=$p['_id'];
 }
+}
 
+if (isset($productid)) {
+	
 $get_product=$this->products->get_product_by_id($productid);
+}
 
 
 ?>
@@ -14,7 +19,7 @@ $get_product=$this->products->get_product_by_id($productid);
 
 
 <div class="thumbnail">
-				  <a href="<?php //echo base_url('shop/recent'); ?>" style="width: 300px; height: 200px;">
+				  <a href="<?php echo base_url('shop/recent'); ?>" style="width: 300px; height: 200px;">
 				  
                     <?php 
                    // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];

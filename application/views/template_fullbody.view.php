@@ -85,9 +85,9 @@ print_r($avg_rating);*/
 	}
 	
 </script>  
-<!--<ul class="thumbnails">-->
+<ul class="thumbnails">
 <?php
-/*foreach ($avg_rating['result'] as $rating){
+foreach ($avg_rating['result'] as $rating){
 	
 	$productid=$rating['_id'];
 	$avg_rating=$rating['avgrate'];
@@ -103,7 +103,7 @@ print_r($avg_rating);*/
 	    // if (isset($get_product['product_img']) && file_exists($myimg)) {
 	     if (isset($get_product['product_img'])) { ?>
 	                   
-	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo img_tag('thumbnails/products/homepage/'.$get_product['product_img'],'style="height:280px;"'); ?></a>
+	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo img_tag('thumbnails/products/homepage/'.$get_product['product_img'],'style="height:280px;width:280px"'); ?></a>
 	     
 	     
 	 <?php    } else { ?>
@@ -132,7 +132,7 @@ print_r($avg_rating);*/
 	     	echo img_tag('stars-images/4.png');
 	     }  elseif ($avg_rating >4 && $avg_rating < 4.6){
 	     	echo img_tag('stars-images/10.png');
-	     } elseif ($avg_rating >4.5 && $avg_rating < 5.1){
+	     } elseif ($avg_rating >4.5){
 	     	echo img_tag('stars-images/5.png');
 	     }
 	     ?></span>
@@ -143,20 +143,21 @@ print_r($avg_rating);*/
 	}
 	
 	
-}*/ ?>
+} ?>
+</ul>
 
  
-     <ul class="thumbnails">
+   <!--  <ul class="thumbnails">
      <li class="span3 my-img-style">
-     <?php echo img_tag('icons/robo.png') ?></li>
-	  <li class="span3 my-img-style"><?php echo img_tag('icons/guitar.png') ?></li>
-	  <li class="span3 my-img-style"><?php echo img_tag('icons/klvn.png') ?></li>
-	  <li class="span3 my-img-style"><?php echo img_tag('icons/gear.png') ?></li>
-	 <li class="span3 my-img-style"><?php echo img_tag('icons/skull.png') ?></li>
-	 <li class="span3 my-img-style"><?php echo img_tag('icons/spike.png') ?></li>
-	 <li class="span3 my-img-style"><?php echo img_tag('icons/thingy.png') ?></li>
-	 <li class="span3 my-img-style"><?php echo img_tag('icons/face.png') ?></li>
-     </ul>
+     <?php //echo img_tag('icons/robo.png') ?></li>
+	  <li class="span3 my-img-style"><?php //echo img_tag('icons/guitar.png') ?></li>
+	  <li class="span3 my-img-style"><?php //echo img_tag('icons/klvn.png') ?></li>
+	  <li class="span3 my-img-style"><?php //echo img_tag('icons/gear.png') ?></li>
+	 <li class="span3 my-img-style"><?php //echo img_tag('icons/skull.png') ?></li>
+	 <li class="span3 my-img-style"><?php //echo img_tag('icons/spike.png') ?></li>
+	 <li class="span3 my-img-style"><?php //echo img_tag('icons/thingy.png') ?></li>
+	 <li class="span3 my-img-style"><?php //echo img_tag('icons/face.png') ?></li>
+     </ul>-->
    
       
 	<?php $this->load->view( 'home/footer.php' ); ?>
