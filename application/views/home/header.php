@@ -75,14 +75,17 @@ fornav {
     z-index:2;
 }
 </style>         
-            <form class="pull-right navbar-search" action="">
+            <form class="pull-right navbar-search" action="<?php echo base_url('shop/search_product'); ?>" method="POST">
             	
-              <input  id="mysearch-style" placeholder="Search..." name="search" type="text">
+              <input  id="mysearch-style" placeholder="Search..." name="search_product" type="text">
               <?php if ($this->session->userdata('memberid')!='') { ?>
                 
               
                         <a class="dropdown-toggle login-style" data-toggle="dropdown" href="#">
-                 <span class="my-logedin-profile"><?php echo strtoupper($get_member['first_name']." ".$get_member['last_name']); ?></span></a>
+                 <span class="my-logedin-profile"><?php 
+                 $name=strtoupper($get_member['first_name']." ".$get_member['last_name']);
+                echo substr($name,0,15).'...';
+                  ?></span></a>
                         <ul class="dropdown-menu login-dropdown">
                             <li><a href="<?php echo base_url('upgrade/'); ?>">Upgrade Membership</a></li>
                             <li><a href="<?php echo base_url('member/profile/'.$this->session->userdata("memberid")); ?>">My Profile</a></li>

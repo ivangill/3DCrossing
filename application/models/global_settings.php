@@ -149,5 +149,62 @@ class Global_Settings extends CI_Model
         }
     	
     }
+    
+    function save_homepage_slider_img($data,$id='')
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	if($id!=""){
+    	    $id=new MongoID($id);
+        	$this->mongo_db->where(array('_id'=>$id));
+        	$this->mongo_db->set(array('img_link'=> $data['img_link'],
+        							   'slider_img'=> $data['slider_img'],
+        							   'status'=> $data['status'],
+        							   'deleted_status'=> $data['deleted_status'],
+        							   ));
+            return $this->mongo_db->update('homepage_slider');
+        	} else {
+            return $this->mongo_db->insert('homepage_slider', $data);
+        	}
+        }
+    	
+    }
+    
+     function get_all_homepage_slider_imgs ()
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('deleted_status' =>0));
+            return $this->mongo_db->get('homepage_slider');
+        }
+    }
+    function get_one_homepage_slider_img ($id)
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$id= new MongoId($id);
+        	$this->mongo_db->where(array('_id' =>$id));
+            return $this->mongo_db->get_one('homepage_slider');
+        }
+    }
+    function update_homepage_slider_img_deleted_status ($id)
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$id= new MongoId($id);
+        	$this->mongo_db->where(array('_id' =>$id));
+        	$this->mongo_db->set(array('deleted_status'=> 1));
+            return $this->mongo_db->update('homepage_slider');
+        }
+    }
+    
+    
+    
 
 }

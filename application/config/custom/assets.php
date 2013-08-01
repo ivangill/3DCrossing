@@ -17,5 +17,8 @@ $config['javascript_path'] = "assets/javascripts/";
 $config['stylesheet_path'] = "assets/styles/";
 
 // custom app related paths.
-$config['image_path_company'] = "";
-$config['image_path_users'] = "";
+$config['image_path_uploads'] = "uploads/";
+$config['image_path_products'] = "uploads/products/";
+$config['image_path_thumbnails'] = "uploads/thumbnails/";
+$config['image_path_stores'] = "uploads/stores/";
+$config['image_path_homepage_slider'] = "uploads/homepageslider/";

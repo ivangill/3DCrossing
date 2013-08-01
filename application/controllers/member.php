@@ -234,20 +234,23 @@ class Member extends CI_Controller
     			
     			// upload user image
 				if ($_FILES["avatar"]["name"]!=""){
-					$image=upload_image('./assets/images/member-profiles/','avatar');
+					$image=upload_image('./uploads/members/','avatar');
 					//var_dump($image);exit;
 					$vals['avatar'] = $image['file_name'];
-					$this->simpleimage->load('./assets/images/member-profiles/'.$vals['avatar']);
+					//$this->simpleimage->load('./images/avatar/member-profile/'.$vals['avatar']);
+					$this->simpleimage->load('./uploads/members/'.$vals['avatar']);
 					$this->simpleimage->resize(100,100);
-					$this->simpleimage->save('./assets/images/thumbnails/member-profiles/'.$vals['avatar']);
+					//$this->simpleimage->save('./images/avatar/thumbnails/member-profile/'.$vals['avatar']);
+					$this->simpleimage->save('./uploads/members/thumbnails/'.$vals['avatar']);
+					//var_dump($image);exit;
 					if(isset($image['error'])){
-					echo $filter["error_msg"] = $image['error'];
-					$this->session->set_flashdata('response', '<div id="error">'.$filter['error_msg'].'</div>');
-					redirect('home/edit_account');
+					$insert["error_msg"] = $image['error'];
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
+					redirect('home/signup');
 					} else {
-					$filter['avatar']=$image['file_name'];
+					$avatar=$image['file_name'];
 					}
-					}
+				 }
 					//var_dump($filter['avatar']);exit;
     			
 				$update_user_profile = $this->home_model->update_member( $filter,$id );
@@ -271,14 +274,14 @@ class Member extends CI_Controller
 		//echo $this->session->userdata("memberid");exit;
 		if ($this->input->post('old_password')) {
 			$id=$this->session->userdata("memberid");
-			echo $old_password=md5($this->input->post('old_password'))." ";
+			$old_password=md5($this->input->post('old_password'))." ";
 			$get_member=$this->home_model->get_member( $id );
-			echo $meber_password=$get_member['password']. " ";
+			$member_password=$get_member['password']. " ";
 			
-			if ($old_password===$meber_password) {
+			if ($old_password===$member_password) {
 				//echo $password=md5($this->input->post('password')); exit;
 			$password=md5($this->input->post('password'));
-			//unset($this->input->post('confirm_password'));
+			//echo $this->input->post('password');exit;
 			$update_password = $this->home_model->update_password( $password,$id );
 			//var_dump($update_password);exit;
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Password has been updated successfully.</div>');

@@ -21,11 +21,12 @@
 				
 				//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
 	                 // if (isset($get_member['avatar']) && file_exists($myimg)) {
-	                   if (isset($get_member['avatar'])) {
-	                  echo img_tag('thumbnails/member-profiles/'.$get_member['avatar']);  
-	                    } else {
-	                   echo img_tag('icons/profile-no-image.jpg','style="height:120px;width:150px;"');	 
-	                    }
+	                 //  if (isset($get_member['avatar'])) {
+	                // echo $get_member['avatar'];
+	                  echo show_img('members/thumbnails/'.$get_member['avatar']);  
+	                 //   } else {
+	                 //  echo img_tag('icons/profile-no-image.jpg','style="height:120px;width:150px;"');	 
+	                //    }
 				
 				?>
 	</div>

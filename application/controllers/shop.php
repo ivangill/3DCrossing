@@ -436,7 +436,7 @@ array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'
     	$get_product = $this->products->get_product_by_id( $product_id );
     	$product_img=$get_product['product_img'];
     	$this->load->helper('download_helper');
-    	$data = file_get_contents("http://3dcrossing.aws.af.cm/assets/images/".$product_img); // Read the file's contents
+    	$data = file_get_contents("http://3dcrossing.aws.af.cm/uploads/products/".$product_img); // Read the file's contents
 		//$name = 'myphoto.jpg';
 		//var_dump($data);exit;
 

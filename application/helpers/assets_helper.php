@@ -109,6 +109,82 @@ function img_tag($image_name, $attributes = '', $type='regular') {
     return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
 }
 
+
+function show_slider_img($image_name, $attributes = '', $type='regular') {
+    if (is_array($attributes)) {
+        $attributes = parse_tag_attributes($attributes);
+    }
+
+    $obj = & get_instance();
+    $base = $obj->config->item('base_url');
+    switch ($type) {
+        case "regular":
+            $img_folder = $obj->config->item('image_path_homepage_slider');
+            break;
+
+        default:
+            $img_folder = $obj->config->item('image_path_homepage_slider');
+    }
+
+    return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
+}
+
+function show_store_img($image_name, $attributes = '', $type='regular') {
+    if (is_array($attributes)) {
+        $attributes = parse_tag_attributes($attributes);
+    }
+
+    $obj = & get_instance();
+    $base = $obj->config->item('base_url');
+    switch ($type) {
+        case "regular":
+            $img_folder = $obj->config->item('image_path_stores');
+            break;
+
+        default:
+            $img_folder = $obj->config->item('image_path_stores');
+    }
+
+    return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
+}
+
+function show_product_img($image_name, $attributes = '', $type='regular') {
+    if (is_array($attributes)) {
+        $attributes = parse_tag_attributes($attributes);
+    }
+
+    $obj = & get_instance();
+    $base = $obj->config->item('base_url');
+    switch ($type) {
+        case "regular":
+            $img_folder = $obj->config->item('image_path_products');
+            break;
+
+        default:
+            $img_folder = $obj->config->item('image_path_products');
+    }
+
+    return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
+}
+function show_img($image_name, $attributes = '', $type='regular') {
+    if (is_array($attributes)) {
+        $attributes = parse_tag_attributes($attributes);
+    }
+
+    $obj = & get_instance();
+    $base = $obj->config->item('base_url');
+    switch ($type) {
+        case "regular":
+            $img_folder = $obj->config->item('image_path_uploads');
+            break;
+
+        default:
+            $img_folder = $obj->config->item('image_path_uploads');
+    }
+
+    return '<img src="' . $base . $img_folder . $image_name . '"' . $attributes . ' />';
+}
+
 function show_thumbnail($image_name, $attributes = '', $type='regular') {
     if (is_array($attributes)) {
         $attributes = parse_tag_attributes($attributes);

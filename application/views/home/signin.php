@@ -12,7 +12,7 @@ if ($error)
         <a class="btn btn-large btn-success" href="<?php echo $login_url; ?>">Try to Login with Facebook again.</a>
  <?php } ?>
 
-  <legend><h2>Please Login</h2></legend>
+  <legend class="my-legend-style">Please Login</legend>
       <form class="form-signin" method="POST" id="ex1" action="<?php echo base_url('home/login'); ?>">
       <?php echo $this->session->flashdata('response'); ?>  
     <input type="hidden" name="product_id" value="<?php echo $this->uri->segment(3) ?>" >
@@ -24,7 +24,7 @@ if ($error)
        
       </form>
    
-     <div class="span1"">
+     <div class="span2"">
       <a href="<?php echo base_url('home/forgot_password'); ?>">Forgot Password?</a>
 
     </div>

@@ -14,13 +14,14 @@ class Main extends CI_Controller {
 	}
 
 	function index(){
+		redirect('home/');
 		// Try to get the user's id on Facebook
-		$userId = $this->facebook->getUser();
+		//$userId = $this->facebook->getUser();
 		
 		//var_dump($_REQUEST);
 	//var_dump($userId);exit;
 		// If user is not yet authenticated, the id will be zero
-		if($userId == 0){
+		/*if($userId == 0){
 			// Generate a login url
 			$data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email')); 
 			//print_r($data['url']);exit;
@@ -46,7 +47,7 @@ class Main extends CI_Controller {
 			print_r($data);
 			print_r($user);
 			exit;
-		}
+		}*/
 	}
 
 }

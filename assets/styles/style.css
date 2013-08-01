@@ -164,9 +164,13 @@ color:white;
   box-shadow:0px 2px 4px 2px #ECEDED;
   
 }
+.my-legend-style {
+font-family: 'NeoSans';
+font-size:22px;
+}
 .footer-first-text{
   color: #ffb401;
-  font-size: 28px;
+  font-size: 25px;
   float: left;
   margin-left: 53px;
   margin-top: 22px;
@@ -175,7 +179,7 @@ color:white;
 }
 .footer-second-text{
   color: #dc2128;
-  font-size: 28px;
+  font-size: 25px;
   float: left;
   margin-left: 13px;
   margin-top: 23px;
@@ -185,7 +189,7 @@ color:white;
 }
 .footer-third-text{
   color: #39babc;
-  font-size: 28px;
+  font-size: 25px;
   float: left;
   margin-left: 13px;
   margin-top: 23px;
@@ -250,14 +254,17 @@ color:white;
   display: none;
   float: left;
   /*min-width: 1500px; */
-  min-width:790px;
+  min-width:990px;
   padding: 8px 0;
   margin: 8px 0 0;
   list-style: none;
   background-color: transparent;
   text-color:white;
    border: 0px solid #ccc;
-  border: 0px solid rgba(0, 0, 0, 0.2);
+   overflow:hidden;
+   
+height:19px;
+     border: 0px solid rgba(0, 0, 0, 0.2);
   transition-delay: 85s !important; 
  
   
@@ -327,7 +334,7 @@ color:white;
 }
 .myfooter {
 float: none;
-padding: 4px 8px 0px;
+padding: 12px 8px 0px;
 color: #777777;
 text-decoration: none;
 text-shadow: 0 1px 0 #ffffff;
@@ -339,6 +346,9 @@ padding: 7px 8px 0px;
 color: #777777;
 text-decoration: none;
 text-shadow: 0 1px 0 #ffffff;
+}
+.myfooter li {
+line-height:0px;
 }
 .footer-copyright {
 font-size:11px;
@@ -396,7 +406,7 @@ margin-bottom: 15px;
 float: left;margin-left: 0px;margin-right: 10px;
 }
 .profile-about-me-box {
-border:1px solid #e8e8e8;background-color:#fcfcfc;padding:10px;height: 128px;
+border:1px solid #e8e8e8;background-color:#fcfcfc;padding:10px;height: 100%;width:200px;
 }
 .profile-reviews-box {
 border:1px solid #e8e8e8;background-color:#fcfcfc;padding:23px;

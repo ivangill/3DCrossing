@@ -20,12 +20,14 @@
           <div class="pull-right navbar">
             <ul class="myfooter nav">
             <?php foreach ($footer_links as $link){ ?>
-              <li><a href="<?php echo base_url('content'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></li>
+              <li><a href="<?php echo base_url('p'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></li>
            <?php } ?>
+            
             </ul>
             <div class="footer-copyright">&copy; 2013 3D Crossing</div>
+          
           </div>
-       
+        
     </div> 
 <!--<div class="clearfix"></div>
                     <hr>            

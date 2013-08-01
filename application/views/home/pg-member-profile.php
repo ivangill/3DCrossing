@@ -60,7 +60,12 @@ success: function()
 	}*/
 	
 	?>
-	<div class="span6 pull-right"><h4><?php echo ucfirst($get_member_profile['first_name'])." ".ucfirst($get_member_profile['last_name']); ?></h4>
+	<div class="span6 pull-right"><h4><?php 
+	$first_name=ucfirst($get_member_profile['first_name']);
+	$last_name=ucfirst($get_member_profile['last_name']);
+	
+	echo substr($first_name,0,13).' '.substr($last_name,0,13);
+	ucfirst($get_member_profile['first_name'])." ".ucfirst($get_member_profile['last_name']); ?></h4>
 	<?php if ($this->session->userdata("memberid")!=$this->uri->segment(3)) { ?> 
 	<?php if ($check_if_already_followed=='') {	?>
 	<button class="btn btn-primary" value="1" id="follow" onclick="followUser();">Follow</button>
@@ -79,10 +84,11 @@ success: function()
 		  ?>
 	</div>
 	
-	<div class="span2 profile-about-me-box">
+	<div class="span4 profile-about-me-box">
 	<h4>About Me:</h4>
 	<?php if (isset($get_member['about_me'])) { $about_me= ucfirst($get_member['about_me']);
-		echo substr($about_me,0,60).' ...';
+		//echo substr($about_me,0,60).' ...';
+		echo $about_me;
 	} ?>
 	</div>
 	
@@ -139,7 +145,7 @@ success: function()
             
             
         <?php   
-        $path='http://localhost/3DCrossing/assets/images/'.$get_member['avatar'];
+        //$path='http://localhost/3DCrossing/assets/images/'.$get_member['avatar'];
 	
 	//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
 	                   //if (isset($get_member['avatar']) && file_exists($myimg)) {

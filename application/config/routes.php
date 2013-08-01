@@ -40,7 +40,8 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
-$route['content/(:any)'] = "content/index/$1";
+$route['p']="content";
+$route['p/(:any)'] = "content/index/$1";
 
 
 

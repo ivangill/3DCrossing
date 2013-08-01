@@ -83,6 +83,29 @@ class Home_model extends CI_Model
             return $this->mongo_db->update('members');
         }
     }
+    function add_hash_string_in_member ($id,$hash)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+    	    $id=new MongoID($id);
+        	$this->mongo_db->where(array('_id'=>$id));
+        	$this->mongo_db->set(array('hash'=> $hash));
+            return $this->mongo_db->update('members');
+        }
+    }
+    function update_forgotten_password ($data,$id)
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+    	   // $id=new MongoID($id);
+        	$this->mongo_db->where(array('hash'=>$id));
+        	$this->mongo_db->set(array('password'=> $data));
+        	$this->mongo_db->set(array('hash'=> ''));
+            return $this->mongo_db->update('members');
+        }
+    }
     function update_password ($data,$id)
     {
     	
@@ -322,6 +345,32 @@ class Home_model extends CI_Model
         }
    	
    }
+   
+   function get_all_homepage_slider_imgs_for_front_side ()
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('deleted_status' =>0));
+        	$this->mongo_db->where(array('status' =>'active'));
+            return $this->mongo_db->get('homepage_slider');
+        }
+    }
     
+    function get_one_slider_img_for_active_div ()
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('deleted_status' =>0));
+        	$this->mongo_db->where(array('status' =>'active'));
+        	//$this->mongo_db->where(array('first_img' =>'yes'));
+        	//$this->mongo_db->order_by(array('added_time' =>'DESC'));
+        	//$this->mongo_db->limit(1);
+            return $this->mongo_db->get_one('homepage_slider');
+        }
+    }
 
 }

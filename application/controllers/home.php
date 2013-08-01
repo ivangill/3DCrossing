@@ -33,6 +33,7 @@ class Home extends CI_Controller
         $this->load->model( 'content_pages' );
         $this->load->model( 'store_details' );
         $this->load->model( 'memberships' );
+        $this->load->model( 'products' );
         $this->load->driver('cache');
         $this->load->library('stripe');
         //$this->load->library('mongodb');
@@ -45,12 +46,14 @@ class Home extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
 		}
-	$data['avg_rating']= $this->mongodb->db->selectCollection("product_ratings")->aggregate(array('$group'=>array('_id'=>array('productid'=>'$productid','rating'=>'$rating'), 'rating'=>array('$sum'=>'$rating'))), array('$group'=>array('_id'=>'$_id.productid', 'avgrate'=>array('$avg'=>'$rating'))),array('$sort'=>array('avgrate'=>-1)));
+	$data['avg_rating']= $this->mongodb->db->selectCollection("product_ratings")->aggregate(array('$group'=>array('_id'=>array('productid'=>'$productid','rating'=>'$rating'), 'rating'=>array('$sum'=>'$rating'))), array('$group'=>array('_id'=>'$_id.productid', 'avgrate'=>array('$avg'=>'$rating'))),array('$sort'=>array('avgrate'=>-1)),array('$limit'=>8));
 	//echo "<pre>";print_r($data['avg_rating']);
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
         $data['site_title']='';
         $data['main_content'] = 'home/index.view.php';
+        $data['get_all_homepage_slider_imgs']=$this->home_model->get_all_homepage_slider_imgs_for_front_side();
+        $data['get_one_slider_img_for_active_div']=$this->home_model->get_one_slider_img_for_active_div();
         $this->load->view( 'template_fullbody.view.php', $data );
     }
     
@@ -62,6 +65,31 @@ class Home extends CI_Controller
 			
 		}
     }
+    
+    function search_product()
+	{
+		if ($this->input->post('search_product')) {
+			
+			
+			$data['get_products']=$this->products->search_products($this->input->post('search_product'));
+			
+		}
+		
+		if ($this->session->userdata("memberid")!="") {
+				$id=$this->session->userdata("memberid");
+				$data['get_member'] = $this->home_model->get_member( $id );
+			}
+			
+			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_product_categories']=$this->products->get_all_product_categories_for_frontend();
+			
+			$data['get_five_designers']=$this->home_model->get_five_designers();
+			$data['get_product_creator'] = $this->home_model->get_member( $this->uri->segment(3) );
+		
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']=' / Product / Search';
+		$this->load->view('home/pg-all-products',$data);
+	}
     
     
     function signup() {        
@@ -194,23 +222,23 @@ class Home extends CI_Controller
     			redirect('home/signup');
     		} else {  
     			if ($_FILES["avatar"]["name"]!=""){
-					$image=upload_image('./assets/images/member-profiles/','avatar');
+					$image=upload_image('./uploads/members/','avatar');
 					//var_dump($image);exit;
 					$vals['avatar'] = $image['file_name'];
 					//$this->simpleimage->load('./images/avatar/member-profile/'.$vals['avatar']);
-					$this->simpleimage->load('./assets/images/member-profiles/'.$vals['avatar']);
+					$this->simpleimage->load('./uploads/members/'.$vals['avatar']);
 					$this->simpleimage->resize(100,100);
 					//$this->simpleimage->save('./images/avatar/thumbnails/member-profile/'.$vals['avatar']);
-					$this->simpleimage->save('./assets/images/thumbnails/member-profiles/'.$vals['avatar']);
+					$this->simpleimage->save('./uploads/members/thumbnails/'.$vals['avatar']);
 					//var_dump($image);exit;
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
-					$this->session->set_flashdata('response', '<div id="error">'.$insert['error_msg'].'</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
 					redirect('home/signup');
 					} else {
 					$avatar=$image['file_name'];
 					}
-					}  	
+				 }  	
     		$insert=array(
     			'email'=>$this->input->post('email'),
     			'password'=>md5($this->input->post( 'password' )),
@@ -504,13 +532,14 @@ class Home extends CI_Controller
 	public function forgot_password()
 	{
 		if ($this->input->post('password')) {
-			$id=$this->input->post('userid');
+			$hash_value=$this->input->post('userid');
 			$password=md5($this->input->post('password'));
 			//unset($this->input->post('confirm_password'));
-			$update_password = $this->home_model->update_password( $password,$id );
+			$update_password = $this->home_model->update_forgotten_password( $password,$hash_value );
 			//var_dump($update_password);exit;
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Password has been updated.Kindly fill the form.</div>');
 			$this->session->unset_userdata('entered_email_for_login');
+			//$this->home_model->update_hash_value( $password,$hash_value );
 			redirect('home/login','refresh');
 		}
 		
@@ -530,26 +559,28 @@ class Home extends CI_Controller
 				redirect('home/forgot_password');
 			} else {
 			
-				
+			$hash=md5($user_id.$user_email);
+			//var_dump($hash);exit;
 			$this->email->from('noreply@3dcrossing.com');
 			$this->email->to($user_email);
             $data['site_name']='3D Crossing';
-            $this->email->subject('3D Crossing Account Activation');
-            $data['email_title'] = 'Welcome - Account Activation';
+            $this->email->subject('3D Crossing - Forgot your Password');
+            $data['email_title'] = 'Welcome - Reset your Password';
             $data['email_body'] = 'Hello '.ucwords($user_name). ',<br /><br />
             To change password for 3DCrossing Account, click this link  :<br /><br /><a target="_blank" 
-            href=http://3dcrossing.aws.af.cm/home/forgot_password/'.$user_id.'>Click Here</a><br /><br />If the link is not clickable, you can copy and paste the URL below into your browser address 
-            box.<br />http://3dcrossing.aws.af.cm/home/forgot_password/'.$user_id.'<br /><br />Do not reply to this message, 
+            href=http://3dcrossing.aws.af.cm/home/forgot_password/'.$hash.'>Click Here</a><br /><br />If the link is not clickable, you can copy and paste the URL below into your browser address 
+            box.<br />http://3dcrossing.aws.af.cm/home/forgot_password/'.$hash.'<br /><br />Do not reply to this message, 
             as no recipient has been designated. Replying to this message will not activate your account.<br />
             <br /><br />Thank you for using 3D Crossing<br /><br />3D Crossing Team.';
 
             $template = $this->load->view( 'template_email.view.php', $data, TRUE );
             
-            //var_dump($template);exit;
+          // print_r($template);exit;
             $this->email->message( $template );
             $this->email->send();
 			//echo $this->email->print_debugger();
-	
+			//$hash=array('hash'=>$hash);
+			$this->home_model->add_hash_string_in_member($user_id,$hash);
 			$this->session->set_flashdata('response', '<div class="alert alert-success">Link has been sent to your email address.</div>');
 			redirect('home/forgot_password');
 			}

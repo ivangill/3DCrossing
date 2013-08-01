@@ -56,8 +56,9 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
 	                        <ul class="dropdown-menu">
 	                            <li><a href="<?php echo base_url('administration/settings/global_settings'); ?>">Review Cut Settings</a></li>
 	                            <li><a href="<?php echo base_url('administration/settings/shop_bottom_widget'); ?>">Shop bottom Widget</a></li>
-	                            <li><a href="<?php echo base_url('administration/settings/shop_dropdown'); ?>">Shop Dropdown Menu</a></li>
+	                            <li><a href="<?php echo base_url('administration/settings/shop_dropdown'); ?>">Shop Categories</a></li>
 	                            <li><a href="<?php echo base_url('administration/settings/product_categories'); ?>">Shop Product Categories</a></li>
+	                            <li><a href="<?php echo base_url('administration/settings/homepage_slider'); ?>">Homepage Slider Management</a></li>
 	                        </ul>
                         </li>
                          <li><a href="<?php echo base_url('administration/login/logout'); ?>">Logout</a></li>

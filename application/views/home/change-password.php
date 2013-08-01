@@ -32,8 +32,8 @@ $(document).ready(function () {
        
       <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
       <label>Old Password:</label><input type="password" required="required" name="old_password" id="old_password" class="input-block-level" placeholder="Enter Your Old Password">
-        <label>New Password:</label><input type="password" required="required" name="password" id="password" class="input-block-level" placeholder="Enter Your New Password">
-        <label>Confirm Password:</label><input type="password" required="required" name="confirm_password" onchange="checkPasswordMatch()" id="confirm_password" class="input-block-level" placeholder="Confirm Your Password">
+        <label>New Password:</label><input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})" title="(At least 8 characters long, containing uppercase, lowercase and numbers)" onchange="checkPasswordMatch()" required="required" name="password" id="password" class="input-block-level" placeholder="Enter Your New Password">
+        <label>Confirm Password:</label><input type="password" title="(At least 8 characters long, containing uppercase, lowercase and numbers)" required="required" name="confirm_password" onchange="checkPasswordMatch()" id="confirm_password" class="input-block-level" placeholder="Confirm Your Password">
         <button class="btn btn-large btn-primary" id="mybutton" type="Submit">Submit</button>
       </form>
 </div> <!-- end of span6 class -->

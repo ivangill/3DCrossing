@@ -163,5 +163,41 @@ class Settings extends CI_Controller
    	$this->load->view( 'admin/shop-categories-dropdown',$data);
    	
    }
+   
+   function homepage_slider()
+   {
+   		$id=$this->input->post('_id');
+   		if ($this->input->post('img_link')) {
+   			if ($_FILES["slider_img"]["name"]!=""){
+					$image=upload_image('./uploads/homepageslider/','slider_img');
+				//var_dump($image);exit;
+					if(isset($image['error'])){
+					echo $insert["error_msg"] = $image['error'];
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
+					redirect('administration/settings/homepage_slider');
+					} else {
+					$slider_img=$image['file_name'];
+					}
+					}
+			$insert=array('img_link'=>$this->input->post('img_link'),
+		    			 'slider_img'=>$slider_img,
+		    			 'status'=>$this->input->post('status'),
+		    			 'deleted_status'=>0,
+		    			 'added_time'=>time()
+				
+			);
+			$this->global_settings->save_homepage_slider_img($insert,$id);
+   		}
+   		if ($this->uri->segment(4)=='edit' && $this->uri->segment(5)!='') {
+   			$data['get_one_homepage_slider_img']=$this->global_settings->get_one_homepage_slider_img($this->uri->segment(5));
+   		}
+   		if ($this->uri->segment(4)=='delete' && $this->uri->segment(5)!='') {
+   			$this->global_settings->update_homepage_slider_img_deleted_status($this->uri->segment(5));
+   			redirect('administration/settings/homepage_slider','refresh');
+   		}
+   		
+   		$data['get_all_homepage_slider_imgs']=$this->global_settings->get_all_homepage_slider_imgs();
+   		$this->load->view( 'admin/homepage-slider-settings',$data);
+   }
 
 }

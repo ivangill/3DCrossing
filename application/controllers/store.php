@@ -122,7 +122,7 @@ class Store extends CI_Controller
     			//var_dump($store_id);
     			// upload user image
 				if ($_FILES["store_logo"]["name"]!=""){
-					$image=upload_image('./assets/images/','store_logo');
+					$image=upload_image('./uploads/stores/','store_logo');
 					//var_dump($image);exit;
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
@@ -176,13 +176,13 @@ class Store extends CI_Controller
 			
 			$id=$this->session->userdata("memberid");
 			if ($_FILES["product_img"]["name"]!=""){
-					$image=upload_image('./assets/images/','product_img');
+					$image=upload_image('./uploads/products/','product_img');
 					
 					$vals['product_img'] = $image['file_name'];
 					
-					$this->simpleimage->load('./assets/images/'.$vals['product_img']);
+					$this->simpleimage->load('./uploads/products/'.$vals['product_img']);
 					$this->simpleimage->resize(280,280);
-					$this->simpleimage->save('./assets/images/thumbnails/products/homepage/'.$vals['product_img']);
+					$this->simpleimage->save('./uploads/thumbnails/products/homepage/'.$vals['product_img']);
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div id="error">'.$insert['error_msg'].'</div>');

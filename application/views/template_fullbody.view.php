@@ -2,22 +2,25 @@
 
  
 
-
+<?php //echo show_slider_img('slider1.png','style="height:200px;width:200px;"'); ?>
 
     <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
-         <?php echo img_tag('icons/slider.png'); ?>
+         <?php echo '<a href="'.$get_one_slider_img_for_active_div['img_link'].'">'. show_slider_img($get_one_slider_img_for_active_div['slider_img'],'style="height:400px;width:1280px;"').'</a>'; ?>
          
         </div>
+        <?php if (count($get_all_homepage_slider_imgs)>0) {
+         foreach ($get_all_homepage_slider_imgs as $img){ ?>
         <div class="item">
-         <?php echo img_tag('icons/slider2.png'); ?>
+        
+        <?php echo '<a href="'.$img['img_link'].'">'. show_slider_img($img['slider_img'],'style="height:400px;width:1280px;"').'</a>'; ?>
+         
         </div>
-        <div class="item">
-         <?php echo img_tag('icons/slider.png'); ?>
-        </div>
+         <?php } } ?>
+        
       </div>
       <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>

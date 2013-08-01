@@ -48,7 +48,7 @@
 	                    <?php 
 	             // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];       
 	           //  if (isset($product['product_img']) && file_exists($myimg)) {
-            	 echo img_tag($product['product_img'],'style="height:200px;width: 300px;"');
+            	 echo show_product_img($product['product_img'],'style="height:200px;width: 300px;"');
             	//	} else {
             	//echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
             	//	}
