@@ -16,15 +16,26 @@ if ($error)
       <form class="form-signin" method="POST" id="ex1" action="<?php echo base_url('home/login'); ?>">
       <?php echo $this->session->flashdata('response'); ?>  
     <input type="hidden" name="product_id" value="<?php echo $this->uri->segment(3) ?>" >
-        <label>Email:</label><input type="email" id="email" required="required" class="input-block-level" name="email"  placeholder="Email address">
-        <label>Password:</label><input type="password" required="required" id="password" class="input-block-level"  name="password" placeholder="Password"><br />
+        <label>Email:</label><input type="email" id="email" required="required" class="input-block-level my-input-style" name="email"  placeholder="Email address">
+        <label>Password:</label><input type="password" required="required" id="password" class="input-block-level my-input-style"  name="password" placeholder="Password"><br />
         <div class="controls">
-        <button class="btn btn-large btn-primary" type="submit">Login</button>
+        <button style="float:left;" class="btn btn-large btn-primary" type="submit">Login</button>
+        <div id="twitter-btn" >
+     <?php echo '<a href="' . base_url() . 'home/redirect">'.img_tag('sigin-twitter-btn.jpg','style="height: 35px;width:175px"').'</a>'; ?>
+    </div>
+    
+    <?php
+		if ($login_url)
+		{
+			echo ' <div id="facebook-btn" ><a class="fb-login-btn" href="'.$login_url.'">'.img_tag('sigin-fb-btn.jpg','style="height: 35px;width:175px"').'</a></div>';
+		}
+    ?>
         </div>
        
       </form>
-   
-     <div class="span2"">
+      
+   <br />
+     <div class="span2 forgot-password">
       <a href="<?php echo base_url('home/forgot_password'); ?>">Forgot Password?</a>
 
     </div>
@@ -37,16 +48,7 @@ $("#ex1").nod( metrics );*/
 
  </script>   
     
- <div id="twitter-btn" >
-     <?php echo '<a href="' . base_url() . 'home/redirect">'.img_tag('sign-in-twitter.jpg').'</a>'; ?>
-    </div>
-    
-    <?php
-		if ($login_url)
-		{
-			echo ' <div id="facebook-btn" ><a class="fb-login-btn" href="'.$login_url.'">'.img_tag('sign-in-facebook.jpg').'</a></div>';
-		}
-    ?>
+ 
     <?php $this->load->view( 'home/footer' ); ?>
     
   

@@ -97,6 +97,7 @@ fornav {
                         </ul>
                   
              <?php  } else { ?>
+             
              <a class="login-style" href="<?php echo base_url('home/login'); ?>">LOGIN</a>
               <a class="login-style" href="<?php echo base_url('home/signup'); ?>">JOIN US!</a>
               <?php } ?>

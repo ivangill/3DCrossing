@@ -4893,8 +4893,28 @@ a.thumbnail:focus {
   color: #333333;
   white-space: nowrap;
 }
-.dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover {
+text-decoration: none;
+  color: #ffffff;
+  background-image: linear-gradient(bottom, rgb(139,1,1) 20%, rgb(163,0,0) 60%, rgb(179,1,1) 80%);
+background-image: -o-linear-gradient(bottom, rgb(139,1,1) 20%, rgb(163,0,0) 60%, rgb(179,1,1) 80%);
+background-image: -moz-linear-gradient(bottom, rgb(139,1,1) 20%, rgb(163,0,0) 60%, rgb(179,1,1) 80%);
+background-image: -webkit-linear-gradient(bottom, rgb(139,1,1) 20%, rgb(163,0,0) 60%, rgb(179,1,1) 80%);
+background-image: -ms-linear-gradient(bottom, rgb(139,1,1) 20%, rgb(163,0,0) 60%, rgb(179,1,1) 80%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.2, rgb(139,1,1)),
+	color-stop(0.6, rgb(163,0,0)),
+	color-stop(0.8, rgb(179,1,1))
+);
+
+   text-decoration: none;
+}
+
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
   text-decoration: none;

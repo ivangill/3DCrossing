@@ -53,9 +53,9 @@
 					  <a href="<?php echo base_url('shop/product_detail/'.$get_product['_id']); ?>" style="width: 300px; height: 200px;">
 	                   <span class="text-center"> <?php 
 	                   // if (isset($products['product_img']) && file_exists($products['product_img'])) {
-	                    $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];
-	                   if (isset($get_product['product_img']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
+	                  //  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product['product_img'];
+	                  // if (isset($get_product['product_img']) && file_exists($myimg)) {
+	                    if (isset($get_product['product_img'])) {
 	                    echo img_tag($get_product['product_img'],'style="height:200px;width: 300px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");

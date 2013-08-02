@@ -245,16 +245,34 @@ padding: 8px;
 background-color: #212121;
 border-radius: 8px;
 color:white;
+font-family: 'NeoSans';
+}
+.login-style:hover {
+background-image: linear-gradient(bottom, rgb(197,31,36) 19%, rgb(201,35,40) 60%, rgb(205,39,45) 80%);
+background-image: -o-linear-gradient(bottom, rgb(197,31,36) 19%, rgb(201,35,40) 60%, rgb(205,39,45) 80%);
+background-image: -moz-linear-gradient(bottom, rgb(197,31,36) 19%, rgb(201,35,40) 60%, rgb(205,39,45) 80%);
+background-image: -webkit-linear-gradient(bottom, rgb(197,31,36) 19%, rgb(201,35,40) 60%, rgb(205,39,45) 80%);
+background-image: -ms-linear-gradient(bottom, rgb(197,31,36) 19%, rgb(201,35,40) 60%, rgb(205,39,45) 80%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.19, rgb(197,31,36)),
+	color-stop(0.6, rgb(201,35,40)),
+	color-stop(0.8, rgb(205,39,45))
+);
+text-decoration: none;
 }
 .mystyle {
   position: relatiive;
   top: 100%;
-  left: -233px;
+  left: -18px;
   z-index: 1000;
   display: none;
   float: left;
   /*min-width: 1500px; */
-  min-width:990px;
+  min-width:780px;
   padding: 8px 0;
   margin: 8px 0 0;
   list-style: none;
@@ -269,8 +287,8 @@ height:19px;
  
   
  }
- .mystyle li:hover {
- 
+ .mymenu a:hover {
+ background-color:green;
  }
  .mystyle > li > a {
   display: block;
@@ -293,7 +311,7 @@ background-repeat: repeat-x;
 }
 .my-font-style {
 font-family: 'NeoSans';
-font-size: 24px;
+font-size: 22px;
 }
 .my-font-style > li > a {
 color:white;
@@ -415,10 +433,14 @@ border:1px solid #e8e8e8;background-color:#fcfcfc;padding:23px;
 border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;
 }
 #twitter-btn {
-text-align: center;115px;height: 26px;
+height: 40px;
+float: left;
+margin-left: 10px;
 }
 #facebook-btn {
-text-align: center;115px;height: 26px;
+height: 40px;
+float: left;
+margin-left: 10px;
 }
 #mysearch-style {
 font-weight:bold;
@@ -448,4 +470,13 @@ background-image: -webkit-gradient(
 box-shadow: inset 0px 2px 20px #1C1D1E;
 font-size: 16px;
 padding-left: 13px;
+}
+
+.my-input-style {
+width:310px;
+}
+.forgot-password {
+float: left;
+margin-top: 15px;
+margin-left: -83px;
 }

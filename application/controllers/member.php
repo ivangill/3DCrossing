@@ -228,9 +228,7 @@ class Member extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
 			if($this->input->post('email')){
-				$filter['first_name']=$this->input->post('first_name');
-    			$filter['last_name']=$this->input->post('last_name');
-    			$filter['about_me']=$this->input->post('about_me');
+				
     			
     			// upload user image
 				if ($_FILES["avatar"]["name"]!=""){
@@ -251,6 +249,11 @@ class Member extends CI_Controller
 					$avatar=$image['file_name'];
 					}
 				 }
+				$filter['first_name']=$this->input->post('first_name');
+    			$filter['last_name']=$this->input->post('last_name');
+    			$filter['about_me']=$this->input->post('about_me');
+    			$filter['avatar']=$avatar;
+    			
 					//var_dump($filter['avatar']);exit;
     			
 				$update_user_profile = $this->home_model->update_member( $filter,$id );
