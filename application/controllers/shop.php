@@ -463,7 +463,8 @@ array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'
     		$message=$this->input->post('message');
     		
     		//$message .= "<img src='link-image.jpg' alt='' /></body></html>";
-    		$img=img_tag($product_img, 'style="height:120px;width:120px;"');
+			$img=show_img('products/'.$product_img, 'style="height:120px;width:120px;"');	
+    		//$img=img_tag($product_img, 'style="height:120px;width:120px;"');
     		$icon=img_tag('icons/icon-photo.gif', 'style="height:50px;width:50px;"');;
     		
     		

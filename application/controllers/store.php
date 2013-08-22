@@ -34,7 +34,7 @@ class Store extends CI_Controller
 			$id=$this->session->userdata("memberid");
 			$data['get_member'] = $this->home_model->get_member( $id );
 			
-			$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+			$data['get_store_categories']=$this->store_details->get_store_categories_in_ascending_order();	
 			
 			$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 			$data['site_title']=' / My Store';
@@ -123,7 +123,12 @@ class Store extends CI_Controller
     			// upload user image
 				if ($_FILES["store_logo"]["name"]!=""){
 					$image=upload_image('./uploads/stores/','store_logo');
-					//var_dump($image);exit;
+					
+					$vals['store_logo'] = $image['file_name'];
+					
+					$this->simpleimage->load('./uploads/stores/'.$vals['store_logo']);
+					$this->simpleimage->resize(280,280);
+					$this->simpleimage->save('./uploads/stores/thumbnails/'.$vals['store_logo']);
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
@@ -131,7 +136,9 @@ class Store extends CI_Controller
 					} else {
 					$logo=$image['file_name'];
 					}
-					}  
+				} else {
+					$logo=$data['get_store']['store_logo'];
+				}
 					//var_dump($filter['avatar']);exit;
     			$filter['store_name']=$this->input->post('store_name');
     			$filter['store_details']=$this->input->post('store_details');
@@ -150,7 +157,8 @@ class Store extends CI_Controller
 			$data['get_member'] = $this->home_model->get_member( $id );
 	
 			
-		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['get_store_categories']=$this->store_details->get_store_categories_in_ascending_order();	
+		//var_dump($data['get_store_categories']);
 			
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
 		$data['site_title']=' / Edit Store';
@@ -182,7 +190,7 @@ class Store extends CI_Controller
 					
 					$this->simpleimage->load('./uploads/products/'.$vals['product_img']);
 					$this->simpleimage->resize(280,280);
-					$this->simpleimage->save('./uploads/thumbnails/products/homepage/'.$vals['product_img']);
+					$this->simpleimage->save('./uploads/products/thumbnails/'.$vals['product_img']);
 					if(isset($image['error'])){
 					echo $insert["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div id="error">'.$insert['error_msg'].'</div>');
@@ -190,9 +198,13 @@ class Store extends CI_Controller
 					} else {
 					$logo=$image['file_name'];
 					}
-					}
+			} else {
+				$product_id=$this->input->post('_id');
+				$get_single_product=$this->products->get_single_product($product_id);
+				$logo=$get_single_product['product_img'];
+			}
 					
-			
+			//var_dump($logo);exit;
 			$get_store = $this->home_model->get_store( $this->session->userdata("memberid") );
     		$store_id=$get_store['_id'];
     		$store_category=$get_store['store_category'];
@@ -264,7 +276,8 @@ class Store extends CI_Controller
     		);
     		$product_id=$this->input->post( 'product_id' );
     		
-    		
+    		//var_dump($product_id);exit;
+			
     		$insert = array("product_material" => $material);
 			
 			$add_product_material = $this->products->add_product_material( $insert,$product_id );
@@ -383,7 +396,7 @@ class Store extends CI_Controller
 	{
 		$this->products->delete_product($this->uri->segment(3));
 		$this->session->set_flashdata('response', '<div class="alert alert-success">The Product has been deleted successfully.</div>');
-		redirect('store/my_products/table', 'refresh');
+		redirect('store/my_products/'.$this->uri->segment(4), 'refresh');
 	}
 	
 	public function delete_my_product_material ()

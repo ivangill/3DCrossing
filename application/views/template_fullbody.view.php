@@ -99,14 +99,16 @@ foreach ($avg_rating['result'] as $rating){
 	$memberid=$get_product['member_id'];
 	$get_member = $this->home_model->get_member( $memberid );
 	
-	if ($avg_rating >= 3) {
-		echo '<li class="span3 my-img-style">';
-		
+	if ($avg_rating >= 3) { ?>
+		<li class="span3 my-img-style" style="border:0px solid red;-webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+-moz-box-shadow:    0px 3px 10px rgba(0, 0, 0, 0.3);
+box-shadow:         0px 3px 10px rgba(0, 0, 0, 0.3);">
+		<?php
 		//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/thumbnails/products/homepage/'.$get_product['product_img'];
 	    // if (isset($get_product['product_img']) && file_exists($myimg)) {
 	     if (isset($get_product['product_img'])) { ?>
 	                   
-	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo img_tag('thumbnails/products/homepage/'.$get_product['product_img'],'style="height:280px;width:280px"'); ?></a>
+	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo show_img('products/'.$get_product['product_img']); ?></a>
 	     
 	     
 	 <?php    } else { ?>

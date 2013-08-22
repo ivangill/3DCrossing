@@ -16,6 +16,7 @@
 	echo "<legend><h3>Products By"." ".ucfirst($get_product_creator['first_name']).' '.ucfirst($get_product_creator['last_name'])."</h3></legend>";
 }
 	?>
+    
 <div class="row-fluid">
 <div class="span2">
 <h3>Category</h3>
@@ -53,7 +54,8 @@
 	                    <span class="text-center"><?php 
 	                 //  if (isset($products['product_img']) && file_exists($myimg)) {
 	                   if (isset($products['product_img'])) {
-	                    echo img_tag($products['product_img'],'style="height:200px;width: 300px;"');	
+	                   	echo show_img('products/'.$products['product_img'],'style="height:200px;width: 300px;"');
+	                   
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
 	                    }

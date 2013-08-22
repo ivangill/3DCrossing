@@ -5,7 +5,7 @@
 <?php if ($this->session->userdata("memberid")!='') { ?>
 <div>
 
-
+<div id="fb-share-btn" style="float: left;padding-right: 4px;margin-top: 5px;">
 <a  type='button_count' href="#" 
   onclick="
     window.open(
@@ -15,6 +15,8 @@
     return false;">
   <?php echo img_tag('facebook-share-btn.jpg'); ?>
 </a> 
+</div>
+<div id="fb-share-btn" style="float: left;padding-right: 4px;margin-top: 5px;">
 <a data-via="3DCrossing" data-count="none"
 data-text="<?php echo $get_product_by_id['product_name']." by ".ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>" href="https://twitter.com/share?url=<?php echo base_url('shop/product_detail').'/'.$get_product_by_id['_id']; ?>" 
 class="twitter-share-button"></a>
@@ -22,11 +24,12 @@ class="twitter-share-button"></a>
 <script> !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
   <script src="https://apis.google.com/js/plusone.js"></script>
-  
+  </div>
 
  <?php $url= base_url('shop/product_detail').'/'.$get_product_by_id['_id'];
- $desc=$get_product_by_id['product_name']; 
- $img=img_tag($get_product_by_id['product_img'], 'style="height:180px;"');
+ $desc=$get_product_by_id['product_name'];
+ //$img=show_img('products/'.$get_product_by_id['product_img']);
+ $img=base_url().'uploads/products/'.$get_product_by_id['product_img'];
 //echo $img;
  ?> 
 <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($url) ?>&description=<?php echo $desc ?>&media=<?php echo urlencode($img) ?>" data-pin-do="buttonPin" data-pin-config="none"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
@@ -56,8 +59,8 @@ class="twitter-share-button"></a>
   </div>
   <form class="form-signin" method="POST" action="<?php echo base_url('shop/send_to_friend/'.$get_product_by_id['_id']); ?>">
   <div class="modal-body">
-   <label>Your Email:</label><input type="email" required="required" name="email_one" class="input-block-level" placeholder="Your Email">
-   <label>Recipient Email:</label><input type="email" required="required" name="email_two" class="input-block-level" placeholder="Recipient Email">
+   <label>Your Email:</label><input type="email" title="Please enter valid email address" required name="email_one" class="input-block-level" placeholder="Your Email">
+   <label>Recipient Email:</label><input type="email" title="Please enter valid email address" required name="email_two" class="input-block-level" placeholder="Recipient Email">
    <label>Your Message:</label><textarea name="message" class="input-block-level" placeholder="Your Message"></textarea>
   </div>
   <div class="modal-footer">
@@ -80,7 +83,7 @@ class="twitter-share-button"></a>
                  // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
 	                  // if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
 	                    if (isset($get_product_by_id['product_img'])) {
-	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
+	                    	echo show_img('products/'.$get_product_by_id['product_img'],'style="height:490px;width:770px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
 	                    }
@@ -154,28 +157,29 @@ echo "Average rating: ".$avg_rating;
 
              
                 <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>
-                <?php if ($this->session->userdata("memberid")!='') { ?>
+                <?php //if ($this->session->userdata("memberid")!='') { ?>
                 <a href="<?php echo base_url('member/profile/'.$get_product_creator['_id']); ?>"><?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?></a>
-                 <?php  } else { ?>
-                 <?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>
-                 <?php } ?>
+                 <?php // } else { ?>
+                 <?php //echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>
+                 <?php// } ?>
                 </h3>
                 
 	                <div class="span3" style="margin-bottom:5px;"><button class="btn btn-primary" type="button">
 	                	<a href="<?php echo base_url('shop/all_designs/'.$get_product_by_id['member_id']); ?>" style="color:white;">See All Their Designs</a>
 	                </button></div>
 	                <div class="span3" style="margin-bottom:5px;"><button class="btn btn-primary" type="button">
-	                	<a href="" style="color:white;">Commosion Designer</a>
+	                	<a href="" style="color:white;">Commission Designer</a>
 	                </button></div>
 	                <?php 
 	                
 	                 // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_creator['avatar'];
 	               //    if (isset($get_product_creator['avatar']) && file_exists($myimg)) {
-	                    //if (isset($get_product['product_img'])) {
-	                   echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 	
-	                 //   } else {
-	                 //   	 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
-	                 //   }
+	                    if (isset($get_product_creator['avatar'])) {
+	                    echo show_img('members/thumbnails/'.$get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 
+	                  // echo img_tag($get_product_creator['avatar'], 'style="height:60px;width:60px;"'); 	
+	                   } else {
+	                   	 echo img_tag('icons/profile-no-image.jpg', 'style="height:60px;width:60px;"'); 
+	                    }
 	                
 	                ?>
                 </div>
@@ -208,14 +212,20 @@ echo "Average rating: ".$avg_rating;
                  	
 				 	<div class="span7" style="border:0px solid red;text-align: center;">
 				 			<button onclick="showDiv(1)" class="btn">Description</button>
-				 			<button onclick="showDiv(2)" class="btn">Forbication Advice</button>
+				 			<button onclick="showDiv(2)" class="btn">Fabrication Advice</button>
 				 			<button onclick="showDiv(3)" class="btn">Reviews</button>
                  	</div>
 		                 <div id="contact_div_1">
 		                 	<span style="float: left;padding: 15px;text-align: justify;">
 		                 	 <?php 
 							if (isset($get_product_by_id['product_details'])) {
-								echo $get_product_by_id['product_details'];
+								$product_detail=$get_product_by_id['product_details'];
+								$product_detail_count=strlen($get_product_by_id['product_details']);
+								echo substr($product_detail,0,1774); 
+								if($product_detail_count > 1774){ ?>
+								<a href=""> Read More...</a>
+                                <?php }
+								//echo $get_product_by_id['product_details'];
 							} else { echo "No product Detail Added by the Creator"; } ?>
 							</span>
 		                 </div>
@@ -223,7 +233,12 @@ echo "Average rating: ".$avg_rating;
 						  <span style="float: left;padding: 15px;text-align: justify;">
 							 <?php 
 							if (isset($get_product_by_id['product_fabrication_advice_text'])) {
-								echo $get_product_by_id['product_fabrication_advice_text'];
+								$product_detail=$get_product_by_id['product_fabrication_advice_text'];
+								$product_detail_count=strlen($get_product_by_id['product_fabrication_advice_text']);
+								echo substr($product_detail,0,1774); 
+								if($product_detail_count > 1774){ ?>
+								<a href=""> Read More...</a>
+                                <?php }
 						} else { echo "<span class='label label-info'>No Product Fabrication Advice Added by the Creator</span>"; } ?>
 						  </span>
 						</div>
@@ -242,7 +257,7 @@ echo "Average rating: ".$avg_rating;
                   <?php if ($get_product_by_id['product_fabrication']=='on') { ?>
                   
 	                 <div class="span3" style="margin-bottom:5px;">
-	                	 <select name="product_material" required="required">
+	                	 <select name="product_material" required>
 				         	<option value="">Select Material</option>
 				         	<?php
 				         	if (isset($get_product_by_id['product_material'])) {
@@ -257,7 +272,7 @@ echo "Average rating: ".$avg_rating;
 	                 <?php } ?>
 	               <?php if (isset($get_product_by_id['offer_size']) && $get_product_by_id['offer_size']=='on') { ?>
 	                <div class="span3" style="margin-bottom:5px;">
-	                	<select name="product_size" required="required">
+	                	<select name="product_size" required>
 				         	<option value="">Select Size</option>
 				         	<?php
 				         	if (isset($get_product_by_id['size'])) {
@@ -270,6 +285,7 @@ echo "Average rating: ".$avg_rating;
 	                </div>
 	                <?php } ?>
 	                 <?php } ?>
+                     <div id="product-price-div">$<?php echo $get_product_by_id['product_total_price']; ?></div>
 	                 <div class="span3" style="margin-bottom:5px;">
 	                 <button class="btn btn-primary" type="Buy">Buy</button>
 	                 
@@ -318,7 +334,7 @@ success: function()
 			 //	$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$members['avatar'];
 	                  // if (isset($members['avatar']) && file_exists($myimg)) {
 	                if (isset($members['avatar'])) {
-	                echo img_tag($members['avatar'], 'style="height:45px;width:40px;"');	
+	                echo show_img('members/thumbnails/'.$members['avatar'], 'style="height:45px;width:40px;"'); 
 	                    } else {
 	                 echo img_tag('icons/profile-no-image.jpg', 'style="height:40px;width:40px;"');	
 	              }			

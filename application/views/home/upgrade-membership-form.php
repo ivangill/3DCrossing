@@ -15,7 +15,7 @@
         <label class="control-label" for="select01">Expiry Date</label>
        <div class="controls">
          <select name="month" required id="month" style="width:20%;">
-            <option value=""> Select Option </option>
+            <option value=""> Month </option>
             <option value="01"> Jan </option>
             <option value="02"> Feb </option>
             <option value="03"> Mar </option>
@@ -30,7 +30,7 @@
             <option value="12"> Dec </option>
          </select>
          <select  name="year" required id="year" style="width:20%;">
-            <option value=""> Select Option </option>
+            <option value=""> Year </option>
          	<option value="2013"> 2013 </option>
             <option value="2014"> 2014 </option>
             <option value="2015"> 2015 </option>
@@ -47,7 +47,7 @@
       </form>
 </div>
 </div>
-<?php $this->load->view( 'admin/shared/footer' ); ?>
+<?php $this->load->view( 'home/footer' ); ?>
     
     
     

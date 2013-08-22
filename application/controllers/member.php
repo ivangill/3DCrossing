@@ -244,15 +244,18 @@ class Member extends CI_Controller
 					if(isset($image['error'])){
 					$insert["error_msg"] = $image['error'];
 					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$insert['error_msg'].'</div>');
-					redirect('home/signup');
+					redirect('member/edit_account');
 					} else {
 					$avatar=$image['file_name'];
 					}
+				 } else {
+				 	$avatar=$data['get_member']['avatar'];
 				 }
 				$filter['first_name']=$this->input->post('first_name');
     			$filter['last_name']=$this->input->post('last_name');
     			$filter['about_me']=$this->input->post('about_me');
     			$filter['avatar']=$avatar;
+    			
     			
 					//var_dump($filter['avatar']);exit;
     			

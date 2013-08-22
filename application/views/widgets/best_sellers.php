@@ -23,7 +23,7 @@ $get_product=$this->products->get_product_by_member_id($memberid);
 	                   //if (isset($get_product['product_img']) && file_exists($myimg)) {
 	                   //if (isset($get_product['product_img'])) {
 	                    if (isset($get_product['product_img'])) {
-	                    echo img_tag($get_product['product_img'],'style="height:200px;width: 300px;"');	
+	                    echo show_img('products/'.$get_product['product_img'],'style="height:200px;width: 300px;"');
 	                   } else {
 	                    	echo img_tag('icons/no-image-found.jpg',"style='height:200px;width: 300px;'");
 	                   }

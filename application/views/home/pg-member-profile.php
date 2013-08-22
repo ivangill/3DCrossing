@@ -48,7 +48,13 @@ success: function()
 	//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member_profile['avatar'];
 	                  // if (isset($get_member_profile['avatar']) && file_exists($myimg)) {
 	                 //  if (isset($get_member_profile['avatar'])) {
-	                   	echo show_img('members/thumbnails/'.$get_member_profile['avatar']); 
+	                 if ($get_member['avatar']!="") {
+        	echo show_img('members/thumbnails/'.$get_member_profile['avatar']);
+        } else { 
+        	echo img_tag('icons/profile-no-image.jpg', 'style="height:100px;width:100px;"');
+        }
+        	
+	                   	 
 	                   // echo img_tag('thumbnails/member-profiles/'.$get_member_profile['avatar']);  	
 	                 //  } else {
 	                 //   echo img_tag('icons/profile-no-image.jpg', 'style="height:100px;width:100px;"');
@@ -67,14 +73,14 @@ success: function()
 	
 	echo substr($first_name,0,13).' '.substr($last_name,0,13);
 	ucfirst($get_member_profile['first_name'])." ".ucfirst($get_member_profile['last_name']); ?></h4>
-	<?php if ($this->session->userdata("memberid")!=$this->uri->segment(3)) { ?> 
+	<?php if($this->session->userdata("memberid")!=''){ ?>
+	<?php if ($this->session->userdata("memberid")!=$this->uri->segment(3) ) { ?> 
 	<?php if ($check_if_already_followed=='') {	?>
 	<button class="btn btn-primary" value="1" id="follow" onclick="followUser();">Follow</button>
 	<?php } else { ?>
 	<button class="btn btn-primary" value="0" id="unfollow" onclick="UnfollowUser();">Unfollow</button>
-	<?php } } ?>
+	<?php } } } ?>
 	</div>
-	
 	</div>
 	
 	<div class="span2 profile-reviews-box">
@@ -87,7 +93,7 @@ success: function()
 	
 	<div class="span4 profile-about-me-box">
 	<h4>About Me:</h4>
-	<?php if (isset($get_member['about_me'])) { $about_me= ucfirst($get_member['about_me']);
+	<?php if (isset($get_member_profile['about_me'])) { $about_me= ucfirst($get_member_profile['about_me']);
 		//echo substr($about_me,0,60).' ...';
 		echo $about_me;
 	} ?>
@@ -113,11 +119,11 @@ success: function()
 	                   <span class="text-center"><?php 
 	                 //  $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$products['product_img'];
 	                 //  if (isset($products['product_img']) && file_exists($myimg)) {
-	                   // if (isset($get_product['product_img'])) {
-	                   echo img_tag($products['product_img'],'style="height:200px;width: 260px;"');	
-	                  //  } else {
-	                  //  	echo img_tag('icons/no-image-found.jpg','style="height:200px;width: 260px;"');
-	                 //   }
+	                   if (isset($products['product_img'])) {
+	                   echo show_img('products/'.$products['product_img'],'style="height:200px;width: 260px;"');
+	                   } else {
+	                    	echo img_tag('icons/no-image-found.jpg','style="height:200px;width: 260px;"');
+	                    }
 	                   
 	                  // echo img_tag($products['product_img'],'style="height:200px;width: 260px;"'); ?>
 	                  <h4><?php echo $products['product_name'];  ?></h4></span>

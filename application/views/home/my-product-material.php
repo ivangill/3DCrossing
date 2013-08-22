@@ -22,18 +22,18 @@ function calculateAmount(){
 <form class="form-signin" method="POST" action="<?php echo base_url('store/product_material'); ?>" enctype="multipart/form-data">
       <?php echo $this->session->flashdata('response'); ?>  
       
-         <label>Product Material Name:</label><input type="text" required="required" name="product_material_name" class="input-block-level" value="<?php //echo $get_store['store_name'] ?>">
+         <label>Product Material Name:</label><input type="text" required name="product_material_name" class="input-block-level" value="<?php //echo $get_store['store_name'] ?>">
          <label>Product Material Price:</label><input type="text"  name="product_material_pricee" id="product_material_pricee" onblur="calculateAmount();"  required="required" class="input-block-level" value="<?php //echo $get_store['store_details'] ?>">
          <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & 8.5% Review Cut)</label><input type="text" readonly name="product_material_price" id="product_material_price" class="input-block-level" >
        
          <label>Product Name:</label>
-        <select name="product_id" required="required">
+        <select name="product_id" required>
          	<option value="">Select Product</option>
          	<?php foreach ($get_products_by_memberid as $product){ ?>
          	<option value="<?php echo $product['_id']; ?>"><?php echo ucfirst($product['product_name']); ?></option>
          	<?php } ?>
          </select>
-         <button class="btn btn-large btn-primary" type="Update">Update</button><br />
+         <a class="btn btn-large btn-primary">Update</a><br />
       </form>
        <a href="<?php echo base_url('store/product_material/'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>
 </div>
@@ -41,8 +41,7 @@ function calculateAmount(){
 <div class="span8">  
   <div class="pull-right">
 	
-	<button class="btn btn-primary" type="button">
-	<a href="<?php echo base_url('store/product_material/add'); ?>" style="color:white;">Add Product Material</a></button>
+	<a class="btn btn-primary" href="<?php echo base_url('store/product_material/add'); ?>" style="color:white;">Add Product Material</a>
 	
  </div>
 <legend><h2 class="form-signin-heading">Product Material</h2></legend>
@@ -100,11 +99,11 @@ function calculateAmount(){
          <?php }  ?>
          
           
-        <?php   } else {   ?>
+        <?php   } //else {   ?>
          <script language="javascript">
-$(document).ready(function() {
+/*$(document).ready(function() {
  $('#mytable').hide();
-});
+});*/
 
 </script>
          <span class="label label-warning">No Product Material Added for any of the product.</span><br />
@@ -112,7 +111,7 @@ $(document).ready(function() {
     
          </tbody>
 	</table>
-	<?php } ?>
+	<?php // } ?>
 
 </div>
  <?php } ?>

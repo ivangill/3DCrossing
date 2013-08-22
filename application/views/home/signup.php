@@ -57,7 +57,7 @@ function changeText2(){
          <label>Email:</label><input type="email" title="Enter a valid Email Address" required="required" name="email" id="email" class="input-block-level" placeholder="Email address">
         <label>Password: (At least 8 characters long, containing uppercase, lowercase and numbers)</label> <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})" title="(At least 8 characters long, containing uppercase, lowercase and numbers)" required="required" name="password" id="password" class="input-block-level" placeholder="Password">
         <label>Avatar:</label><input type="file" id="avatar" class="btn btn-file" title="(Max Size: 5MB) (Type: JPG,JPEG,PNG,GIF)" name="avatar">
-       <label>(Max Size: 5MB) (Type: JPG,JPEG,PNG,Gif)</label>
+       <label>(Max Size: 5MB) (Type: JPG,JPEG,PNG,GIF)</label>
        <!-- <button class="btn btn-large btn-primary" type="Sign up" onclick="changeText2()">Sign up</button>-->
 
     <!--</div>  /container -->

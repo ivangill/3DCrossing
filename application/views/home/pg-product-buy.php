@@ -10,11 +10,12 @@
                 
             //   $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_product_by_id['product_img'];
 	                 //  if (isset($get_product_by_id['product_img']) && file_exists($myimg)) {
-	                    if (isset($get_product_by_id['product_img'])) {
-	                    echo img_tag($get_product_by_id['product_img'],'style="height:490px;"');	
+						 if (isset($get_product_by_id['product_img'])) {
+	                    	echo show_img('products/'.$get_product_by_id['product_img'],'style="height:490px;width:770px;"');	
 	                    } else {
 	                    	echo img_tag('icons/no-image-found.jpg','style="height:490px;"');
 	                    }
+	                  
                 
                // echo img_tag($get_product_by_id['product_img'], 'style="height:490px;"'); ?>
                 </div>
@@ -32,9 +33,9 @@
               <h4>Credit Card Information</h4>
               <?php echo $this->session->flashdata('response'); ?>
             <form method="POST" action="<?php echo base_url('shop/buy/'.$this->uri->segment(3)); ?>">
-	          <label>First Name:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-			  <label>Last Name:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-			  <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
+	          <label>First Name:</label><input type="text" required name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
+			  <label>Last Name:</label><input type="text" required name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
+			  <label>Credit Card Number:</label><input type="text"  name="card_number" required class="input-block-level" placeholder="Credit Card Number">
 			  <label class="control-label" for="select01">Expiry Date</label>
 			<div class="controls">
         	 <select name="month" required id="month" style="width:40%;">
@@ -64,18 +65,18 @@
 	            <option value="2020"> 2020 </option>
 	         </select>
      </div>
-        <labe>Security Code:</label><input type="password"  name="security_code" required="required" class="input-block-level" placeholder="Security Code">
+        <labe>Security Code:</label><input type="password"  name="security_code" required class="input-block-level" placeholder="Security Code">
        
 
         <hr>
               <h4>Billing Information</h4>
               
-              <label>Street Address:</label><input type="text" required="required" name="street_address" id="street_address" class="input-block-level" placeholder="Street Address">
-			  <label>Country:</label><input type="text" required="required" name="country" id="country" class="input-block-level" placeholder="Country">
-			  <label>State:</label><input type="text"  name="state" required="required" class="input-block-level" placeholder="State">
-			  <label>City:</label><input type="text"  name="city" required="required" class="input-block-level" placeholder="City">
-			  <label>ZIP / Postal Code:</label><input type="text"  name="zip_code" required="required" class="input-block-level" placeholder="Zip / Postal Code">
-			  <label>Phone:</label><input type="text"  name="phone" required="required" class="input-block-level" placeholder="Phone">
+              <label>Street Address:</label><input type="text" required name="street_address" id="street_address" class="input-block-level" placeholder="Street Address">
+			  <label>Country:</label><input type="text" required name="country" id="country" class="input-block-level" placeholder="Country">
+			  <label>State:</label><input type="text"  name="state" required class="input-block-level" placeholder="State">
+			  <label>City:</label><input type="text"  name="city" required class="input-block-level" placeholder="City">
+			  <label>ZIP / Postal Code:</label><input type="text"  name="zip_code" required class="input-block-level" placeholder="Zip / Postal Code">
+			  <label>Phone:</label><input type="text"  name="phone" required class="input-block-level" placeholder="Phone">
 			  <input type="hidden" name="product_id" value="<?php echo $get_product_by_id['_id'] ?>" >
 			  <input type="hidden" name="product_name" value="<?php echo $get_product_by_id['product_name'] ?>" >
 			  <input type="hidden" name="product_total_price" value="<?php if (isset($price)) echo $price; ?>" >

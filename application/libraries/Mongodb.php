@@ -37,6 +37,7 @@ class MY_Mongodb extends MongoClient
         {
             parent::__construct( "mongodb://$mongo_username:$mongo_password@$mongo_hostbase/$mongo_database" );
             $this->db = $this->$mongo_database;
+			//echo "xsdf";exit;
         }
         catch( MongoConnectionException $e ) {
 

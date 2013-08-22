@@ -11,10 +11,12 @@
 	
  </div>&nbsp;
  <div class="pull-left">
+
+ 
  <?php if($this->uri->segment(3)=='grid' ) { ?>
  
  <form method="POST" id="form" name="form" action="<?php echo base_url('store/my_products/table'); ?>">
- <select name="view" required="required" onchange="document.form.submit();">
+ <select name="view" required onchange="document.form.submit();">
          	<option <?php if ($this->uri->segment(3)=='grid') { echo "selected"; } ?> value="grid">Grid View</option>
          	<option <?php if ($this->uri->segment(3)=='table') { echo "selected"; } ?> value="table">Table View</option>
  </select>
@@ -22,7 +24,7 @@
  <?php } ?>
   <?php if($this->uri->segment(3)=='table' ) { ?>
  <form method="POST" id="form" name="form" action="<?php echo base_url('store/my_products/grid'); ?>">
- <select name="view" required="required" onchange="document.form.submit();">
+ <select name="view" required onchange="document.form.submit();">
          	<option <?php if ($this->uri->segment(3)=='grid') { echo "selected"; } ?> value="grid">Grid View</option>
          	<option <?php if ($this->uri->segment(3)=='table') { echo "selected"; } ?> value="table">Table View</option>
  </select>
@@ -41,10 +43,23 @@
 		<?php foreach ($get_products_by_memberid as $product){ ?>
              <li class="span3" style="float: left;margin-left: 0px;margin-right:10px;">
 				<div class="thumbnail">
-					<a title="Delete" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="return confirm('Are you sure to delete?');"><i class="icon-remove"></i></a>
+				 
+                 <a title="Delete" data-target="#myModal" data-toggle="modal" href=""><i class="icon-remove"></i></a>
+                    
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Are you sure you want to delete this Product?</h3>
+      </div>
+      <div class="span9" style="margin-bottom:10px;margin-top:10px;margin-left: 15px;">
+       <a href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>/<?php echo $this->uri->segment(3); ?>" class="btn btn-info">Yes</a>
+       <a class="btn btn-info" data-dismiss="modal">Cancel</a>
+      </div>
+</div>
+                    
 					<a href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>" title="Edit"><i class="icon-edit"></i></a>
                        			<br/>
-					  <a href="<?php echo base_url('shop/product_detail/'.$product['_id']); ?>" style="width: 300px; height: 200px;">
+					  <span class="text-center"><a href="<?php echo base_url('shop/product_detail/'.$product['_id']); ?>" style="width: 300px; height: 200px;">
 	                    <?php 
 	             // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];       
 	           //  if (isset($product['product_img']) && file_exists($myimg)) {
@@ -54,7 +69,8 @@
             	//	}
 	                    
 	                    ?>
-	                  </a>
+	                   <h4><?php echo ucfirst($product['product_name']); ?></h4>
+	                  </a></span>
 				</div>
 			  </li>
 		<?php } ?>
@@ -71,10 +87,10 @@
         <thead>
           <tr>   
             <th>Name</th>  
-            <th>Deatil</th> 
+            <th>Detail</th> 
             <th>Creation Date</th> 
             <th>Image</th>
-            <th>Catgory</th>
+            <th>Category</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -82,14 +98,14 @@
         
          <?php foreach($get_products_by_memberid as $product) { ?> 
           <tr id="row_1">  
-            <td><?php echo ucfirst($product['product_name']); ?></td>  
+            <td><a href="<?php echo base_url('shop/product_detail/'.$product['_id']); ?>"><?php echo ucfirst($product['product_name']); ?></a></td>  
             <td><?php echo substr($product['product_details'],0,120)."...."; ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
             <td><?php 
            // $myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$product['product_img'];
            // if (isset($product['product_img'])) {
          //  if (isset($product['product_img']) && file_exists($myimg)) {
-            	echo img_tag($product['product_img'],"style='height:50px;width: 70px;'");
+         echo show_img('products/thumbnails/'.$product['product_img'],"style='height:50px;width: 70px;'");
          //   } else {
          //   	echo img_tag('icons/no-image-found.jpg',"style='height:50px;width: 70px;'");
          //   }
@@ -99,11 +115,20 @@
             
             <td>
            <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>">Edit</a>
-            <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
+            <a class="btn btn-danger btn-mini" data-target="#myModal" data-toggle="modal" href=""><i class="icon-trash icon-white"></i></a>
             </td>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Are you sure you want to delete this Product?</h3>
+      </div>
+      <div class="span9" style="margin-bottom:10px;margin-top:10px;margin-left: 15px;">
+      <a href="<?php echo base_url(); ?>store/delete_my_product/<?php echo $product['_id']; ?>/<?php echo $this->uri->segment(3); ?>" class="btn btn-info">Yes</a>
+      <a class="btn btn-info" data-dismiss="modal">Cancel</a>
+      </div>
+</div>
           </tr>
          <?php } ?>
-    
          </tbody>
 	</table>
 	<?php } else { ?>
@@ -146,19 +171,20 @@ function fabricationAdvice(){
        <input type="hidden" name="_id" value="<?php echo $this->uri->segment(4); ?>" >
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['product_fabrication']) && $get_single_product['product_fabrication']=='on' ){ echo "checked"; } ?> id="product_fabrication" onclick="fabricationAdvice();"  name="product_fabrication"> Fabrication </label>
        
-       <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_size']) && $get_single_product['offer_size']=='on' ){ echo "checked"; } ?> name="offer_size"> Offer DIfferent Sizes </label>
+       <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_size']) && $get_single_product['offer_size']=='on' ){ echo "checked"; } ?> name="offer_size"> Offer Different Size </label>
        
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
        
-       <label>Product Name:</label><input type="text" required="required" name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
+       <label>Product Name:</label><input type="text" pattern="(?:[a-zA-Z]+[ ])+[a-zA-Z]+" required name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
        
        <label>Product Price: </label>
-       <input type="text" required="required" name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
+       <input type="text" pattern="^(?:[1-9]\d*|0)?(?:\.\d+)?$" required name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
        
-       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & <?php echo $get_review_cut_amount['amount']; ?>% Review Cut)</label><input readonly type="text" required="required" name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
+       <label>After deducting all charges Amount will be: (2.9% + 30 cents Payment Fee & <?php echo $get_review_cut_amount['amount']; ?>% Review Cut)</label><input readonly type="text" required name="price_paid_to_owner"  value="<?php if(isset($get_single_product['price_paid_to_owner'])) echo $get_single_product['price_paid_to_owner'] ?>" id="price_paid_to_owner"class="input-block-level" >
        
         <label>Product Description:</label>
         <textarea name="product_details" placeholder="Product Details"><?php if(isset($get_single_product['product_details'])) echo $get_single_product['product_details'] ?></textarea>
+        
         
         <div id="fabrication-text"
  <?php if(isset($get_single_product['product_fabrication_advice_text']) && $get_single_product['product_fabrication']=='on' ){ ?> style="display:block" <?php } else { ?> style="display:none;" <?php } ?> >
@@ -166,10 +192,10 @@ function fabricationAdvice(){
         <textarea name="product_fabrication_advice_text" placeholder="Product Fabrication Advice"><?php if(isset($get_single_product['product_fabrication_advice_text'])) echo $get_single_product['product_fabrication_advice_text']; ?></textarea>
         </div>
         
-        <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required="required" class="input-block-level" placeholder="Product Details">
+        <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required class="input-block-level" placeholder="Product Details">
         
         <label>Product Category:</label>
-        <select name="product_category" required="required">
+        <select name="product_category" required>
          	<option value="">Select Category</option>
          	<?php foreach ($get_product_categories as $product_category){ ?>
          	<option <?php if ($this->uri->segment(3)!='add' && $get_single_product['product_category']==$product_category['slug']) { echo "selected";
@@ -178,10 +204,10 @@ function fabricationAdvice(){
          	<?php } ?>
          </select>
         <label>Product Image:</label>
-        <input type="file" id="product_img" class="btn btn-file" name="product_img">
-        <?php if(isset($get_single_product['product_img'])) echo img_tag($get_single_product['product_img'],"style='height:65px;width: 85px;'"); ?>
+        <input type="file" <?php if(!isset($get_single_product['product_img'])) { ?> required <?php  } ?> id="product_img" class="btn btn-file" name="product_img">
+        <?php if(isset($get_single_product['product_img'])) echo show_img('products/thumbnails/'.$get_single_product['product_img'],"style='height:65px;width: 85px;'"); ?>
         <?php  ?>
-        	
+        <label>(Type: JPG,JPEG,PNG,GIF)</label>
         <button class="btn btn-large btn-primary" type="Save">Save</button>
       </form>
 		<a href="<?php echo base_url('store/my_products/grid'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>

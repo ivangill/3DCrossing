@@ -121,7 +121,8 @@ success: function()
             <td><?php echo ucfirst($product['product_name']); ?></td>  
             <td><?php echo ucfirst($product['product_details']); ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
-            <td><?php echo img_tag($product['product_img'],"style='height:50px;width: 70px;'"); ?></td>  
+            <td><?php 
+            echo show_img('products/'.$product['product_img'],'style="height:50px;width: 70px;"'); ?></td>  
             <td><?php echo ucfirst($product['product_category']); ?></td>
             
            <!--  <td>

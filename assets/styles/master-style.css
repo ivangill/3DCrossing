@@ -12,19 +12,21 @@
  @font-face
 {
 	font-family: NeoSans !important;
-src: url(NeoSans/NeoSans-Black.otf);
- url(NeoSans/NeoSans-BlackItalic.otf);
+src: url(NeoSans/NeoSans-Medium.otf);
+url(NeoSans/NeoSans-Light.otf);
+ font-weight:normal;
+ font-style:normal;
+}
+
+ /* ------------------Changes in Bootstrap.css-----------------  */
+/* url(NeoSans/NeoSans-BlackItalic.otf);
  url(NeoSans/NeoSans-Bold.otf);
  url(NeoSans/NeoSans-BoldItalic.otf);
  url(NeoSans/NeoSans-Italic.otf);
  url(NeoSans/NeoSans-Light.otf);
  url(NeoSans/NeoSans-LightItalic.otf);
  url(NeoSans/NeoSans-Medium.otf);
- url(NeoSans/NeoSans-MediumItalic.otf);
-}
- /* ------------------Changes in Bootstrap.css-----------------  */
-
-}
+ url(NeoSans/NeoSans-MediumItalic.otf);*/
 .clearfix:after {
   clear: both;
 }
@@ -227,7 +229,7 @@ a {
 a:hover,
 a:focus {
   color: #005580;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .img-rounded {
   -webkit-border-radius: 6px;
@@ -685,7 +687,8 @@ h4 small {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px;
+ /* margin: 0 0 10px 25px;*/
+ margin: 0px -25px 10px 25px;
 }
 ul ul,
 ul ol,
@@ -3458,7 +3461,8 @@ input[type="submit"].btn.btn-mini {
   min-height: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #fafafa;
+  background-color:#2c2c2c;
+ /* background-color: #fafafa;
   background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
   background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
@@ -3466,7 +3470,7 @@ input[type="submit"].btn.btn-mini {
   background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
-  border: 1px solid #d4d4d4;
+  border: 1px solid #d4d4d4;*/
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
@@ -3646,8 +3650,8 @@ input[type="submit"].btn.btn-mini {
   left: 0;
   display: block;
   float: left;
-  margin: 0 10px 0 0;
-  
+  /*margin: 0 10px 0 0;*/
+margin: -8px 10px 0 7px;  
   
 }
 .navbar .nav.pull-right {
@@ -3818,8 +3822,8 @@ input[type="submit"].btn.btn-mini {
   -moz-border-radius: 6px 0 6px 6px;
   border-radius: 6px 0 6px 6px;
 }
-.navbar-inverse .navbar-inner {
-  background-color: #1b1b1b;
+.navbar-inner {
+/* background-color: #2c2c2c;
   background-image: -moz-linear-gradient(top, #222222, #111111);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
   background-image: -webkit-linear-gradient(top, #222222, #111111);
@@ -3828,6 +3832,20 @@ input[type="submit"].btn.btn-mini {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
   border-color: #252525;
+ box-shadow: 0px 2px 4px black;*/
+ background-image:url(images/header-bg.jpg);
+}
+.navbar-inverse {
+  background-color: #2c2c2c;
+  background-image: -moz-linear-gradient(top, #222222, #111111);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+  background-image: -webkit-linear-gradient(top, #222222, #111111);
+  background-image: -o-linear-gradient(top, #222222, #111111);
+  background-image: linear-gradient(to bottom, #222222, #111111);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+  border-color: #252525;
+
 }
 .navbar-inverse .brand,
 .navbar-inverse .nav > li > a {
@@ -4737,7 +4755,7 @@ a.thumbnail:focus {
   top: 10%;
   left: 50%;
   z-index: 1050;
-  width: 560px;
+  width: 530px;
   margin-left: -280px;
   background-color: #ffffff;
   border: 1px solid #999;
@@ -4764,7 +4782,7 @@ a.thumbnail:focus {
   top: -25%;
 }
 .modal.fade.in {
-  top: 10%;
+  top: 30%;
 }
 .modal-header {
   padding: 9px 15px;
@@ -4971,7 +4989,7 @@ background-image: -webkit-gradient(
   z-index: 990;
 }
 .pull-right > .dropdown-menu {
-  right: -30px;
+  right: -5px;
   left: auto;
 }
 .dropup .caret,

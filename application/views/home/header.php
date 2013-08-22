@@ -33,55 +33,60 @@
           <a class="brand" href="<?php echo base_url(); ?>"><span class="logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
           <div class="nav-collapse collapse">
             <ul class="nav my-font-style">
-              <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP</a>
+              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a  id="my-a-style" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP
+              </a>
               
-              <ul class="dropdown-menu mystyle">
+              
+              <ul onmouseover="document.getElementById('my-a-style').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style').className='';" class="dropdown-menu mystyle">
                 	 <?php foreach ($get_store_categories as $store_category){ ?>
-                	 <li class="my-menu"><a href="<?php echo base_url('shop/shop_category/'.$store_category['slug']); ?>"><?php echo ucfirst($store_category['name']); ?></a></li>
+                	 <li  class="my-menu"><a href="<?php echo base_url('shop/shop_category/'.$store_category['slug']); ?>"><?php echo ucfirst($store_category['name']); ?></a></li>
+                     <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"'); ?>
                 	 <?php } ?>
                 </ul>
+                
               </li>
-            
-             <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">SELL</a>
-              	<ul class="dropdown-menu mystyle">
-                	  <li class="my-menu"><a href="">Design & Objects</a></li>
-                	 <li class="my-menu"><a href="">Design Services</a></li>
+            	<?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
+             <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#">SELL</a>
+              	<ul onmouseover="document.getElementById('my-a-style-one').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-one').className='';" class="dropdown-menu mystyle">
+                	  <li class="my-menu"><a href="#">Design & Objects</a></li>
+                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
+                	 <li class="my-menu"><a href="#">Design Services</a></li>
                 </ul>
               
               </li>
-              <li class="dropdown" id="accountmenu" style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">Learn</a>
-              	<ul class="dropdown-menu mystyle">
-                	 <li class="my-menu"><a href="">News</a></li>
-                	 <li class="my-menu"><a href="">Reviews</a></li>
-                	 <li class="my-menu"><a href="">3D Printing</a></li>
+              <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
+              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-two" class="dropdown-toggle" href="#">LEARN</a>
+              	<ul onmouseover="document.getElementById('my-a-style-two').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-two').className='';" class="dropdown-menu mystyle">
+                	 <li class="my-menu"><a href="#">News</a></li>
+                     <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
+                	 <li class="my-menu"><a href="#">Reviews</a></li>
+                     <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
+                	 <li class="my-menu"><a href="#">3D Printing</a></li>
                 </ul>
               
               </li>
-              <li class="dropdown" id="accountmenu"style="height: 37px;"><a style="height: 50px;" class="dropdown-toggle" href="#">Talk</a>
-              	<ul class="dropdown-menu mystyle">
-                	 <li class="my-menu"><a href="">Forum</a></li>
-                	 <li class="my-menu"><a href="">Our Blog</a></li>
-                	 <li class="my-menu"><a href="">Talk to Us</a></li>
+              <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
+              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu"style="height: 37px;"><a id="my-a-style-three" class="dropdown-toggle" href="#">TALK</a>
+              	<ul onmouseover="document.getElementById('my-a-style-three').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-three').className='';" class="dropdown-menu mystyle">
+                	 <li class="my-menu"><a href="#">Forum</a></li>
+                     <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
+                	 <li class="my-menu"><a href="#">Our Blog</a></li>
+                     <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
+                	 <li class="my-menu"><a href="#">Talk to Us</a></li>
                 </ul>
               
               </li>
 
             </ul>
-  <style>
-fornav {
-    position:relative;
-    margin-left:-22px;
-    top:-3px;
-    z-index:2;
-}
-</style>         
+    
+  <div id="header-search-div">    
             <form class="pull-right navbar-search" action="<?php echo base_url('shop/search_product'); ?>" method="POST">
             	
               <input  id="mysearch-style" placeholder="Search..." name="search_product" type="text">
               <?php if ($this->session->userdata('memberid')!='') { ?>
                 
               
-                        <a class="dropdown-toggle login-style" data-toggle="dropdown" href="#">
+                        <a class="dropdown-toggle logedin-style" data-toggle="dropdown" href="#">
                  <span class="my-logedin-profile"><?php 
                  $name=strtoupper($get_member['first_name']." ".$get_member['last_name']);
                 echo substr($name,0,15).'...';
@@ -98,16 +103,17 @@ fornav {
                   
              <?php  } else { ?>
              
-             <a class="login-style" href="<?php echo base_url('home/login'); ?>">LOGIN</a>
-              <a class="login-style" href="<?php echo base_url('home/signup'); ?>">JOIN US!</a>
+             <span id="login-join-us"><a class="login-style" href="<?php echo base_url('home/login'); ?>">LOGIN</a>
+              <a class="join-us-style" href="<?php echo base_url('home/signup'); ?>">JOIN US!</a></span>
               <?php } ?>
               
             </form>
+           </div>
           </div>
          
         </div>
       </div>
-      <div id="menu-bg"></div>
+      <div id="menu-bg" style="display:block;"></div>
     </div>
   <!-- Carousel
     ================================================== -->

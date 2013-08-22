@@ -16,7 +16,19 @@ class Store_Details extends CI_Model
         if (DBTYPE == 'mongo_db')
         {
         	$this->mongo_db->where(array('status' =>'active'));
-        	$this->mongo_db->order_by(array('payment_time' => 'desc'));
+        	//$this->mongo_db->order_by(array('payment_time' => 'desc'));
+            return $this->mongo_db->get('store_categories');
+        }
+    }
+    
+    function get_store_categories_in_ascending_order ()
+    {
+    	
+    	
+        if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('status' =>'active'));
+        	$this->mongo_db->order_by(array('name' => 'asc'));
             return $this->mongo_db->get('store_categories');
         }
     }
