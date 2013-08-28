@@ -89,8 +89,7 @@ print_r($avg_rating);*/
 	
 </script>  
 <ul class="thumbnails">
-<?php
-foreach ($avg_rating['result'] as $rating){
+<?php foreach ($avg_rating['result'] as $rating){
 	
 	$productid=$rating['_id'];
 	$avg_rating=$rating['avgrate'];
@@ -99,23 +98,18 @@ foreach ($avg_rating['result'] as $rating){
 	$memberid=$get_product['member_id'];
 	$get_member = $this->home_model->get_member( $memberid );
 	
-	if ($avg_rating >= 3) { ?>
-		<li class="span3 my-img-style" style="border:0px solid red;-webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
--moz-box-shadow:    0px 3px 10px rgba(0, 0, 0, 0.3);
-box-shadow:         0px 3px 10px rgba(0, 0, 0, 0.3);">
-		<?php
-		//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/thumbnails/products/homepage/'.$get_product['product_img'];
-	    // if (isset($get_product['product_img']) && file_exists($myimg)) {
-	     if (isset($get_product['product_img'])) { ?>
-	                   
-	     <a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo show_img('products/'.$get_product['product_img']); ?></a>
-	     
-	     
-	 <?php    } else { ?>
-	 	
-	<a id="<?php echo $get_product['_id'] ?>" onmouseover="showDiv(id)" onmouseout="hideDiv(id)" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id']; ?>"><?php echo img_tag('icons/no-image-found.jpg','style="height:280px;"');?></a>
+	if ($avg_rating >= 3 && $get_product['deleted_status']==0) { 
+	//echo $get_product['deleted_status'];
+	
+	?>
+<li class="my-img-style">
+<?php if (isset($get_product['product_img'])) { ?>
+<a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo show_img('products/'.$get_product['product_img'],'style="height: 280px;width: 280px;margin-left: 6px;margin-top: 5px;"'); ?></a>
+<?php } else { ?>
+<a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id']; ?>"><?php echo img_tag('icons/no-image-found.jpg','style="height: 280px;width: 280px;margin-left: 6px;margin-top: 5px;"');?></a>
 <?php  } ?>
-	    <div id="<?php echo 'div'.$get_product['_id'] ?>"  style="display:none;height:59px;width:269px;border:0px solid red;margin-top: -60px;float: left;position: absolute;background-image:url('assets/images/icons/mouseover.png');">
+<a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id']; ?>">
+	    <div id="<?php echo 'div'.$get_product['_id'] ?>"  style="display:block;height:59px;width:281px;border:0px solid red;margin-top: -59px;float: left;margin-left: 5px;position: absolute;background-image:url('assets/images/icons/mouseover.png');">
 	     <span style="font-size: 23px;width: 258px;float: left;margin-left: 10px;margin-top: 10px;color: white;"><?php echo $get_product['product_name'] ?></span><br />
 	     <span style="font-size: 13px;color: white;float: left;margin-left: 13px;margin-top: 3px;"><?php echo ucwords($get_member['first_name'].' '.$get_member['last_name']); ?>
 	     </span>
@@ -142,14 +136,11 @@ box-shadow:         0px 3px 10px rgba(0, 0, 0, 0.3);">
 	     }
 	     ?></span>
 	     </div>	
-		
-	<?php	echo '</li>';
-		
-	}
-	
-	
-} ?>
+		</a>
+</li>
+<?php } } ?>
 </ul>
+
 
  
    <!--  <ul class="thumbnails">

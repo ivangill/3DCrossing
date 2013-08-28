@@ -884,8 +884,24 @@ class Home extends CI_Controller
 						$id=$this->session->userdata("memberid");
 						$get_member = $this->home_model->get_member( $id );
 						$index_value=$this->uri->segment(4);
-						//$this->home_model->delete_bank_account($id,$index_value);
-						$data['member_card_info']=$get_member['bank_account_info'][$index_value];			
+						
+						$array=$get_member['bank_account_info'];
+						$arraykeys=array_keys($array);
+						$indexkey_existance=array_key_exists($index_value, $arraykeys);
+						if($indexkey_existance==true){
+							
+						
+						$data['member_card_info']=$get_member['bank_account_info'][$index_value];
+						//var_dump($data['member_card_info']);	
+						/*
+						if ($member_card_info!="") {
+						 $data['member_card_info']=$member_card_info;
+						} else {
+						 $data['member_card_info']="";
+						}*/
+						} else {
+							redirect('home/setup_transaction_account/bankaccount');
+						}
 					}
 		}
 		

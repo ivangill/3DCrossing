@@ -152,6 +152,8 @@ color:white;
       
 .footer{
   height: 100px;
+width: 96%;
+margin-left: 21px;
  /* background-color: #191919; */
 }
 .footer-top-border{
@@ -159,15 +161,15 @@ color:white;
   background-color:#29C3F0;*/
   height: 1px;
 background-color: #29C3F0;
-width: 1225px;
-margin-left: 55px;
+/*width: 1225px;
+margin-left: 55px;*/
 }
 .footer-top-border-bottom {
   height:1px;
   background-color:#0F92B9;
   box-shadow:0px 2px 4px 2px #ECEDED;
-  width: 1225px;
-margin-left: 55px;
+/*  width: 1225px;
+margin-left: 55px;*/
   
 }
 .my-legend-style {
@@ -178,7 +180,7 @@ font-size:22px;
   color: #ffb401;
   font-size: 34px;
   float: left;
-  margin-left: 53px;
+  margin-left: 36px;
   margin-top: 28px;
   font-family: 'NeoSans';
   text-shadow: 1px 1px gray;
@@ -243,10 +245,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
 border: 0px solid red;
 display: inline;
 float: left;
-margin-left: 3px;
+margin-left: 0px;
 color: white;
 height: 40px;
-margin-top: -4px;
+margin-top: -5px;
 font-family: 'NeoSans';
 }
 .login-style {
@@ -349,12 +351,12 @@ box-shadow:         0px 0px 3px rgba(0, 0, 0, 0.8);
 .mystyle {
   position: relatiive;
   top: 100%;
-  left: -18px;
+  left: 0px;
   z-index: 1000;
   display: none;
   float: left;
   /*min-width: 1500px; */
-  min-width:800px;
+  min-width:690px;
   padding: 8px 0;
   margin: 8px 0 0;
   list-style: none;
@@ -375,13 +377,13 @@ min-height:30px;
  }
  .mystyle > li > a {
   display: block;
-padding: 3px 30px;
+padding: 3px 10px;
 clear: both;
 font-weight: normal;
 line-height: 33px;
 color: white;
 white-space: nowrap;
-font-size: 20px;
+font-size: 18px;
 font-family: 'NeoSans';
   
  
@@ -409,9 +411,10 @@ fornav {
 }
 #my-a-style {
 height: 28px;
-padding-top: 33px;
+padding-top: 23px;
 float: left;
-margin-top: -21px;
+margin-top: -10px;
+border-radius: 3px;
 }
 #my-a-style:hover, #my-a-style:focus {
 background-image: linear-gradient(bottom, rgb(206,40,46) 36%, rgb(200,34,39) 68%, rgb(204,38,43) 84%);
@@ -431,9 +434,10 @@ background-image: -webkit-gradient(
 }
 #my-a-style-one {
 height: 28px;
-padding-top: 33px;
+padding-top: 23px;
 float: left;
-margin-top: -21px;
+margin-top: -10px;
+border-radius: 3px;
 }
 #my-a-style-one:hover, #my-a-style-one:focus {
 background-image: linear-gradient(bottom, rgb(206,40,46) 36%, rgb(200,34,39) 68%, rgb(204,38,43) 84%);
@@ -453,9 +457,10 @@ background-image: -webkit-gradient(
 }
 #my-a-style-two {
 height: 28px;
-padding-top: 33px;
+padding-top: 23px;
 float: left;
-margin-top: -21px;
+margin-top: -10px;
+border-radius: 3px;
 }
 #my-a-style-two:hover, #my-a-style-two:focus {
 background-image: linear-gradient(bottom, rgb(206,40,46) 36%, rgb(200,34,39) 68%, rgb(204,38,43) 84%);
@@ -475,9 +480,10 @@ background-image: -webkit-gradient(
 }
 #my-a-style-three {
 height: 28px;
-padding-top: 33px;
+padding-top: 23px;
 float: left;
-margin-top: -21px;
+margin-top: -10px;
+border-radius: 3px;
 }
 #my-a-style-three:hover, #my-a-style-three:focus {
 background-image: linear-gradient(bottom, rgb(206,40,46) 36%, rgb(200,34,39) 68%, rgb(204,38,43) 84%);
@@ -550,29 +556,41 @@ color:white;
 }
 .myfooter {
 float: none;
-padding: 26px 4px 0px;
+padding: 26px 13px 0px;
 color: #777777;
 text-decoration: none;
 text-shadow: 0 1px 0 #ffffff;
 font-size: 12px;
+float: right;
+}
+.myfooter > li {
+	list-style:none;
+	line-height:0px;
+	display: inline;
 }
 .myfooter li a {
-float: none;
+float: right;
 padding: 7px 8px 0px;
 color: #777777;
 text-decoration: none;
 text-shadow: 0 1px 0 #ffffff;
+margin-bottom: 7px;
 }
-.myfooter li {
-line-height:0px;
-}
+
 .footer-copyright {
-font-size:11px;
-color:gray;
-padding-left:67px;
+font-size: 11px;
+color: gray;
+padding-left: 0px;
+border: 0px solid red;
+width: 104px;
+float: right;
+margin-right: 2px;
 }
 .my-img-style {
 border:0px solid red;
+background-image:url(../images/icons/pic-bg.png);
+height: 292px;
+width: 292px;
 /*margin-right:17px;*/
 }
 .login-dropdown {
@@ -642,7 +660,6 @@ float: left;
 margin-left: 10px;
 }
 #mysearch-style {
-font-weight: bold;
 background-color: #515151;
 background-image: url(images/header-search-bg.jpg);
 color: white;
@@ -650,9 +667,11 @@ font-size: 16px;
 padding-left: 17px;
 float: left;
 margin-right: 10px;
-height: 28px;
+height: 27px;
 margin-top: -6px;
 border: 0px;
+font-family:Helvetica;
+width: 205px;
 }
 #mysearch-style::-webkit-input-placeholder {
 	color:white;
@@ -669,13 +688,13 @@ margin-left: -83px;
 #header-search-div {
  border: 0px solid red;
 height: 40px;
-width: 465px;
+width: 420px;
 float: right;margin-top: -7px;
 }
 #login-join-us {
 margin-top: 4px;
 float: right;
-margin-right: 0px;
+margin-right: -38px;
 padding-left: 8px;
 font-size:18px;
 }

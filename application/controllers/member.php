@@ -68,7 +68,9 @@ class Member extends CI_Controller
 			$data['get_number_of_comments']=$this->product_stats->get_number_of_comments_for_member_profile( $id );
 			$data['get_my_products']=$this->products->get_products_by_specific_user($id);
 			
+			if($this->session->userdata("memberid")){
 			$data['check_if_already_followed']=$this->member_followers->check_if_already_following($this->session->userdata("memberid"),$this->uri->segment(3));
+			}
 			
 			//print_r($this->mongo_db->last_query());
 			//var_dump($data['check_if_already_followed']);
@@ -209,7 +211,7 @@ class Member extends CI_Controller
 			$update_password = $this->home_model->update_member_status( $id );
 			//var_dump($update_password);exit;
 			$this->session->unset_userdata("memberstatus");
-			$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.Refresh page to get access to your account.</div>');
+			//$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.Refresh page to get access to your account.</div>');
 
 		}
 		

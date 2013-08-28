@@ -17,14 +17,15 @@
         <div class="footer-first-text pull-left">Create,</div>
         <div class="footer-second-text pull-left">Share,</div>
          <div class="footer-third-text pull-left">Profit</div>
-          <div class="pull-right navbar">
-            <ul class="myfooter nav">
+         
+          <div class="pull-right navbar" style="width:710px;">
+            <ul class="myfooter">
             <?php foreach ($footer_links as $link){ ?>
               <li><a href="<?php echo base_url('p'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></li>
            <?php } ?>
-            
+             <div class="footer-copyright">&copy; 2013 3D Crossing</div>
             </ul>
-            <div class="footer-copyright">&copy; 2013 3D Crossing</div>
+           
           
           </div>
         

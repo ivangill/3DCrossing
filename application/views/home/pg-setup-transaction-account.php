@@ -1,5 +1,5 @@
  <?php $this->load->view( 'home/header.php' ); ?>
-   
+   <?php  error_reporting(0); ?>
 <div class="row-fluid">
 <?php $this->load->view('home/shared/account-left-panel'); ?>
  <div class="span9">  
@@ -12,7 +12,11 @@
  <button class="btn btn-large btn-primary" type="Save">Save</button>
  </form>
 <?php } ?>
-<?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="bankaccount") { ?>
+<?php 
+if($this->uri->segment(3)=="bankaccount" && $this->uri->segment(4)!="" && $member_card_info['deleted_status']==1 ){
+	echo '<span class="label label-warning">No account found.</span>';
+} else {
+if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="bankaccount") { ?>
 <legend><h2>Setup Bank Account</h2></legend>
  <form class="form-signin" method="POST" 
  <?php if ($this->uri->segment(4)!='') { ?>
@@ -26,12 +30,12 @@ action="<?php echo base_url('home/setup_transaction_account/bankaccount/key'); ?
         echo '<b>Account Number:</b> '.'ending in '.$acount.'<br />';
         }else { ?>
         <label>Account Number:</label>
-        <input type="text" required="required" name="acount_number" id="acount_number" class="input-block-level" placeholder="Account Number">
+        <input type="text" required name="acount_number" pattern="^\w{1,17}$" title="Please enter a valid account number" id="acount_number" class="input-block-level" placeholder="Account Number">
          <?php } ?>
          <?php if (isset($member_card_info['bank_swift_code'])) {
         echo '<b>Bank Swift Code:</b> '.$member_card_info['bank_swift_code'].'<br />';
         }else { ?>
-         <label>Branch Swift Code:</label><input type="text" required="required" name="bank_swift_code" id="branch_name" class="input-block-level" placeholder="Branch Name">
+         <label>Branch Swift Code:</label><input type="text" pattern="^\w{1,17}$" title="Please enter a valid swift code" required name="bank_swift_code" id="branch_name" class="input-block-level" placeholder="Branch Name">
          <?php } ?>
           <?php if (isset($member_card_info['branch_name'])) {
         echo '<b>Branch:</b> '.$member_card_info['branch_name'];
@@ -40,32 +44,33 @@ action="<?php echo base_url('home/setup_transaction_account/bankaccount/key'); ?
         	<input type="hidden" name="index_value" value="<?php echo $this->uri->segment(4); ?>" >
       <?php  } ?>
         
-        <label>Branch Name:</label><input type="text" value="<?php if (isset($member_card_info['branch_name'])) { echo $member_card_info['branch_name'];  } ?>" required="required" name="branch_name" id="branch_name" class="input-block-level" placeholder="Branch Name">
-        <label>Branch Address:</label><input type="text" value="<?php if (isset($member_card_info['branch_address'])) { echo $member_card_info['branch_address'];  } ?>"  name="branch_address" required="required" class="input-block-level" placeholder="Branch Address">
-        <label>Name on Account:</label><input type="text" value="<?php if (isset($member_card_info['account_title'])) { echo $member_card_info['account_title'];  } ?>"  name="account_title" required="required" class="input-block-level" placeholder="Account Title">
+        <label>Branch Name:</label><input type="text" pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" value="<?php if (isset($member_card_info['branch_name'])) { echo $member_card_info['branch_name'];  } ?>" required name="branch_name" id="branch_name" class="input-block-level" title="Please enter a valid branch name" placeholder="Branch Name">
+        <label>Branch Address:</label><input type="text" value="<?php if (isset($member_card_info['branch_address'])) { echo $member_card_info['branch_address'];  } ?>" pattern="^[a-zA-Z\d]+(([\'\,\.\- #][a-zA-Z\d ])?[a-zA-Z\d]*[\.]*)*$" title="Please enter a valid address"  name="branch_address" required class="input-block-level" placeholder="Branch Address">
+        <label>Name on Account:</label><input type="text" value="<?php if (isset($member_card_info['account_title'])) { echo $member_card_info['account_title'];  } ?>" pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" title="Please enter valid name"  name="account_title" required class="input-block-level" placeholder="Account Title">
          
         <label class="control-label" for="select01">Account Currency</label>
        <div class="controls">
          <select  name="account_currency" required id="year">
             <option value=""> Select Option </option>
          	<option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='usd') { echo 'selected';  } ?> value="usd"> American Dollar (USD) </option>
+            <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='pound') { echo 'selected';  } ?> value="pound"> British Pound (£) </option>
             <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='cad') { echo 'selected';  } ?> value="cad"> Canadian Dollar (CAD) </option>
-            <option <?php if (isset($member_card_info['account_currency']) && $member_card_info['account_currency']=='pound') { echo 'selected';  } ?> value="pound"> British Pound </option>
+            
          </select>
        </div>
-         <label>Address:</label><input type="text" value="<?php if (isset($member_card_info['home_address'])) { echo $member_card_info['home_address'];  } ?>"  name="home_address" required="required" class="input-block-level" placeholder="Address">
-         <label>City and State/Province:</label><input type="text" value="<?php if (isset($member_card_info['city'])) { echo $member_card_info['city'];  } ?>"  name="city" required="required" class="input-block-level" placeholder="City">
+         <label>Address:</label><input type="text" value="<?php if (isset($member_card_info['home_address'])) { echo $member_card_info['home_address'];  } ?>" pattern="^[a-zA-Z\d]+(([\'\,\.\- #][a-zA-Z\d ])?[a-zA-Z\d]*[\.]*)*$" title="Please enter a valid address"  name="home_address" required class="input-block-level" placeholder="Address">
+         <label>City and State/Province:</label><input type="text" value="<?php if (isset($member_card_info['city'])) { echo $member_card_info['city'];  } ?>"  pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" title="Please enter a valid city/state/province" name="city" required class="input-block-level" placeholder="City">
         <label class="control-label" for="select01">Country</label>
        <div class="controls">
          <select name="country" required id="country">
             <option value=""> Select Option </option>
             <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='america') { echo 'selected';  } ?> value="america"> America </option>
-            <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='canada') { echo 'selected';  } ?> value="canada"> Canada </option>
             <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='australia') { echo 'selected';  } ?> value="australia"> Australia </option>
+            <option <?php if (isset($member_card_info['country']) && $member_card_info['country']=='canada') { echo 'selected';  } ?> value="canada"> Canada </option>
          </select>
         </div>
         
-        <labe>Phone Number:</label><input type="text"  name="phone" value="<?php if (isset($member_card_info['phone'])) { echo $member_card_info['phone'];  } ?>" required="required" class="input-block-level" placeholder="Phone Number">
+        <labe>Phone Number:</label><input type="text" pattern="^[0-9]+$" title="Please enter a valid phone number"  name="phone" value="<?php if (isset($member_card_info['phone'])) { echo $member_card_info['phone'];  } ?>" required class="input-block-level" placeholder="Phone Number">
          <label class="checkbox">
       		<input type="checkbox" required name="checkbox">
       		<span class="label label-important">I attest that I am the owner and have full authorization of this bank account.</span>
@@ -73,8 +78,8 @@ action="<?php echo base_url('home/setup_transaction_account/bankaccount/key'); ?
         <button class="btn btn-large btn-primary" type="Done">Save</button>
       </form>
       <a class="btn btn-large btn-primary" href="<?php echo base_url('home/setup_transaction_account'); ?>">Cancel</a>
-<?php } 
-
+<?php }
+}
 if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="") { ?>
 <?php echo $this->session->flashdata('response'); ?>
 <legend><h2>Your Withdraw Accounts</h2></legend>
@@ -137,9 +142,22 @@ if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3
         <td><?php echo ucwords($card['city']); ?></td>
         <td><?php echo ucwords($card['country']); ?></td>
        <td> 
-       <a class="btn btn-danger btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>home/delete_my_bankaccount/<?php echo $key; ?>" onclick="alert('Are you sure you want to delete?')"><i class="icon-trash icon-white"></i></a>
+       <a class="btn btn-danger btn-mini" data-target="#myModal-one" data-toggle="modal" href=""><i class="icon-trash icon-white"></i></a>
        <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>home/setup_transaction_account/bankaccount/<?php echo $key; ?>"><i class="icon-edit icon-white"></i></a>
        </td>
+ 
+ <div id="myModal-one" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Are you sure you want to delete this Account?</h3>
+      </div>
+      <div class="span9" style="margin-bottom:10px;margin-top:10px;margin-left: 15px;">
+       <a href="<?php echo base_url(); ?>home/delete_my_bankaccount/<?php echo $key; ?>" class="btn btn-info">Yes</a>
+       <a class="btn btn-info" data-dismiss="modal">Cancel</a>
+      </div>
+</div>      
+       
+ 
        </tr>
         <?php    } } ?>
          </tbody>

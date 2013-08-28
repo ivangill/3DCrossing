@@ -258,7 +258,7 @@ class Shop extends CI_Controller
    								);
    					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					}
-   					exit;
+   				$this->session->set_flashdata('likeproduct', '<div class="alert alert-success">You have successfully liked this product.</div>'); 
    				}
    			if ($this->input->post('favourite')) {
 	   			$product_id=$this->uri->segment(3);
@@ -282,7 +282,7 @@ class Shop extends CI_Controller
    								);
    					$add_news_feed=$this->news_feed->add_news_feed($insert);
    					}
-   				exit;
+   			     
    				}
    				
    			if ($this->input->post('ratings')) {

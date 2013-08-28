@@ -1,6 +1,6 @@
 <?php $this->load->view( 'home/header.php' ); ?>
 
-
+<?php if($get_product_by_id['deleted_status']==0){ ?>
 <div class="container">
 <?php if ($this->session->userdata("memberid")!='') { ?>
 <div>
@@ -94,16 +94,74 @@ class="twitter-share-button"></a>
                 
 	            <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3><?php echo $get_product_by_id['product_name']; ?></h3>
 	                <div class="span3"><?php echo $get_number_of_views; ?> Views</div>
-	                <div class="span3"><?php echo $get_number_of_likes; ?> Likes</div>
-	                <div class="span3"><?php echo $get_number_of_favourites; ?> Favourites</div>
+	                <div class="span3" id="like_count"><?php echo $get_number_of_likes; ?> Likes</div>
+	                <div class="span3" id="favourite_count"><?php echo $get_number_of_favourites; ?> Favourites</div>
 	                <div class="span3">xxx Buys</div>
                 </div> 
-              
+  <script type="text/javascript">
+$(document).ready(function()
+{
+$('.votebutton').on("click", function(){
+  vote = $(this).attr("value");
+  //article = $(this).attr("data-article");
+ // alert(vote);
+  likeProduct(vote);
+})
+
+
+function likeProduct(vote){ 
+  var mydata = 'vote='+vote;
+  $.ajax({
+     type: 'POST',
+     url: "<?php echo base_url('shop/product_detail/'.$get_product_by_id['_id']); ?>", 
+     data: mydata,
+     cache: false,
+	 async:false,
+     success: function(){
+		 $('#like_count').text(<?php echo $get_number_of_likes+1; ?>+ ' Likes');
+		 $("#like_success_function").css("display","block");
+    	}
+   });
+}
+
+});
+
+
+
+$(document).ready(function()
+{
+$('.favouritebutton').on("click", function(){
+  favourite = $(this).attr("value");
+  //article = $(this).attr("data-article");
+ // alert(favourite);
+  favouriteProduct(favourite);
+})
+
+
+function favouriteProduct(favourite){ 
+  var myData = 'favourite='+favourite;
+  $.ajax({
+     type: 'POST',
+     url: "<?php echo base_url('shop/product_detail/'.$get_product_by_id['_id']); ?>", 
+     data: myData,
+     cache: false,
+	 async:false,
+     success: function(favourite){
+		  $('#favourite_count').text(<?php echo $get_number_of_favourites+1; ?>+ ' Favourites');
+		  $("#favourite_success_function").css("display","block");
+    	}
+   });
+}
+
+});
+</script>    
+       
 <?php if ($this->session->userdata("memberid")!='') { ?>
 
 
                 <div class="span4" style="padding:5px;margin-bottom:5px;">
-                 
+                 <div id="like_success_function" class="alert alert-success" style="display:none;">You have successfully liked this product.</div>
+                 <div id="favourite_success_function" class="alert alert-success" style="display:none;">You have successfully favourited this product.</div>
                    <?php if ($check_if_already_liked!='') { ?>
 					<button class="btn btn-primary" disabled><i class="icon-thumbs-up icon-white"></i> Liked</button>
 				<?php } else { ?>
@@ -161,7 +219,7 @@ echo "Average rating: ".$avg_rating;
                 <a href="<?php echo base_url('member/profile/'.$get_product_creator['_id']); ?>"><?php echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?></a>
                  <?php // } else { ?>
                  <?php //echo ucfirst($get_product_creator['first_name'])." ".ucfirst($get_product_creator['last_name']); ?>
-                 <?php// } ?>
+                 <?php // } ?>
                 </h3>
                 
 	                <div class="span3" style="margin-bottom:5px;"><button class="btn btn-primary" type="button">
@@ -382,6 +440,8 @@ if($day != 0){
           </div>
  	<?php } ?> 
  </div>
-
+<?php } else { ?>
+<span class="label label-warning">This product has been deleted.</span>
+<?php } ?>
 
 <?php $this->load->view( 'home/footer' ); ?>

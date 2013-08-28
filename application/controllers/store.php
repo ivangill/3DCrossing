@@ -399,6 +399,21 @@ class Store extends CI_Controller
 		redirect('store/my_products/'.$this->uri->segment(4), 'refresh');
 	}
 	
+	public function check_sku_id() 
+	{
+		if ($this->input->post('sku_id')) {
+			$skuid=$this->input->post('sku_id');
+			$data=$this->products->check_sku_id($skuid);
+			//var_dump($data);
+			//return $data;
+			echo count($data);
+			//echo $this->uri->segment(3);
+			//redirect('store/my_products/'.$this->uri->segment(3), $data);
+			//var_dump($data);exit;
+		}
+		
+	}
+	
 	public function delete_my_product_material ()
 	{
 		if ($this->session->userdata("memberid")!="") {

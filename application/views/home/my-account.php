@@ -1,6 +1,6 @@
  <?php $this->load->view( 'home/header.php' ); ?>
  <div><?php if ($this->uri->segment(3)!="" && $get_member['status']=="inactive") {
- 	echo "<div id='success'>Your Account has been activated successfully successfully.</div>";
+ 	echo '<div class="alert alert-success">Your Account has been activated successfully.</div>';
  }?></div>
     <div style="margin-top:40px;"><?php echo $this->session->flashdata('response'); ?></div>
    
@@ -8,7 +8,7 @@
 <?php $this->load->view('home/shared/account-left-panel'); ?>
  <div class="span6">  
 <legend><h2><?php echo ucwords($get_member['first_name'].' '.$get_member['last_name']); ?></h2></legend>
-	<?php if ($get_member['status']=='inactive') {
+	<?php if ($get_member['status']=='inactive' && $this->uri->segment(3)=="") {
 		
 		echo "Your account is Inactive ,so you have limited access If you want full access then Check your mail and activate your account.";
 		
@@ -19,8 +19,8 @@
 	<div class="span2 pull-right">
 				<?php  
 				
-				//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
-	                 // if (isset($get_member['avatar']) && file_exists($myimg)) {
+				//echo $myimg= $_SERVER['SERVER_NAME'].'/uploads/members/thumbnails/'.$get_member['avatar'];
+	            //      if (isset($get_member['avatar']) && file_exists($myimg)) {
 	               //    if (isset($get_member['avatar'])) {
 	               // echo $get_member['avatar'];
 	                  if ($get_member['avatar']!="") {

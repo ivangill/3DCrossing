@@ -3452,10 +3452,14 @@ input[type="submit"].btn.btn-mini {
   cursor: default;
 }
 .navbar {
-  overflow: visible;
+	overflow: visible;
+margin-bottom: 10px;
+width: 96%;
+margin-left: 21px;
+/*  overflow: visible;
   margin-bottom: 10px;
   *position: relative;
-  *z-index: 2;
+  *z-index: 2;*/
 }
 .navbar-inner {
   min-height: 40px;
@@ -3645,13 +3649,14 @@ input[type="submit"].btn.btn-mini {
   -moz-box-shadow: 0 -1px 10px rgba(0,0,0,.1);
   box-shadow: 0 -1px 10px rgba(0,0,0,.1);
 }
+
 .navbar .nav {
   position: relative;
   left: 0;
   display: block;
   float: left;
   /*margin: 0 10px 0 0;*/
-margin: -8px 10px 0 7px;  
+margin: -8px 0px 0 7px;  
   
 }
 .navbar .nav.pull-right {

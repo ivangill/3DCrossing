@@ -466,6 +466,20 @@ class Products extends CI_Model
         	 
         }
     }*/
+	
+	function check_sku_id ($skuid)
+	{
+		if (DBTYPE == 'mongo_db')
+    
+        {
+        	 //$this->mongo_db->where('product_sku',$skuid);
+			 $this->mongo_db->where(array('product_sku' =>$skuid));
+        	return $query=$this->mongo_db->get('products');
+			 //var_dump($query);exit;
+        	 
+        }
+		
+	}
    
    function search_products ($search)
    {

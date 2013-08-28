@@ -31,7 +31,7 @@
  </form>
  <?php } ?>
  </div>
- <div class="clearfix"></div>
+ <div class="clearfix"></div> 
  <?php if($this->uri->segment(3)=='grid' ) {  ?>
  
   <div class="row-fluid">
@@ -44,9 +44,9 @@
              <li class="span3" style="float: left;margin-left: 0px;margin-right:10px;">
 				<div class="thumbnail">
 				 
-                 <a title="Delete" data-target="#myModal" data-toggle="modal" href=""><i class="icon-remove"></i></a>
+                 <a title="Delete" data-target="#<?php echo $product['_id']; ?>" data-toggle="modal" href=""><i class="icon-remove"></i></a>
                     
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="<?php echo $product['_id']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
         <h3 id="myModalLabel">Are you sure you want to delete this Product?</h3>
@@ -115,9 +115,9 @@
             
             <td>
            <a class="btn btn-info btn-mini" data-toggle="modal" href="<?php echo base_url(); ?>store/my_products/edit/<?php echo $product['_id']; ?>">Edit</a>
-            <a class="btn btn-danger btn-mini" data-target="#myModal" data-toggle="modal" href=""><i class="icon-trash icon-white"></i></a>
+            <a class="btn btn-danger btn-mini" data-target="#<?php echo $product['_id']; ?>" data-toggle="modal" href=""><i class="icon-trash icon-white"></i></a>
             </td>
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="<?php echo $product['_id']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
         <h3 id="myModalLabel">Are you sure you want to delete this Product?</h3>
@@ -162,8 +162,52 @@ function fabricationAdvice(){
 	}
 }
 
-</script>
+function check_sku_id_existance(){
+	//var skuId = $("#product_sku").val();
+	var myskuid=document.getElementById('product_sku').value;
+	
+	//alert(myskuid);
 
+
+	//document.getElementById('product_sku').value;
+}
+
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#product_sku').blur(function () {
+		var skuId = $('#product_sku').val();
+		var mydata='sku_id='+skuId;
+		
+		$.ajax({
+			 type: 'POST',
+			 url: "<?php echo base_url('store/check_sku_id/'.$this->uri->segment(3)); ?>", 
+			 data: mydata,
+			 cache: false,
+			 async:false,
+			success:function(msg) {
+				if(msg==0) {
+					$("#sku_id_existed").css("display","block");
+					$("#sku_id_existed").attr("class", "alert alert-success");
+					$("#sku_id_existed").html('<button type="button" class="close" data-dismiss="alert">×</button>This SKU ID is available.');
+					$("#mysavebtn").removeAttr("disabled");
+				} else {
+					$("#sku_id_existed").css("display","block");
+					$("#sku_id_existed").attr("class", "alert alert-error");
+					$("#sku_id_existed").html('<button type="button" class="close" data-dismiss="alert">×</button>This SKU ID has already been taken.Please change to continue.');
+					$("#mysavebtn").attr("disabled", "disabled");
+					
+				}
+			},
+			//error:function(jqXHR, textStatus, errorThrown){
+				//alert("Error type" + textStatus + "occured, with value " + errorThrown);
+			//}
+			
+		});
+	return false;
+	});
+});
+</script> 
 
       <form class="form-signin" method="POST" action="<?php echo base_url('store/my_products'); ?>" enctype="multipart/form-data">
         <h2 class="form-signin-heading">Add Product.</h2>
@@ -175,7 +219,7 @@ function fabricationAdvice(){
        
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
        
-       <label>Product Name:</label><input type="text" pattern="(?:[a-zA-Z]+[ ])+[a-zA-Z]+" required name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
+       <label>Product Name:</label><input type="text" title="Enter a valid product name" pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" required name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
        
        <label>Product Price: </label>
        <input type="text" pattern="^(?:[1-9]\d*|0)?(?:\.\d+)?$" required name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">
@@ -191,9 +235,9 @@ function fabricationAdvice(){
         <label>Product Fabrication Advice:</label>
         <textarea name="product_fabrication_advice_text" placeholder="Product Fabrication Advice"><?php if(isset($get_single_product['product_fabrication_advice_text'])) echo $get_single_product['product_fabrication_advice_text']; ?></textarea>
         </div>
-        
-        <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku'] ?>"  name="product_sku" required class="input-block-level" placeholder="Product Details">
-        
+ <div id="sku_id_existed" style="display:none;"></div>
+        <label>Product SKU (ID):</label><input type="text"  value="<?php if(isset($get_single_product['product_sku'])) echo $get_single_product['product_sku']; ?>" <?php if(isset($get_single_product['product_sku'])) echo "disabled"; ?> id="product_sku"  name="product_sku" required class="input-block-level" placeholder="Product Details">
+        <?php //echo $this->uri->segment(3); ?>
         <label>Product Category:</label>
         <select name="product_category" required>
          	<option value="">Select Category</option>
@@ -208,7 +252,7 @@ function fabricationAdvice(){
         <?php if(isset($get_single_product['product_img'])) echo show_img('products/thumbnails/'.$get_single_product['product_img'],"style='height:65px;width: 85px;'"); ?>
         <?php  ?>
         <label>(Type: JPG,JPEG,PNG,GIF)</label>
-        <button class="btn btn-large btn-primary" type="Save">Save</button>
+        <button class="btn btn-large btn-primary" id="mysavebtn" type="Save">Save</button>
       </form>
 		<a href="<?php echo base_url('store/my_products/grid'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>
 <?php } ?>

@@ -33,7 +33,7 @@
           <a class="brand" href="<?php echo base_url(); ?>"><span class="logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
           <div class="nav-collapse collapse">
             <ul class="nav my-font-style">
-              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a  id="my-a-style" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP
+              <li class="dropdown" id="accountmenu" style="height: 37px;"><a  id="my-a-style" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP
               </a>
               
               
@@ -46,7 +46,7 @@
                 
               </li>
             	<?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-             <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#">SELL</a>
+             <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#">SELL</a>
               	<ul onmouseover="document.getElementById('my-a-style-one').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-one').className='';" class="dropdown-menu mystyle">
                 	  <li class="my-menu"><a href="#">Design & Objects</a></li>
                       <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
@@ -55,7 +55,7 @@
               
               </li>
               <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-two" class="dropdown-toggle" href="#">LEARN</a>
+              <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-two" class="dropdown-toggle" href="#">LEARN</a>
               	<ul onmouseover="document.getElementById('my-a-style-two').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-two').className='';" class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="#">News</a></li>
                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
@@ -66,7 +66,7 @@
               
               </li>
               <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-              <li onmouseover="document.getElementById('menu-bg').style.display = 'block';" onmouseout="document.getElementById('menu-bg').style.display = 'none';" class="dropdown" id="accountmenu"style="height: 37px;"><a id="my-a-style-three" class="dropdown-toggle" href="#">TALK</a>
+              <li class="dropdown" id="accountmenu"style="height: 37px;"><a id="my-a-style-three" class="dropdown-toggle" href="#">TALK</a>
               	<ul onmouseover="document.getElementById('my-a-style-three').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-three').className='';" class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="#">Forum</a></li>
                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
