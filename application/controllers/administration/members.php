@@ -65,6 +65,19 @@ class Members extends CI_Controller
 		$this->session->set_flashdata('response', '<div class="alert alert-success">The Member has been deleted successfully.</div>');
 		redirect('administration/members', 'refresh');
 	}
+	
+	function export_registered_members() {
+		$data['members']=$this->administration->search_members_by_name();
+		$this->load->view( 'admin/export/pg-export-members',$data);
+    }
+	function export_twitter_members() {
+		$data['members']=$this->administration->search_twitter_members();
+		$this->load->view( 'admin/export/pg-export-twitter-members',$data);
+    }
+	function export_facebook_members() {
+		$data['members']=$this->administration->search_facebook_members();
+		$this->load->view( 'admin/export/pg-export-facebook-members',$data);
+    }
     
 
 }

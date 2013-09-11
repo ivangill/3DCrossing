@@ -13,6 +13,7 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+			$product_id = new MongoID($product_id);
         	$this->mongo_db->where(array("productid" => $product_id));
         	$this->mongo_db->where(array('event' =>'view'));
         	return $this->mongo_db->count('product_stats');
@@ -23,6 +24,7 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+			$product_id = new MongoID($product_id);
         	$this->mongo_db->where(array("productid" => $product_id));
         	$this->mongo_db->where(array('event' =>'like'));
         	return $this->mongo_db->count('product_stats');
@@ -75,9 +77,19 @@ class Product_Stats extends CI_Model
     {
     	if (DBTYPE == 'mongo_db')
         {
+			$product_id = new MongoID($product_id);
         	$this->mongo_db->where(array("productid" => $product_id));
         	$this->mongo_db->where(array('event' =>'favourite'));
         	return $this->mongo_db->count('product_stats');
+        }
+    }
+	function get_number_of_comments_for_specific_product ($product_id)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+			$product_id = new MongoID($product_id);
+        	$this->mongo_db->where(array("productid" => $product_id));
+        	return $this->mongo_db->count('product_comments');
         }
     }
     
@@ -90,7 +102,7 @@ class Product_Stats extends CI_Model
         		
         	}
         	$member_id=new MongoID($member_id);
-        	//$product_id=new MongoID($product_id);
+        	$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array("memberid" => $member_id));
         	$this->mongo_db->where(array("productid" => $product_id));
         	$this->mongo_db->where(array('event' =>'like'));
@@ -108,7 +120,7 @@ class Product_Stats extends CI_Model
         		
         	}
         	$member_id=new MongoID($member_id);
-        	//$product_id=new MongoID($product_id);
+        	$product_id=new MongoID($product_id);
         	$this->mongo_db->where(array("memberid" => $member_id));
         	$this->mongo_db->where(array("productid" => $product_id));
         	$this->mongo_db->where(array('event' =>'favourite'));

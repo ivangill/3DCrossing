@@ -10,7 +10,7 @@
 		</div>
       </footer>-->
 
- </div><!--/container-->
+ <!--</div>/container (old design when header and footer are outside this container)-->
    <div class="footer">
         <div class="footer-top-border"></div>
         <div class="footer-top-border-bottom"></div>
@@ -18,18 +18,21 @@
         <div class="footer-second-text pull-left">Share,</div>
          <div class="footer-third-text pull-left">Profit</div>
          
-          <div class="pull-right navbar" style="width:710px;">
-            <ul class="myfooter">
+          <div class="navbar" style="width:710px;float: right;margin-right: -23px;">
+            <ul class="myfooter pull-right">
             <?php foreach ($footer_links as $link){ ?>
               <li><a href="<?php echo base_url('p'); ?><?php echo '/'.$link['url'];  ?>"><?php echo $link['page_title']; ?></a></li>
            <?php } ?>
-             <div class="footer-copyright">&copy; 2013 3D Crossing</div>
+           <br />
+             <div class="footer-copyright pull-right">&copy; 2013 3D Crossing</div>
             </ul>
            
           
           </div>
         
     </div> 
+    
+    </div><!--/End of container (new design when header and footer are inside this container)-->
 <!--<div class="clearfix"></div>
                     <hr>            
 <div id="fb-root"></div>

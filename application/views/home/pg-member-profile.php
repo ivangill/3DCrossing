@@ -14,7 +14,10 @@ async:false,
 success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
-	document.getElementById('follow').innerHTML='Unfollow';
+	document.getElementById('follow').innerHTML='Followed';
+	document.getElementById('follow').disabled=true;
+	
+	//$("#like_success_function").css("display","block");
        }
 });
 }
@@ -33,7 +36,8 @@ success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
 	
-		document.getElementById('unfollow').innerHTML='Follow';
+		document.getElementById('unfollow').innerHTML='UnFollowed';
+		document.getElementById('unfollow').disabled=true;		
        }
 });
 }
@@ -156,8 +160,10 @@ success: function()
 	
 	//$myimg= $_SERVER['DOCUMENT_ROOT'].'3DCrossing/assets/images/'.$get_member['avatar'];
 	                   //if (isset($get_member['avatar']) && file_exists($myimg)) {
-	                    if (isset($get_product['product_img'])) {
-	                   	echo img_tag($get_member['avatar'], 'style="height:110px;width:90px;"'); 
+	                    if (isset($get_member['avatar'])) {
+						echo show_img('members/thumbnails/'.$get_member['avatar']);
+
+	                   //	echo img_tag($get_member['avatar'], 'style="height:110px;width:90px;"'); 
 	                    } else {
 	                    echo img_tag('icons/profile-no-image.jpg', 'style="height:110px;width:90px;"'); 
 	                    }

@@ -20,7 +20,7 @@
     </head>
     
        <body class="fullscreen">
-
+<div class="container"> <!--Start of Container (New design when header and footer are inside this container)-->
     <div class="navbar navbar-inverse">
       <div class="navbar-inner my-nav-style">
       
@@ -118,7 +118,7 @@
   <!-- Carousel
     ================================================== -->
   
-    <div class="container">
+    <!--<div class="container"> Container (old design when header and footer are outside this container)-->
     <?php 
     //var_dump($this->session->all_userdata());
    // echo '<pre>'; print_r($_SESSION); echo '</pre>';

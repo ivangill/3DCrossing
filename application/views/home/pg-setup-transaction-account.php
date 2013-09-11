@@ -58,7 +58,7 @@ action="<?php echo base_url('home/setup_transaction_account/bankaccount/key'); ?
             
          </select>
        </div>
-         <label>Address:</label><input type="text" value="<?php if (isset($member_card_info['home_address'])) { echo $member_card_info['home_address'];  } ?>" pattern="^[a-zA-Z\d]+(([\'\,\.\- #][a-zA-Z\d ])?[a-zA-Z\d]*[\.]*)*$" title="Please enter a valid address"  name="home_address" required class="input-block-level" placeholder="Address">
+         <label>Home Address:</label><input type="text" value="<?php if (isset($member_card_info['home_address'])) { echo $member_card_info['home_address'];  } ?>" pattern="^[a-zA-Z\d]+(([\'\,\.\- #][a-zA-Z\d ])?[a-zA-Z\d]*[\.]*)*$" title="Please enter a valid address"  name="home_address" required class="input-block-level" placeholder="Address">
          <label>City and State/Province:</label><input type="text" value="<?php if (isset($member_card_info['city'])) { echo $member_card_info['city'];  } ?>"  pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" title="Please enter a valid city/state/province" name="city" required class="input-block-level" placeholder="City">
         <label class="control-label" for="select01">Country</label>
        <div class="controls">

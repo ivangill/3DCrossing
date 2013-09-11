@@ -9,9 +9,9 @@
         
         <div class="span12">You are purchasing a <b><?php echo strtoupper($this->uri->segment(3)); ?></b> account.</div>
         
-        <label>First Name on Credit Card:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-         <label>Last Name on Credit Card:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-         <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
+        <label>First Name on Credit Card:</label><input type="text" required name="first_name" pattern="^[a-zA-Z]+$" title="Enter alphabets only"  id="first_name" class="input-block-level" placeholder="First Name">
+         <label>Last Name on Credit Card:</label><input type="text" pattern="^[a-zA-Z]+$" title="Enter alphabets only"  required name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
+         <label>Credit Card Number:</label><input type="text" pattern="^[0-9]+$" title="Enter numbers only"  name="card_number" required class="input-block-level" placeholder="Credit Card Number">
         <label class="control-label" for="select01">Expiry Date</label>
        <div class="controls">
          <select name="month" required id="month" style="width:20%;">
@@ -41,7 +41,7 @@
             <option value="2020"> 2020 </option>
          </select>
      </div>
-        <labe>Security Code:</label><input type="password"  name="security_code" required="required" class="input-block-level" placeholder="Security Code">
+        <labe>Security Code:</label><input type="password"  name="security_code" required class="input-block-level" placeholder="Security Code">
         <input type="hidden" name="membership_type" value="<?php echo $this->uri->segment(3); ?>">
         <button class="btn btn-large btn-primary" type="Finish">Finish</button>
       </form>

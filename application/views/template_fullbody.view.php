@@ -104,7 +104,7 @@ print_r($avg_rating);*/
 	?>
 <li class="my-img-style">
 <?php if (isset($get_product['product_img'])) { ?>
-<a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo show_img('products/'.$get_product['product_img'],'style="height: 280px;width: 280px;margin-left: 6px;margin-top: 5px;"'); ?></a>
+<div style="height:285px;"><a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id'] ?>"><?php echo show_img('products/'.$get_product['product_img'],'style="height: 280px;width: 280px;margin-left: 6px;margin-top: 5px;"'); ?></a></div>
 <?php } else { ?>
 <a id="<?php echo $get_product['_id'] ?>" href="<?php echo base_url().'shop/product_detail/'.$get_product['_id']; ?>"><?php echo img_tag('icons/no-image-found.jpg','style="height: 280px;width: 280px;margin-left: 6px;margin-top: 5px;"');?></a>
 <?php  } ?>

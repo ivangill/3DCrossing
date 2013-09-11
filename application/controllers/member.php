@@ -35,6 +35,7 @@ class Member extends CI_Controller
         $this->load->model( 'product_stats' );
         $this->load->model( 'newsletter' );
         $this->load->model( 'member_followers' );
+		$this->load->model( 'memberships' );
         $this->load->library('stripe');
         //$this->output->enable_profiler(TRUE);
     }
@@ -141,7 +142,7 @@ class Member extends CI_Controller
     	
     }
     
-    function unfollow_user()
+	 function unfollow_user()
     {
     	//if($this->input->post('unfollow'))
     	//{
@@ -152,7 +153,6 @@ class Member extends CI_Controller
     	//}
     	
     }
-    
     
      function following() {
 			$id=$this->uri->segment(3);
@@ -214,6 +214,9 @@ class Member extends CI_Controller
 			//$this->session->set_flashdata('response', '<div class="alert alert-success">Your Account has been activated successfully.Refresh page to get access to your account.</div>');
 
 		}
+		
+		$memberid = $this->session->userdata("memberid");
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
 		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
@@ -312,6 +315,73 @@ class Member extends CI_Controller
 		}
 		
 	}
+	
+	function get_payments()
+    {
+    	if ($this->session->userdata("memberid")!='') {
+		
+		
+		if($this->uri->segment(3)){
+		$invoiceid = $this->uri->segment(3);
+		$data['get_invoice_detail'] = $this->products->get_sold_product_detail_for_invoice($invoiceid);
+		}
+		$id=$this->session->userdata("memberid");
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
+		$data['get_user_credit_cards_info']=$this->memberships->get_user_credit_cards_info($id);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
+		$data['get_member'] = $this->home_model->get_member( $id );
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']=' / Get Paid';
+		$this->load->view('home/get-my-payments',$data);
+		} else {
+		redirect('home/login');	
+		}
+    	
+    }
+	function get_paid()
+    {
+    	if ($this->session->userdata("memberid")!='') {
+		//$id=$member['ch_2TgfgWwgn5Rrxn'];
+		//$card_charge=json_decode($this->stripe->customer_upcoming_invoice('cus_2TgfQUNCRqb0Fr'),TRUE);
+		//echo "<pre>";
+		//print_r($card_charge);
+	/*	
+		Stripe::setApiKey("sk_test_ePe1rlUiiGu43pahe17T3jF2");
+		
+		Stripe_Recipient::create(array(
+		  "name" => "John Doe",
+		  "type" => "individual"
+		));*/
+		
+		$id=$this->session->userdata("memberid");
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
+		$data['get_user_credit_cards_info']=$this->memberships->get_user_credit_cards_info($id);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
+		$data['get_member'] = $this->home_model->get_member( $id );
+		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
+		$data['footer_links']=$this->content_pages->get_content_pages_for_footer();
+		$data['site_title']=' / Get Paid';
+		$this->load->view('home/get-payments-form',$data);
+		} else {
+		redirect('home/login');	
+		}
+    	
+    }
     
-    
+    function print_invoice()
+	{
+		if ($this->session->userdata("memberid")!='') {
+		
+		$invoiceid = $this->uri->segment(3);
+		$data['get_invoice_detail'] = $this->products->get_sold_product_detail_for_invoice($invoiceid);
+		$data['site_name'] = '3D Crossing';
+		$this->load->view( 'template_invoice.view.php', $data);
+		
+		
+		} else {
+		redirect('home/login');	
+		}
+		
+	}
 }

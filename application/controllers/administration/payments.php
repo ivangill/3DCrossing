@@ -46,6 +46,34 @@ class Payments extends CI_Controller
     	
         $this->load->view( 'admin/pg-memberships',$data);
     }
+	
+	function my_payments() {
+    	$memberid = $this->uri->segment(4);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
+        $this->load->view( 'admin/pg-payments',$data);
+    }
+	function incoming_payments() {
+    	$data['get_sold_products']=$this->products->get_sold_products_for_admin_side();
+        $this->load->view( 'admin/pg-incoming-payments',$data);
+    }
     
+	function outgoing_payments() {
+    	$data['get_sold_products']=$this->products->get_sold_products_for_admin_side();
+        $this->load->view( 'admin/pg-outgoing-payments',$data);
+    }
+	function export_my_payments() {
+		$memberid = $this->uri->segment(4);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
+		$this->load->view( 'admin/export/pg-export-my-payments',$data);
+    }
+	function export_incoming_payments() {
+		$data['get_sold_products']=$this->products->get_sold_products_for_admin_side();
+		$this->load->view( 'admin/export/pg-export-incoming-payments',$data);
+    }
+	
+	function export_outgoing_payments() {
+		$data['get_sold_products']=$this->products->get_sold_products_for_admin_side();
+		$this->load->view( 'admin/export/pg-export-outgoing-payments',$data);
+    }
 
 }

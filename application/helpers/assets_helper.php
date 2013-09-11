@@ -300,9 +300,10 @@ function add_review($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
+			$product_id = new MongoID($product_id);
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
-						   'product_creator'=>$product_creator,
+						  'product_creator'=>$product_creator,
 						  'time'=>time(),
 						  'event'=>'view',
 			);
@@ -314,7 +315,7 @@ function add_review($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
-        	
+        	$product_id = new MongoID($product_id);
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
 						  'product_creator'=>$product_creator,
@@ -329,7 +330,7 @@ function add_review($member_id,$product_id,$product_creator){
  	$CI =& get_instance();
  	 if (DBTYPE == 'mongo_db')
         {
-        	
+        	$product_id = new MongoID($product_id);
         	$insert=array('memberid'=>$member_id,
 						  'productid'=>$product_id,
 						  'product_creator'=>$product_creator,

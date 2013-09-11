@@ -119,7 +119,9 @@ success: function()
          <?php   } ?></td>  
             <td><?php echo $product['member_id']; ?></td>  
             <td><?php echo ucfirst($product['product_name']); ?></td>  
-            <td><?php echo ucfirst($product['product_details']); ?></td> 
+            <td><?php $detail = $product['product_details'];
+			echo substr($detail,0,50).'...';
+			 ?></td> 
              <td><?php echo date('F j, Y',$product['created_date']); ?></td> 
             <td><?php 
             echo show_img('products/'.$product['product_img'],'style="height:50px;width: 70px;"'); ?></td>  

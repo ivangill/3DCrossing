@@ -91,11 +91,42 @@ class Products extends CI_Model
             return $this->mongo_db->get('products');
         }
     }
+	function get_products_for_stats_for_admin()
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('deleted_status'=>0));
+			$this->mongo_db->order_by(array('created_date'=>'desc'));
+            return $this->mongo_db->get('products');
+        }
+    }
+	
+	function get_products_for_stats_for_one_member($product_creator)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+			$product_creator=new MongoID($product_creator);
+        	$this->mongo_db->where(array('member_id'=>$product_creator));
+			$this->mongo_db->where(array('deleted_status'=>0));
+			$this->mongo_db->order_by(array('created_date'=>'desc'));
+            return $this->mongo_db->get('products');
+        }
+    }
+	
     function get_sold_products_for_admin_side()
     {
     	 if (DBTYPE == 'mongo_db')
         {
         
+            return $this->mongo_db->get('product_buy');
+        }
+    }
+	function get_sold_products_for_specific_member($memberid)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('product_owner_id'=>$memberid));
             return $this->mongo_db->get('product_buy');
         }
     }
@@ -487,6 +518,7 @@ class Products extends CI_Model
     
         {
         	$this->mongo_db->like('product_name', $search, 'im', true);
+			$this->mongo_db->where(array('deleted_status'=>0));
         	 return $this->mongo_db->get('products');
         	 
         }
@@ -553,6 +585,17 @@ class Products extends CI_Model
         	 
         }
    	
+   }
+   
+   function get_sold_product_detail_for_invoice($id)
+   {
+	   if (DBTYPE == 'mongo_db')
+    
+        {
+        	$id=new MongoID($id);
+        	$this->mongo_db->where(array('_id' =>$id));
+        	return $this->mongo_db->get_one('product_buy');
+        }
    }
  
 

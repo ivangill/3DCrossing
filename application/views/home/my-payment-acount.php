@@ -9,9 +9,9 @@
 <?php if ($this->uri->segment(2)=="my_payment_account" && $this->uri->segment(3)=="add") { ?>
 <legend><h2>Add Credit Card</h2></legend>
  <form class="form-signin" method="POST" action="<?php echo base_url('home/my_payment_account'); ?>" autocomplete="off">        
-        <label>First Name:</label><input type="text" required="required" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
-         <label>Last Name:</label><input type="text" required="required" name="last_name" id="last_name" class="input-block-level" placeholder="Last Name">
-         <label>Credit Card Number:</label><input type="text"  name="card_number" required="required" class="input-block-level" placeholder="Credit Card Number">
+        <label>First Name:</label><input type="text" required pattern="^[a-zA-Z]+$" title="Enter alphabets only" name="first_name" id="first_name" class="input-block-level" placeholder="First Name">
+         <label>Last Name:</label><input type="text" required name="last_name" pattern="^[a-zA-Z]+$" title="Enter alphabets only" id="last_name" class="input-block-level" placeholder="Last Name">
+         <label>Credit Card Number:</label><input type="text" pattern="^[0-9]+$" title="Enter numbers only"  name="card_number" required class="input-block-level" placeholder="Credit Card Number">
         <label class="control-label" for="select01">Expiry Date</label>
        <div class="controls">
          <select name="month" required id="month" style="width:20%;">
@@ -41,7 +41,7 @@
             <option value="2020"> 2020 </option>
          </select>
      </div>
-        <labe>Security Code:</label><input type="password"  name="security_code" required="required" class="input-block-level" placeholder="Security Code">
+        <labe>Security Code:</label><input type="password"  name="security_code" required class="input-block-level" placeholder="Security Code">
         <button class="btn btn-large btn-primary" type="Done">Done</button>
       </form>
 <?php } else { ?>
@@ -62,13 +62,7 @@
         </thead>
         <tbody>
         
-         <?php 
-        
-         	
-         
-         foreach($get_user_credit_cards_info[0]['cards'] as $card) { 
-         	 
-         	?> 
+         <?php foreach($get_user_credit_cards_info[0]['cards'] as $card) { ?> 
         <tr>
        <!-- <td><?php //echo  key($card);  //var_dump(array_values($card)); ?></td>-->
         <td><?php echo $card['name'];  ?></td>

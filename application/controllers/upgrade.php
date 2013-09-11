@@ -68,13 +68,15 @@ class Upgrade extends CI_Controller
 			);
 			
 			$info=json_decode($this->stripe->customer_create($values,$email),TRUE);
-			$customer_name=$info['active_card']['name'];
+			
+			
 			
 			if (isset($info['error'])) {
 				$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
+				redirect('upgrade/upgrade_membership/'.$type);
 			}
 			else {
-		
+			$customer_name=$info['active_card']['name'];
 			$customer_id=$info['id'];
 			$customer_name=$info['active_card']['name'];
 			$card_type=$info['active_card']['type'];

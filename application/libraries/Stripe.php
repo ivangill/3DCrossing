@@ -386,7 +386,7 @@ class Stripe {
 	 * @param  array         The parameters for the request, if any
 	 * @param  srting        Either 'post','get' or 'delete' to determine the request method, 'get' is default
 	 */
-	private function _send_request( $url_segs, $params = array(), $http_method = 'get' ) {
+	public function _send_request( $url_segs, $params = array(), $http_method = 'get' ) {
 		if( $this->_conf['stripe_test_mode'] )
 			$key = $this->_conf['stripe_key_test_secret'];
 		else

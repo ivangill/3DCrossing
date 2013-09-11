@@ -1,40 +1,37 @@
 <?php $this->load->view( 'admin/shared/header' ); ?>
-
+ <?php 
+  $total = 0;
+ foreach($get_sold_products as $product) { 
+  $total_price=(($product['sold_price'])/100);
+            $stripe_fee=($product['stripe_fee'])/100;
+            $review_cut=($total_price * 8.5)/100;
+            $remaining=$stripe_fee+$review_cut;
+            $paid_to_owner=$total_price-$remaining;
+            $paid_to_owner= sprintf ("%.2f", $paid_to_owner);
+			
+			$total += $paid_to_owner;
+          
+ }  
+  
+ ?>
 <section id="products">
 <div style="float:right">
- <?php if($this->uri->segment(3)!='' && $this->uri->segment(4)!=''){ ?>
- <a class="btn btn-primary" href="<?php echo base_url('administration/sold_products/export_my_sold_products/'.$this->uri->segment(4)); ?>" style="color:white;" target="_blank">Export Sold Products</a>
- <?php } else { ?>
-	<a class="btn btn-primary" href="<?php echo base_url('administration/sold_products/export_all_sold_products/'); ?>" style="color:white;" target="_blank">Export Sold Products</a>
-    <?php } ?>
-</div>
- <h2 class="withbtn"><?php if($this->uri->segment(3)!='' && $this->uri->segment(4)!=''){
-	 $memberid=$this->uri->segment(4);
-	 $get_member = $this->home_model->get_member($memberid);
-	 echo ucwords($get_member['first_name'].' '.$get_member['last_name']."'s Sold Products");
-	  } else { echo 'Sold Products '; } ?></h2>
+ <a class="btn btn-primary" href="<?php echo base_url('administration/payments/export_outgoing_payments/') ?>" style="color:white;" target="_blank">Export Outgoing Payments</a>
  
- <form class="form-search" method="POST" action="<?php echo base_url('administration/all_products/'); ?> " style="float: left;">
-  <!--<label>Filter by Category: </label><br />
-   <select name="product_category" required="required">
-         	<option value="">Select Category</option>
-         	<option value="all">All Products</option>
-         	<?php //foreach ($get_product_categories as $product_category){ ?>
-         	<option  value="<?php //echo $product_category['slug']; ?>"><?php //echo ucfirst($product_category['cat_name']); ?></option>
-         	<?php //} ?>
-   </select>
-  <button type="submit" class="btn">Search</button>-->
-</form>
-
+</div>
+<div class="span3 pull-right" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;">
+ <?php echo "Total Outgoing Payments are: <span class='label label-important'>$ ".$total.'</span>'; ?>
+ </div>
+ <h2 class="withbtn">Outgoing Payments</h2>
 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped display" id="example" width="100%">
         <thead>
           <tr>   
             <th>Buyer ID</th>  
             <th>Product ID</th>  
-            <th>Total Price</th> 
+            <!--<th>Total Price</th> 
             <th>Stripe Fee</th> 
-            <th>Review Cut</th>
-            <th>Amount Paid to Owner</th>
+            <th>Review Cut</th>-->
+            <th>Payable Amount</th>
             <th>Buy Date</th>
             <th>Stripe Processing Date</th>
           </tr>
@@ -45,13 +42,13 @@
           <tr id="row_1">  
             <td><?php echo $product['buyerid']; ?></td>  
             <td><?php echo $product['product_id']; ?></td>  
-            <td><?php echo "$".($product['sold_price'])/100; ?></td> 
-             <td><?php echo "$".($product['stripe_fee'])/100; ?></td> 
+            <!--<td><?php //echo "$".($product['sold_price'])/100; ?></td> 
+             <td><?php //echo "$".($product['stripe_fee'])/100; ?></td> 
             <td><?php 
             $total_price=(($product['sold_price'])/100);
             $stripe_fee=($product['stripe_fee'])/100;
             $review_cut=($total_price * 8.5)/100;
-            echo "$".$review_cut; ?></td> 
+            //echo "$".$review_cut; ?></td> -->
             
             <td><?php 
             $total_price=(($product['sold_price'])/100);

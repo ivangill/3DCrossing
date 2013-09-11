@@ -32,6 +32,20 @@ class Sold_Products extends CI_Controller
         $this->load->view( 'admin/pg-sold-products',$data);
     }
   
+  	function my_sold_products() {
+    	$memberid = $this->uri->segment(4);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
+        $this->load->view( 'admin/pg-sold-products',$data);
+    }
+	function export_all_sold_products() {
+		$data['get_sold_products']=$this->products->get_sold_products_for_admin_side();
+		$this->load->view( 'admin/pg-export-all-sold-products',$data);
+    }
+	function export_my_sold_products() {
+		$memberid = $this->uri->segment(4);
+    	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
+		$this->load->view( 'admin/pg-export-all-sold-products',$data);
+    }
     
 
 }
