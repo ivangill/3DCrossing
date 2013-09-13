@@ -660,6 +660,7 @@ array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'
 									'billing_city'=>$city,
 									'billing_zip'=>new MongoInt32($zip_code),
 									'billing_phone'=>new MongoInt32($phone),
+									'status' => 'pending'
 								);	
 					
 					

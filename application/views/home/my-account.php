@@ -4,10 +4,11 @@
  }?></div>
     <div style="margin-top:40px;"><?php echo $this->session->flashdata('response'); ?></div>
  <?php if($get_member['have_products']!=0){ ?>
- 
-  <?php 
-  $total = 0;
- foreach($get_sold_products as $product) { 
+
+ <div class="span3 pull-right" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;">
+ <?php  
+  $total_earnings = 0;
+ foreach($get_sold_products_paid_amount as $product) { 
   $total_price=(($product['sold_price'])/100);
             $stripe_fee=($product['stripe_fee'])/100;
             $review_cut=($total_price * 8.5)/100;
@@ -15,16 +16,30 @@
             $paid_to_owner=$total_price-$remaining;
             $paid_to_owner= sprintf ("%.2f", $paid_to_owner);
 			
-			$total += $paid_to_owner;
+			$total_earnings += $paid_to_owner;
           
- }  
-  
- ?>
+ }
+ echo "Total Earnings: <span class='label label-important'>$ ".$total_earnings.'</span>'; ?>
+ <br />
+ <?php  
+  $pending_total = 0;
+ foreach($get_sold_products_pending_amount as $product) { 
+  $total_price=(($product['sold_price'])/100);
+            $stripe_fee=($product['stripe_fee'])/100;
+            $review_cut=($total_price * 8.5)/100;
+            $remaining=$stripe_fee+$review_cut;
+            $paid_to_owner=$total_price-$remaining;
+            $paid_to_owner= sprintf ("%.2f", $paid_to_owner);
+			
+			$pending_total += $paid_to_owner;
+          
+ }
+ echo "Total Pending Earnings: <span class='label label-important'>$ ".$pending_total.'</span>'; ?>
  
- <div class="span3 pull-right" style="border:1px solid #e8e8e8;background-color:#fcfcfc;padding:8px;">
- <?php echo "My Total Pending Earnings: <span class='label label-important'>$ ".$total.'</span>'; ?>
+ <?php if($pending_total>0){ ?>
  <br /><br />
  <a class="btn btn-info" href="<?php echo base_url(); ?>member/get_payments">Get Paid</a>
+ <?php } ?>
  </div>
  <?php } ?>
 <div class="row-fluid">

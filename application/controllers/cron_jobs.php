@@ -8,6 +8,7 @@ class Cron_Jobs extends CI_Controller
 
     function __construct() {
         global $data;
+		//if (!is_cli_request()) show_error('Direct access is not allowed');
         parent::__construct();
         /*   $config = array (
                   'mailtype' => 'html',
@@ -27,13 +28,36 @@ class Cron_Jobs extends CI_Controller
 		$this->load->library('email',$config);
 		
 		$this->load->model( 'newsletter' );
+		$this->load->model( 'transfers' );
 		$this->load->model( 'administration' );
+		 $this->load->library('stripe');
+		
     }
 
     function index() {
     	
     }
     
+	function check_transfer_payments_status(){
+		
+		$total_transfers = $this->transfers->get_all_tranfers();
+		foreach($total_transfers as $transfer) {
+			$transfer_id = $transfer['transfer_id'];
+	
+		$get_transfer_status=json_decode($this->stripe->get_transfer_status($transfer_id),TRUE);
+		$status = $get_transfer_status['status'];
+		$id = $get_transfer_status['id'];
+		$product_but_id = $get_transfer_status['description'];
+		//$product_id = 
+		if($status=='paid'){
+		$this->transfers->update_transfer_payments_status($id);
+		$this->products->change_product_buy_status($product_but_id,'paid');
+	}
+	var_dump($get_transfer_status);	
+		}
+	
+	}
+	
     function send_newsletter($newsletter_id='51d07ceb7be5da681300001b') {
     	$send_newsletter=$this->newsletter->get_newsletter_subscribers();
     	

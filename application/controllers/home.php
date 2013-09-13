@@ -847,22 +847,52 @@ class Home extends CI_Controller
 		if ($this->uri->segment(3)=='bankaccount') {
 			if ($this->input->post('checkbox')) {
 				if (!$this->uri->segment(4)) {
-				$bankaccount_info=array('acount_number'=>$this->input->post('acount_number'),
-								   'branch_name'=>$this->input->post('branch_name'),
-								   'branch_address'=>$this->input->post('branch_address'),
-								   'account_title'=>$this->input->post('account_title'),
-								   'bank_swift_code'=>$this->input->post('bank_swift_code'),
-								   'account_currency'=>$this->input->post('account_currency'),
-								   'home_address'=>$this->input->post('home_address'),
-								   'city'=>$this->input->post('city'),
-								   'country'=>$this->input->post('country'),
-								   'phone'=>$this->input->post('phone'),
+				$check_account_exists = $this->home_model->get_member($this->session->userdata("memberid"));
+				$account_number = $this->input->post('account_number');
+				echo "<pre>";
+				$bank_acount_info = $check_account_exists['bank_account_info'];
+				foreach($bank_acount_info  as $key => $card){
+					$account_number_from_db = $card['account_number'];
+					if($account_number_from_db == $account_number){
+						$this->session->set_flashdata('response', '<div class="alert alert-error">This account has been already added.</div>');
+						redirect('home/setup_transaction_account/bankaccount');
+					}
+				}			
+					 $name = $this->input->post('account_title');
+					 $type = "individual";
+					 $country = $this->input->post('country');
+					 $routing_number = $this->input->post('bank_swift_code');
+					 $account_number = $this->input->post('account_number');
+					 $description = $this->input->post('branch_name');
+					 $create_recipient=json_decode($this->stripe->create_recipient($name,$type,$description,$account_number,$routing_number,$country),TRUE);
+					 
+					 if(isset( $create_recipient['error'])){
+						 
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$create_recipient['error']['message'].'</div>');
+				    redirect('home/setup_transaction_account/bankaccount');
+						 
+					 } else {
+					 $bankaccount_info=array('id'=>$create_recipient['id'],
+								   'created_time'=>$create_recipient['created'],
+								   'branch_name'=>$create_recipient['active_account']['bank_name'],
+								   'account_title'=>$create_recipient['name'],
+								   'stripe_account_type'=>$create_recipient['object'],
+								   'account_number'=>$this->input->post('account_number'),
+								   'account_number_from_stripe'=>$create_recipient['active_account']['last4'],
+								   'country'=>$create_recipient['active_account']['country'],
+								   'fingerprint'=>$create_recipient['active_account']['fingerprint'],
 								   'deleted_status'=>'0'
 									);
-									
+					 
+				
+					// echo "<pre>";
+					 //print_r($create_recipient);exit;
+					 
 					$bankaccount=array('bank_account_info'=>$bankaccount_info);
 					$this->home_model->add_member_bank_account( $bankaccount, $this->session->userdata("memberid") );
+				
 					$this->session->set_flashdata('response', '<div class="alert alert-success">Your bank account has been setup successfully.</div>');
+				}
 				    redirect('home/setup_transaction_account/');
 				} else {
 					$index_value=$this->input->post('index_value');

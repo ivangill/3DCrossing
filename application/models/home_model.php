@@ -206,24 +206,36 @@ class Home_model extends CI_Model
         if (DBTYPE == 'mongo_db')
         {
     	    $memberid=new MongoID($memberid);
-        	$bankaccount = array ("acount_number" => $data['bank_account_info']['acount_number'],
+        	$bankaccount = array ("id" => $data['bank_account_info']['id'],
+        						  "created_time" => $data['bank_account_info']['created_time'],
         						  "branch_name" => $data['bank_account_info']['branch_name'],
-        						  "branch_address" => $data['bank_account_info']['branch_address'],
-        						  "bank_swift_code" => $data['bank_account_info']['bank_swift_code'],
         						  "account_title" => $data['bank_account_info']['account_title'],
-        						  "account_currency" => $data['bank_account_info']['account_currency'],
-        						  "home_address" => $data['bank_account_info']['home_address'],
-        						  "city" => $data['bank_account_info']['city'],
+        						  "stripe_account_type" => $data['bank_account_info']['stripe_account_type'],
+        						  "account_number_from_stripe" => $data['bank_account_info']['account_number_from_stripe'],
+								  "account_number" => $data['bank_account_info']['account_number'],
         						  "country" => $data['bank_account_info']['country'],
-        						  "phone" => $data['bank_account_info']['phone'],
+								  "fingerprint" => $data['bank_account_info']['fingerprint'],
         						  "deleted_status" => $data['bank_account_info']['deleted_status'],
-        	
         							);
 		
 			
          return  $this->mongo_db->where(array('_id'=>$memberid))->push('bank_account_info', $bankaccount)->update('members');
         }
     }
+	function check_if_account_already_exists ($id,$account_number)
+	{
+		if (DBTYPE == 'mongo_db')
+        {
+		
+			echo $id=new MongoID($id);
+		//	echo $account_number; 
+			$this->mongo_db->where(array('_id'=>$id));
+			//$this->mongo_db->where(array('bank_account_info'=>array('account_number' => $account_number)));
+			$query = $this->mongo_db->get_one('members');
+			var_dump($query);
+			exit;
+		}
+	}
     function get_member_password ($email)
     {
         if (DBTYPE == 'mongo_db')

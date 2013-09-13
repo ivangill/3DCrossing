@@ -113,23 +113,6 @@ class Products extends CI_Model
         }
     }
 	
-    function get_sold_products_for_admin_side()
-    {
-    	 if (DBTYPE == 'mongo_db')
-        {
-        
-            return $this->mongo_db->get('product_buy');
-        }
-    }
-	function get_sold_products_for_specific_member($memberid)
-    {
-    	 if (DBTYPE == 'mongo_db')
-        {
-        	$memberid=new MongoID($memberid);
-        	$this->mongo_db->where(array('product_owner_id'=>$memberid));
-            return $this->mongo_db->get('product_buy');
-        }
-    }
     function update_product_feature_to_yes ($product_id)
     {
     	if (DBTYPE == 'mongo_db')
@@ -457,16 +440,6 @@ class Products extends CI_Model
     	
     }
     
-    function add_product_buy_info($product_buy_info)
-    {
-    	if (DBTYPE == 'mongo_db')
-    
-        {
-        	 return $this->mongo_db->insert('product_buy', $product_buy_info);
-        }
-    	
-    }
-    
     function get_top_four_designer ()
     {
     	if (DBTYPE == 'mongo_db')
@@ -540,7 +513,39 @@ class Products extends CI_Model
    	
    }
    
-   function get_my_saled_products ($product_owner_id,$store_id)
+   
+	function get_sold_products_pending_amount($memberid)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('product_owner_id'=>$memberid));
+			$this->mongo_db->where(array('status'=>'pending'));
+            return $this->mongo_db->get('product_buy');
+        }
+    }
+	
+	function get_sold_products_paid_amount($memberid)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('product_owner_id'=>$memberid));
+			$this->mongo_db->where(array('status'=>'paid'));
+            return $this->mongo_db->get('product_buy');
+        }
+    }
+	
+	function get_payment_detail_from_product_buy_table ($payment_id)
+	{
+		 if (DBTYPE == 'mongo_db')
+        {
+        	$payment_id=new MongoID($payment_id);
+        	$this->mongo_db->where(array('_id'=>$payment_id));
+            return $this->mongo_db->get_one('product_buy');
+        }
+	}
+    function get_my_saled_products ($product_owner_id,$store_id)
    {
    	if (DBTYPE == 'mongo_db')
     
@@ -597,6 +602,42 @@ class Products extends CI_Model
         	return $this->mongo_db->get_one('product_buy');
         }
    }
- 
-
+  function get_sold_products_for_admin_side()
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        
+            return $this->mongo_db->get('product_buy');
+        }
+    }
+	function get_sold_products_for_specific_member($memberid)
+    {
+    	 if (DBTYPE == 'mongo_db')
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('product_owner_id'=>$memberid));
+            return $this->mongo_db->get('product_buy');
+        }
+    }
+	   function add_product_buy_info($product_buy_info)
+    {
+    	if (DBTYPE == 'mongo_db')
+    
+        {
+        	 return $this->mongo_db->insert('product_buy', $product_buy_info);
+        }
+    	
+    }
+	
+	function change_product_buy_status ($product_buy_id,$status)
+	{
+		if (DBTYPE == 'mongo_db')
+    
+        {
+        	$product_buy_id=new MongoID($product_buy_id);
+        	$this->mongo_db->where(array('_id' =>$product_buy_id));
+        	$this->mongo_db->set(array("status" =>$status));
+        	return $this->mongo_db->update('product_buy');
+        }
+	}
 }

@@ -172,6 +172,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
             <th>Pending Amount</th>
             <th>Product Sold Date</th>
             <th>Processing Date</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -189,7 +190,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
              ?></td>
             <td align="center"><?php echo date('F j, Y',$get_invoice_detail['buy_time']); ?></td>
             <td align="center"><?php echo date('F j, Y',$get_invoice_detail['stripe_processing_time']); ?></td>
-            
+             <td align="center"><?php echo ucfirst($get_invoice_detail['status']); ?></td>
           </tr>
         
     

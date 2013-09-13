@@ -36,6 +36,7 @@ class Member extends CI_Controller
         $this->load->model( 'newsletter' );
         $this->load->model( 'member_followers' );
 		$this->load->model( 'memberships' );
+		$this->load->model( 'transfers' );
         $this->load->library('stripe');
         //$this->output->enable_profiler(TRUE);
     }
@@ -216,6 +217,8 @@ class Member extends CI_Controller
 		}
 		
 		$memberid = $this->session->userdata("memberid");
+		$data['get_sold_products_pending_amount']=$this->products->get_sold_products_pending_amount($memberid);
+		$data['get_sold_products_paid_amount']=$this->products->get_sold_products_paid_amount($memberid);
     	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($memberid);
 		
 		$data['get_store_categories']=$this->store_details->get_all_store_categories();	
@@ -326,6 +329,8 @@ class Member extends CI_Controller
 		$data['get_invoice_detail'] = $this->products->get_sold_product_detail_for_invoice($invoiceid);
 		}
 		$id=$this->session->userdata("memberid");
+		$data['get_sold_products_pending_amount']=$this->products->get_sold_products_pending_amount($id);
+		$data['get_sold_products_paid_amount']=$this->products->get_sold_products_paid_amount($id);
     	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
 		$data['get_user_credit_cards_info']=$this->memberships->get_user_credit_cards_info($id);
     	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
@@ -342,19 +347,11 @@ class Member extends CI_Controller
 	function get_paid()
     {
     	if ($this->session->userdata("memberid")!='') {
-		//$id=$member['ch_2TgfgWwgn5Rrxn'];
-		//$card_charge=json_decode($this->stripe->customer_upcoming_invoice('cus_2TgfQUNCRqb0Fr'),TRUE);
-		//echo "<pre>";
-		//print_r($card_charge);
-	/*	
-		Stripe::setApiKey("sk_test_ePe1rlUiiGu43pahe17T3jF2");
-		
-		Stripe_Recipient::create(array(
-		  "name" => "John Doe",
-		  "type" => "individual"
-		));*/
-		
+			
+		$payment_id = $this->uri->segment(3);
+		$data['payment_details'] = $this->products->get_payment_detail_from_product_buy_table($payment_id);
 		$id=$this->session->userdata("memberid");
+		$data['get_sold_products_pending_amount']=$this->products->get_sold_products_pending_amount($id);
     	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
 		$data['get_user_credit_cards_info']=$this->memberships->get_user_credit_cards_info($id);
     	$data['get_sold_products']=$this->products->get_sold_products_for_specific_member($id);
@@ -368,6 +365,50 @@ class Member extends CI_Controller
 		}
     	
     }
+	
+	function transfer_payment() 
+	{
+		if($this->input->post('product_id')) {
+			
+			$amount = $this->input->post('total_amount')*100;
+			$currency = "usd";
+			$recipient = $this->input->post('withdrawl_account');
+			$description = $this->input->post('_id');
+			
+			 $create_transfer=json_decode($this->stripe->create_transfer($amount , $currency , $recipient , $description),TRUE);
+			 if(isset($create_transfer['error'])){ 
+			 $this->session->set_flashdata('response', '<div class="alert alert-error">Error Occured.</div>'); 
+			 } else {
+			 $tranfer_array = array(
+			 "transfer_id" => $create_transfer['id'],
+			 "transfer_date" =>  $create_transfer['date'],
+			 "transfer_amount" => $create_transfer['amount'],
+			 "currency" => $create_transfer['currency'],
+			 "balance_transaction" => $create_transfer['balance_transaction'],
+			 "bank_name" =>  $create_transfer['account']['bank_name'],
+			 "account_number" =>  $create_transfer['account']['last4'],
+			 "fingerprint" =>  $create_transfer['account']['fingerprint'],
+			 "recipient_id" => $create_transfer['recipient'],
+			 "stripe_processing_fee" => $create_transfer['fee'],
+			 "product_but_id" => $create_transfer['description'],
+			 "status" => 'processing',
+			 );
+			 
+			$this->transfers->add_transfer_detail($tranfer_array);
+			$this->products->change_product_buy_status($description,'processing');
+			//$transfer_id = "tr_2YhOJBWtypIgcZ";
+			//$get_transfer_status=json_decode($this->stripe->get_transfer_status($transfer_id),TRUE);
+				$this->session->set_flashdata('response', '<div class="alert alert-success">Your payment has been processed successfully. Amount will be transferred very shortly.</div>');
+			 }
+			 //echo "<pre>";
+			// print_r($tranfer_array);
+			// print_r($get_transfer_status);
+		 
+			 redirect('member/get_payments');
+			 
+			 
+		}
+	}
     
     function print_invoice()
 	{

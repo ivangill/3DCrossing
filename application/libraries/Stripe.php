@@ -130,6 +130,48 @@ class Stripe {
 	}
 	
 	/**
+	 * Register a new recipient on system
+	 
+	 * @param  string        The customer name
+	 * @param  string        The customer type
+	 * @param  string        A subscription plan identifier to add the customer to it
+	 */
+	public function create_recipient($name,$type,$description,$account_number,$routing_number, $country) {
+		$params = array(
+			'name' => $name,
+			'type' => $type,
+			'description' => $description,
+			'bank_account' => array(
+			'account_number' => $account_number,
+			'routing_number' => $routing_number,
+			'country' => $country,
+			)
+		);
+		return $this->_send_request( 'recipients', $params, STRIPE_METHOD_POST );
+	}
+	
+	/**
+	 * create a new tranfer
+	 
+	 */
+	public function create_transfer($amount , $currency , $recipient , $description) {
+		$params = array(
+			'amount' => $amount,
+			'currency' => $currency,
+			'recipient' => $recipient,
+			'description' => $description
+		);
+		return $this->_send_request( 'transfers', $params, STRIPE_METHOD_POST );
+	}
+	
+	/**
+	 * get transfer status
+	 
+	 */
+	public function get_transfer_status($transfer_id) {
+		return $this->_send_request( 'transfers/'.$transfer_id, STRIPE_METHOD_POST );
+	}
+	/**
 	 * Retrieve information for a given customer
 	 * 
 	 * @param  string        The customer ID to get information about
@@ -378,6 +420,7 @@ class Stripe {
 		
 		return $this->_send_request( 'invoiceitems?'.$vars );
 	}
+	
 	
 	/**
 	 * Private utility function that prepare and send the request to the API servers
