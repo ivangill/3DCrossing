@@ -334,6 +334,22 @@ class Home_model extends CI_Model
         }
    	
    }
+   
+   function update_member_bank_account_status ($memberid,$index)
+   {
+   		if (DBTYPE == 'mongo_db')
+    
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('_id'=>$memberid));
+        	$this->mongo_db->set(array('bank_account_info.'.$index.'.deleted_status' =>'0'));
+        	return $this->mongo_db->update('members');
+        	//var_dump($products);exit;
+
+        }
+   	
+   }
+   
    function update_bank_account_info ($memberid,$index,$data)
    {
    		if (DBTYPE == 'mongo_db')

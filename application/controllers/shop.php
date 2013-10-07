@@ -755,6 +755,12 @@ array('$group'=>array('_id'=>'$_id.productid','avgrating'=> array('$avg'=>'$sum'
 	{
 		if ($this->input->post('email')) {
 			$email=$this->input->post( 'email' );
+			
+			$check_already_subscribed = $this->newsletter->check_already_subscribed( $email );
+			if($check_already_subscribed!= "") {
+				$this->session->set_flashdata('response', '<div class="alert alert-error">You have already subscribed for the newsletter</div>');
+				redirect('shop/');
+			}
 			if ($this->session->userdata("memberid")!="") {
 				$id=$this->session->userdata("memberid");
 				$member = $this->home_model->get_member( $id );

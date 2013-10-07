@@ -37,11 +37,11 @@
 <hr>
 <h3>Our Newsletter</h3>
 <?php echo $this->session->flashdata('response'); ?>
-<form method="POST" action="<?php echo base_url('shop/newsletter'); ?> ">
+<form method="POST" action="<?php echo base_url('shop/newsletter');?>">
 <?php if ($this->session->userdata("memberid")=="") { ?>
-<label>Name:</label><input type="text" required="required" name="name" id="name" class="input-block-level" placeholder="Ful Name">
+<label>Name:</label><input type="text" required name="name"  id="name" class="input-block-level" placeholder="Full Name">
 <?php } ?>
-<label>Email:</label><input type="text" required="required" name="email" id="email" class="input-block-level" placeholder="Your Email">		   
+<label>Email:</label><input type="email" required name="email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" title="Enter a valid Email Address" id="email" class="input-block-level" placeholder="Your Email">		
 <button type="submit" class="btn btn-small btn-primary">Subscribe</button>
 </form>
 </div>

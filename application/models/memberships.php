@@ -222,6 +222,21 @@ class Memberships extends CI_Model
         }
     }
  
+ 
+   function delete_my_card_info ($memberid,$index)
+   {
+   		if (DBTYPE == 'mongo_db')
+    
+        {
+        	$memberid=new MongoID($memberid);
+        	$this->mongo_db->where(array('memberid'=>$memberid));
+        	$this->mongo_db->set(array('cards.'.$index.'.deleted_status' =>1));
+        	return $this->mongo_db->update('memberships');
+        	//var_dump($products);exit;
+
+        }
+   	
+   }
     
 
 }

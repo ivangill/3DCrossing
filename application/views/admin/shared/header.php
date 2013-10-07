@@ -112,6 +112,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
             <span class="icon-bar"></span>
           </button>
           <a class="brand" href="<?php echo base_url(); ?>administration/cpanel"><span class="admin-logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
+          <?php  if($this->session->userdata("adminid")!= ''){  ?>
           <div class="nav-collapse collapse">
             <ul class="nav my-li-style-for-admin">
             <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#">Global Settings</a>
@@ -183,13 +184,12 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
              <?php  } ?>
            </div>
           </div>
-         
+         <?php } ?>
         </div>
       </div>
       <div id="menu-bg" style="display:block;"></div>
     </div>
  
-
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span12">

@@ -17,6 +17,17 @@ class Newsletter extends CI_Model
         	
         }
     }
+	
+	function check_already_subscribed ($email)
+    {
+    	if (DBTYPE == 'mongo_db')
+        {
+        	$this->mongo_db->where(array('email' =>$email));
+        	return $this->mongo_db->get_one('newsletter');
+        	
+        }
+    	
+    }
     
     function update_newsletter_subscriber_activation ($id)
     {

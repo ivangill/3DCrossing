@@ -33,21 +33,41 @@
           <a class="brand" href="<?php echo base_url(); ?>"><span class="logo-style"><?php echo img_tag('icons/logo.png') ?></span></a>
           <div class="nav-collapse collapse">
             <ul class="nav my-font-style">
-              <li class="dropdown" id="accountmenu" style="height: 37px;"><a  id="my-a-style" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP
-              </a>
+              <li class="dropdown" id="accountmenu" style="height: 37px;">
+              <a  
+			  <?php foreach ($get_store_categories as $store_category){ 
+			  if($this->uri->segment(3)==$store_category['slug']){ 
+			?> class="top-nav-menu-mouseover-style"<?php } }  ?>  id="my-a-style" class="dropdown-toggle" href="<?php echo base_url('shop'); ?>">SHOP
+            </a>
               
               
-              <ul onmouseover="document.getElementById('my-a-style').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style').className='';" class="dropdown-menu mystyle">
+              <ul id="shop-sub-menu" 
+             
+              <?php foreach ($get_store_categories as $store_category){ 
+			  if($this->uri->segment(3)==$store_category['slug']){ 
+			?> class="dropdown-menu mystyle-selected"
+             onmouseover="document.getElementById('my-a-style').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style').className='top-nav-menu-mouseover-style';" 
+             <?php } } ?> 
+            
+            <?php foreach ($get_store_categories as $store_category){ 
+			  if($this->uri->segment(3)!=$store_category['slug']){ 
+			?> 
+             onmouseover="document.getElementById('my-a-style').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style').className='';" 
+            class="dropdown-menu mystyle"<?php } } ?>  >
+            
                 	 <?php foreach ($get_store_categories as $store_category){ ?>
-                	 <li  class="my-menu"><a href="<?php echo base_url('shop/shop_category/'.$store_category['slug']); ?>"><?php echo ucfirst($store_category['name']); ?></a></li>
+                	 <li  class="my-menu" ><a <?php if($this->uri->segment(3)==$store_category['slug']){ 
+			?> class="my-menu-selected"<?php } ?> href="<?php echo base_url('shop/shop_category/'.$store_category['slug']); ?>"><?php echo ucfirst($store_category['name']); ?></a></li>
                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"'); ?>
                 	 <?php } ?>
                 </ul>
                 
               </li>
             	<?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-             <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#">SELL</a>
-              	<ul onmouseover="document.getElementById('my-a-style-one').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-one').className='';" class="dropdown-menu mystyle">
+             <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-one" class="dropdown-toggle" href="#"  onMouseOver="document.getElementById('shop-sub-menu').style.display='none';" onMouseOut="document.getElementById('shop-sub-menu').style.display='block';">SELL</a>
+              	<ul onmouseover="document.getElementById('my-a-style-one').className='top-nav-menu-mouseover-style';
+                document.getElementById('shop-sub-menu').style.display='none';" onmouseout="document.getElementById('my-a-style-one').className='';
+                document.getElementById('shop-sub-menu').style.display='block';" class="dropdown-menu mystyle">
                 	  <li class="my-menu"><a href="#">Design & Objects</a></li>
                       <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
                 	 <li class="my-menu"><a href="#">Design Services</a></li>
@@ -55,7 +75,7 @@
               
               </li>
               <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-              <li class="dropdown" id="accountmenu" style="height: 37px;"><a id="my-a-style-two" class="dropdown-toggle" href="#">LEARN</a>
+              <li class="dropdown" id="accountmenu" onMouseOver="document.getElementById('shop-sub-menu').style.display='none';" onMouseOut="document.getElementById('shop-sub-menu').style.display='block';" style="height: 37px;"><a id="my-a-style-two" class="dropdown-toggle" href="#">LEARN</a>
               	<ul onmouseover="document.getElementById('my-a-style-two').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-two').className='';" class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="#">News</a></li>
                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>
@@ -66,7 +86,7 @@
               
               </li>
               <?php echo img_tag('icons/hdr-menu-divider.png','style="float: left;margin-top: -7px;"') ?>
-              <li class="dropdown" id="accountmenu"style="height: 37px;"><a id="my-a-style-three" class="dropdown-toggle" href="#">TALK</a>
+              <li class="dropdown" onMouseOver="document.getElementById('shop-sub-menu').style.display='none';" onMouseOut="document.getElementById('shop-sub-menu').style.display='block';" id="accountmenu"style="height: 37px;"><a id="my-a-style-three" class="dropdown-toggle" href="#">TALK</a>
               	<ul onmouseover="document.getElementById('my-a-style-three').className='top-nav-menu-mouseover-style';" onmouseout="document.getElementById('my-a-style-three').className='';" class="dropdown-menu mystyle">
                 	 <li class="my-menu"><a href="#">Forum</a></li>
                      <?php echo img_tag('icons/sub-menu-divider.png','style="float: left;margin-top: 2px;"') ?>

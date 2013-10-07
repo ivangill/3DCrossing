@@ -1,9 +1,9 @@
- <script>
+ <script type="text/javascript">
 			$(document).ready( function() {
-				$(".coverflow").flipster();
+				$("#coverflow").flipster();
 			});
 		</script>
-<div class="coverflow">
+<div id="coverflow">
 			<ul>
 			<?php foreach ($get_featured_products as $product){ ?>
 				<li>

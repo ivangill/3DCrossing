@@ -7,7 +7,7 @@
       <form class="form-signin" method="POST" action="<?php echo base_url('store/edit_store'); ?>" enctype="multipart/form-data">
       <?php echo $this->session->flashdata('response'); ?>  
       
-         <label>Store Name:</label><input pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" type="text" required name="store_name" class="input-block-level" value="<?php echo $get_store['store_name']; ?>">
+         <label>Store Name:</label><input pattern="^[a-zA-Z]+(([\'\,\&\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" type="text" required name="store_name" class="input-block-level" value="<?php echo $get_store['store_name']; ?>">
          <label>Store Details:</label><input pattern="(?:[a-zA-Z]+[ ])+[a-zA-Z]+" type="text"  name="store_details" required class="input-block-level" value="<?php echo $get_store['store_details'] ?>">
          <label>Zip Code:</label><input pattern="[0-9]+" type="text"  name="store_zip" required class="input-block-level" value="<?php echo $get_store['store_zip'] ?>">
          <label>Store Category:</label>
@@ -30,7 +30,7 @@
       </form>
        <a href="<?php echo base_url('store/'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>
 </div>
-    
+  </div> 
     <?php $this->load->view( 'home/footer' ); ?>
     
      

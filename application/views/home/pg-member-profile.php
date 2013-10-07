@@ -14,8 +14,11 @@ async:false,
 success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
-	document.getElementById('follow').innerHTML='Followed';
-	document.getElementById('follow').disabled=true;
+	//document.getElementById('follow').innerHTML='Followed';
+	//document.getElementById('follow').disabled=true;
+	//var div = $('#div-to-refresh').load();
+	$("#div-to-refresh").load(location.href + " #div-to-refresh > *");
+
 	
 	//$("#like_success_function").css("display","block");
        }
@@ -36,8 +39,9 @@ success: function()
 	{    
 		<?php //$data['get_comments_for_specific_product']=$this->products->get_comments_for_specific_product($this->uri->segment(3)); ?>
 	
-		document.getElementById('unfollow').innerHTML='UnFollowed';
-		document.getElementById('unfollow').disabled=true;		
+		//document.getElementById('unfollow').innerHTML='UnFollowed';
+		//document.getElementById('unfollow').disabled=true;
+		$("#div-to-refresh").load(location.href + " #div-to-refresh > *");		
        }
 });
 }
@@ -71,7 +75,7 @@ success: function()
 	}*/
 	
 	?>
-	<div class="span6 pull-right"><h4><?php 
+	<div id="div-to-refresh" class="span6 pull-right"><h4><?php 
 	$first_name=ucfirst($get_member_profile['first_name']);
 	$last_name=ucfirst($get_member_profile['last_name']);
 	
@@ -80,9 +84,9 @@ success: function()
 	<?php if($this->session->userdata("memberid")!=''){ ?>
 	<?php if ($this->session->userdata("memberid")!=$this->uri->segment(3) ) { ?> 
 	<?php if ($check_if_already_followed=='') {	?>
-	<button class="btn btn-primary" value="1" id="follow" onclick="followUser();">Follow</button>
+	<button class="btn btn-danger" value="1" id="follow" onclick="followUser();">Follow</button>
 	<?php } else { ?>
-	<button class="btn btn-primary" value="0" id="unfollow" onclick="UnfollowUser();">Unfollow</button>
+	<button class="btn btn-success" value="0" id="unfollow" onclick="UnfollowUser();">Unfollow</button>
 	<?php } } } ?>
 	</div>
 	</div>

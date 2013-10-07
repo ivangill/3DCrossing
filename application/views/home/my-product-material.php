@@ -33,7 +33,7 @@ function calculateAmount(){
          	<option value="<?php echo $product['_id']; ?>"><?php echo ucfirst($product['product_name']); ?></option>
          	<?php } ?>
          </select>
-         <a class="btn btn-large btn-primary">Update</a><br />
+         <button type="submit" class="btn btn-large btn-primary">Update</button><br />
       </form>
        <a href="<?php echo base_url('store/product_material/'); ?>"><button class="btn btn-large btn-primary" type="Cancel">Cancel</button></a>
 </div>

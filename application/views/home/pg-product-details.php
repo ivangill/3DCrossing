@@ -309,7 +309,7 @@ echo "Average rating: ".$avg_rating;
                  	
                  </div>
                   <form  method="POST" action="<?php echo base_url('shop/buy/'.$get_product_by_id['_id']); ?>">
-                  <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>Mode For You</h3>
+                  <div class="span4" style="border:1px solid grey;padding:5px;margin-bottom:5px;"><h3>Made For You</h3>
 	              <?php if ((isset($get_product_by_id['product_fabrication']) && $get_product_by_id['product_fabrication']=='on') || (isset($get_product_by_id['offer_size']) && $get_product_by_id['offer_size']=='on')) { ?>
                      
                   <?php if ($get_product_by_id['product_fabrication']=='on') { ?>

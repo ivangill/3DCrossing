@@ -125,7 +125,7 @@
                 center();
                 newHeight();
             });
-    
+    		/*
             $(window).on("keydown.flipster", function(e) {
                 e.preventDefault();
                 _actionThrottle++;
@@ -143,6 +143,7 @@
             $(window).on("keyup.flipster", function(e){
                 _actionThrottle = 0; //reset action throttle on key lift to avoid throttling new interactions
             });
+			*/
     
             flipInner.on("mousewheel.flipster", function(e){ //TODO test mousewheel functionality on click-wheel style mouse (not apple trackpad)
                 _throttleTimeout = window.setTimeout(removeThrottle, 500); //throttling should expire if scrolling pauses for a moment.

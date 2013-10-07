@@ -219,7 +219,7 @@ $(document).ready(function() {
        
        <label class="checkbox"><input type="checkbox" <?php if(isset($get_single_product['offer_download']) && $get_single_product['offer_download']=='on' ){ echo "checked"; } ?> name="offer_download"> Offer Download </label>
        
-       <label>Product Name:</label><input type="text" title="Enter a valid product name" pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z 0-9])?[a-zA-Z0-9]*)*$" required name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
+       <label>Product Name:</label><input type="text" title="Enter a valid product name" pattern="^[a-zA-Z]+(([\*\&\^\%\$\#\!\@\'\,\.\- ][a-zA-Z 0-9])?[a-zA-Z0-9]*)*$" required name="product_name"  value="<?php if(isset($get_single_product['product_name'])) echo $get_single_product['product_name'] ?>" id="product_name" class="input-block-level" placeholder="Product Name">
        
        <label>Product Price: </label>
        <input type="text" pattern="^(?:[1-9]\d*|0)?(?:\.\d+)?$" required name="product_total_price" id="product_total_price"  onblur="calculateAmount();"    value="<?php if(isset($get_single_product['product_total_price'])) echo $get_single_product['product_total_price'] ?>" id="product_price" class="input-block-level" placeholder="Product Price">

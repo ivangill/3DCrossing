@@ -106,7 +106,7 @@ class Home extends CI_Controller
 		
 		if ($this->input->get('error') == 'access_denied')
 		{
-			$data['error'] = 'There was some problem with sign in using your Facebook, please again.';
+			$data['error'] = 'There was some problem with sign in using your Facebook, please try again.';
 		}
 		
 		
@@ -770,9 +770,34 @@ class Home extends CI_Controller
 			//var_dump($info);
 			
 			if (isset($info['error'])) {
-				$this->session->set_flashdata('response', '<div class="alert alert-error">You have entered wrong information.</div>');
 				//var_dump($info['error']);exit;
-				redirect('home/my_payment_account','refresh');
+				$this->session->set_flashdata('first_name', $this->input->post('first_name'));
+				$this->session->set_flashdata('last_name', $this->input->post('last_name'));
+				if($info['error']['code']=='incorrect_number'){
+					$this->session->set_flashdata('card_error', '<div class="alert alert-error">Your card number is incorrect.</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$info['error']['message'].'</div>');
+				} else {
+					$this->session->set_flashdata('valid_card', $card);
+				}
+				if($info['error']['code']=='invalid_expiry_month'){
+					$this->session->set_flashdata('month_error', '<div class="alert alert-error">Month error.</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$info['error']['message'].'</div>');
+				} else {
+					$this->session->set_flashdata('valid_month', $month);
+				}
+				if($info['error']['code']=='invalid_expiry_year'){
+					$this->session->set_flashdata('year_error', '<div class="alert alert-error">Month error.</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$info['error']['message'].'</div>');
+				} else {
+					$this->session->set_flashdata('valid_year', $year);
+				}
+				if($info['error']['code']=='invalid_cvc'){
+					$this->session->set_flashdata('invalid_cvc', '<div class="alert alert-error">Month error.</div>');
+					$this->session->set_flashdata('response', '<div class="alert alert-error">'.$info['error']['message'].'</div>');
+				} else {
+					$this->session->set_flashdata('valid_cvc', $cvc);
+				}
+				redirect('home/my_payment_account/add','refresh');
 				
 			}
 			else {
@@ -853,9 +878,13 @@ class Home extends CI_Controller
 				$bank_acount_info = $check_account_exists['bank_account_info'];
 				foreach($bank_acount_info  as $key => $card){
 					$account_number_from_db = $card['account_number'];
-					if($account_number_from_db == $account_number){
+					if($account_number_from_db == $account_number && $card['deleted_status']=='0'){
 						$this->session->set_flashdata('response', '<div class="alert alert-error">This account has been already added.</div>');
 						redirect('home/setup_transaction_account/bankaccount');
+					} elseif ($account_number_from_db == $account_number && $card['deleted_status']=='1'){
+						$this->home_model->update_member_bank_account_status( $this->session->userdata("memberid"), $key );
+						$this->session->set_flashdata('response', '<div class="alert alert-success">Your bank account has been setup successfully.</div>');
+						redirect('home/setup_transaction_account');
 					}
 				}			
 					 $name = $this->input->post('account_title');
@@ -937,7 +966,7 @@ class Home extends CI_Controller
 		
 			
 		
-		if ($this->uri->segment(3)=='paypal') {
+		if ($this->uri->segment(3)=='add_paypal') {
 			if ($this->input->post('email')) {
 				$email=$this->input->post('email');
 				$paypal_account=array('paypal_email'=>$email);
@@ -946,11 +975,11 @@ class Home extends CI_Controller
 				$paypal_account=$data['get_member']['paypal_account'];
 				if (isset($paypal_account)) {
 				$this->session->set_flashdata('response', '<div class="alert alert-error">Paypal Account already setup.</div>');
-				redirect('home/setup_transaction_account/paypal');
+				redirect('home/setup_transaction_account/add_paypal');
 				} else {
 					$this->home_model->add_member_paypal_account( $paypal, $this->session->userdata("memberid") );
 					$this->session->set_flashdata('response', '<div class="alert alert-success">Paypal Account setup successfully.</div>');
-				    redirect('home/setup_transaction_account/paypal');
+				    redirect('home/setup_transaction_account/add_paypal');
 				} 
 				
 			}

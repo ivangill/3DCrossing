@@ -21,6 +21,7 @@ class Store extends CI_Controller
         $this->load->model( 'store_details' );
         $this->load->model( 'products' );
         $this->load->model( 'global_settings' );
+		$this->load->model( 'memberships' );
         //$this->output->enable_profiler(TRUE);
     }
 
@@ -423,6 +424,18 @@ class Store extends CI_Controller
 			$index_value=$this->uri->segment(4);
 			$this->products->delete_my_product_material($id,$productid,$index_value);
 			redirect('store/product_material');
+			//var_dump($this->mongo_db->last_query());
+			//var_dump($data['get_member']['bank_account_info'][$index_value]);
+		}
+	}
+	
+	public function delete_my_card_info ()
+	{
+		if ($this->session->userdata("memberid")!="") {
+			$id=$this->session->userdata("memberid");
+			$index_value=$this->uri->segment(3);
+			$this->memberships->delete_my_card_info($id,$index_value);
+			redirect('home/my_payment_account');
 			//var_dump($this->mongo_db->last_query());
 			//var_dump($data['get_member']['bank_account_info'][$index_value]);
 		}

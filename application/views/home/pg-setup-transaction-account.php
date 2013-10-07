@@ -7,10 +7,10 @@
 <?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="bankaccount") { ?>
 <?php echo 	$this->session->flashdata('response'); ?>
 <?php } ?>
-<?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="paypal") { ?>
+<?php if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3)=="add_paypal") { ?>
 <?php echo 	$this->session->flashdata('response'); ?>
 <legend><h2>Setup Paypal Account</h2></legend>
-<form class="form-signin" method="POST" action="<?php echo base_url('home/setup_transaction_account/paypal'); ?>" autocomplete="off">        
+<form class="form-signin" method="POST" action="<?php echo base_url('home/setup_transaction_account/add_paypal'); ?>" autocomplete="off">        
 <label>Email:</label><input type="text" readonly name="email" value="<?php echo $get_member['email']; ?>" id="email" class="input-block-level">
  <button class="btn btn-large btn-primary" type="Save">Save</button>
  </form>
@@ -101,7 +101,7 @@ if ($this->uri->segment(2)=="setup_transaction_account" && $this->uri->segment(3
   
   <div class="span9" style="margin-bottom:10px;">
   Setup a paypal account for withdraw transactions
-  <a href="<?php echo base_url('home/setup_transaction_account/paypal'); ?>"><button type="button" class="btn btn-info">Setup Paypal Account</button></a>
+  <a href="<?php echo base_url('home/setup_transaction_account/add_paypal'); ?>"><button type="button" class="btn btn-info">Setup Paypal Account</button></a>
   </div>
 </div>
 <?php  if (isset($get_member['bank_account_info'])) { ?>
